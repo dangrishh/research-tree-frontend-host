@@ -49,6 +49,9 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
   const [gradingModalOpen, setGradingModalOpen] = useState(false);
   const [gradingStudentId, setGradingStudentId] = useState(null);
 
+  const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
+  const [confirmData, setConfirmData] = useState({});
+
 
   const [isGradeModalVisible, setIsGradeModalVisible] = useState(false); // State for grade modal
 
@@ -101,7 +104,16 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
     });
   }, [filteredStudents]);
 
-  const resetVotes = async (userId) => {
+  // const resetVotes = async (userId) => {
+
+    const showConfirmModal = (userId) => {
+      setConfirmData({ userId });
+      setIsConfirmModalVisible(true);
+    };
+    
+    const handleConfirmOk = async () => {
+      setIsConfirmModalVisible(false);
+      const { userId } = confirmData;
     try {
       const response = await axios.post(
         `https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/reset-manuscript-status/${userId}`  // Corrected URL
@@ -121,6 +133,10 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
         message.error("Error resetting votes");
       }
     }
+  };
+  
+  const handleConfirmCancel = () => {
+    setIsConfirmModalVisible(false);
   };
 
   const fetchTasks = async (studentId) => {
@@ -357,8 +373,14 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
                     </Button>
 
                     <Button
-                      onClick={() => resetVotes(student._id)}
+                      onClick={() => showConfirmModal(student._id)}
                       style={{marginBottom: '10px', width: "105px" }}
+                      onMouseEnter={(e) =>
+                        (e.target.style.boxShadow = "0 0 25px rgba(0, 255, 0, 1)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.target.style.boxShadow = "0 0 15px rgba(0, 255, 0, 0.7)")
+                      }
                     >
                       <img className="mr-[-4px]" src="/src/assets/approved.png" /> 
                       Done
@@ -391,14 +413,14 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
 
 
 
-                    <Button
-                    
-                      onClick={() => openTaskModal(student)}
-                      style={{ marginBottom: "10px", width: "105px" }}
-                    >
-                       <img className="mr-[-4px]" src="/src/assets/addtask.png" />
-                      View Task
-                    </Button>
+              <Button
+              
+                onClick={() => openTaskModal(student)}
+                style={{ marginBottom: "10px", width: "105px" }}
+              >
+                  <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                View Task
+              </Button>
 {/*                 <Button
                       icon={<EditOutlined />}
                       onClick={() =>
@@ -498,6 +520,15 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
           </Button>
         </DialogActions> */}
       </Dialog>
+
+      <Modal
+        title="Confirm Manuscript Status"
+        open={isConfirmModalVisible}
+        onOk={handleConfirmOk}
+        onCancel={handleConfirmCancel}
+      >
+        <p>Are you sure you want to proceed with the thesis defense?</p>
+      </Modal>
 
       <Modal
         open={isGradeModalVisible}

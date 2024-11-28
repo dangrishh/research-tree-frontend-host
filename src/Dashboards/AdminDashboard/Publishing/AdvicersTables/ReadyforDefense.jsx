@@ -52,6 +52,9 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
 
   const [admin, setAdmin] = useState(null);
 
+  const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
+  const [confirmData, setConfirmData] = useState({});
+
   // Fetch admin data from localStorage on initial load
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -82,43 +85,46 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
     }
   };
 
-  const updatePanelManuscriptStatus = async (channelId, newStatus, userId) => {
-
-    Modal.confirm({
-      title: 'Are you sure you want to update manuscript?',
-      onOk: async () => {
-        try {
-          const response = await axios.patch(
-            "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/panel/manuscript-status",
-            { channelId, manuscriptStatus: newStatus, userId }
+    const showConfirmModal = (channelId, newStatus, userId) => {
+      setConfirmData({ channelId, newStatus, userId });
+      setIsConfirmModalVisible(true);
+    };
+    
+    const handleConfirmOk = async () => {
+      setIsConfirmModalVisible(false);
+      const { channelId, newStatus, userId } = confirmData;
+    
+      try {
+        const response = await axios.patch(
+          "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/panel/manuscript-status",
+          { channelId, manuscriptStatus: newStatus, userId }
+        );
+    
+        const { remainingVotes, message: successMessage } = response.data;
+    
+        message.success(successMessage);
+    
+        if (
+          (newStatus === "Revise on Panelist" || newStatus === "Approved on Panel") &&
+          remainingVotes > 0
+        ) {
+          message.info(
+            `Only ${remainingVotes} more vote(s) needed to proceed with the manuscript`
           );
-  
-          const { remainingVotes, message: successMessage } = response.data;
-  
-          message.success(successMessage);
-  
-          // Display remaining votes if status is `Approved on Panel` or `Revise on Panelist` and there are pending votes
-          if (
-            (newStatus === "Revise on Panelist" || newStatus === "Approved on Panel") &&
-            remainingVotes > 0
-          ) {
-            message.info(
-              `Only ${remainingVotes} more vote(s) needed to proceed with the manuscript`
-            );
-          }
-        } catch (error) {
-          if (error.response) {
-            console.error("Error response:", error.response.data);
-            message.error(
-              `Error: ${error.response.data.message || "Failed to update status"}`
-            );
-          } else {
-            console.error("Error:", error.message);
-            message.error("Error updating status");
-          }
         }
-      },
-    });
+      } catch (error) {
+        if (error.response) {
+          message.error(
+            `Error: ${error.response.data.message || "Failed to update status"}`
+          );
+        } else {
+          message.error("Error updating status");
+        }
+      }
+    };
+    
+    const handleConfirmCancel = () => {
+      setIsConfirmModalVisible(false);
     };
 
 
@@ -229,7 +235,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
   };
 
   return (
-
+    
     <div style={{ flex: 1, overflowX: "hidden", padding: "20px", width: "1263px" }}>
           <Avatar
         src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
@@ -346,32 +352,27 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
                 </Button>
 
                 <Button
-                  
                   onClick={() =>
-                    updatePanelManuscriptStatus(
-                      student._id,
-                      "Approved on Panel",
-                      admin.id
-                    )
+                    showConfirmModal(student._id, "Approved on Panel", admin.id)
                   }
                   style={{
                     width: "105px",
                     background: "#1E1E",
                     border: "none",
                     color: "white",
-
-                    boxShadow: "0 0 10px rgba(0, 255, 0, 0.7)", // Green glow effect around the button
-                    transition: "box-shadow 0.3s ease-in-out", // Smooth glow transition
+                    boxShadow: "0 0 10px rgba(0, 255, 0, 0.7)",
+                    transition: "box-shadow 0.3s ease-in-out",
                   }}
                   onMouseEnter={(e) =>
-                    (e.target.style.boxShadow = "0 0 25px rgba(0, 255, 0, 1)") // Brighter green on hover
+                    (e.target.style.boxShadow = "0 0 25px rgba(0, 255, 0, 1)")
                   }
                   onMouseLeave={(e) =>
-                    (e.target.style.boxShadow = "0 0 15px rgba(0, 255, 0, 0.7)") // Reset to original green glow
+                    (e.target.style.boxShadow = "0 0 15px rgba(0, 255, 0, 0.7)")
                   }
                 >
                   Approved
                 </Button>
+
 
               </div>
             </div>
@@ -379,6 +380,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
         )}
       />
 {/* 
+      
       {isEditorOpen && selectedStudentId && (
         <CkEditorDocuments
           userId={admin.id}
@@ -386,6 +388,15 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
           onClose={() => setIsEditorOpen(false)}
         />
       )} */}
+
+      <Modal
+        title="Confirm Manuscript Status"
+        open={isConfirmModalVisible}
+        onOk={handleConfirmOk}
+        onCancel={handleConfirmCancel}
+      >
+        <p>Are you sure you want to proceed with the thesis defense?</p>
+      </Modal>
 
       <Dialog
         open={gradingModalOpen}
@@ -443,15 +454,6 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
             </Button>, */
           ]}
         >
-        <Button onClick={() => setIsModalVisible(true)}>Confirm Action</Button>
-        <Modal
-          title="Are you sure?"
-          open={isModalVisible}
-          onOk={handleConfirm}
-          onCancel={() => setIsModalVisible(false)}
-        >
-          <p>This action cannot be undone.</p>
-        </Modal>
 
           <Text strong style={{ fontSize: "18px", color: "#000000" }}>
             {currentTaskStudent?.proposalTitle || "Proposal Title"}
