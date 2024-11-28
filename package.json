@@ -1,0 +1,66 @@
+{
+  "name": "vitereact",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "serve -s dist"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.5.1",
+    "@ckeditor/ckeditor5-build-classic": "^43.1.0",
+    "@ckeditor/ckeditor5-build-decoupled-document": "^43.3.1",
+    "@ckeditor/ckeditor5-react": "^9.2.0",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/joy": "^5.0.0-beta.48",
+    "@mui/material": "^5.16.7",
+    "@mui/system": "^5.16.7",
+    "@react-pdf-viewer/core": "^3.12.0",
+    "@react-pdf/renderer": "^3.4.5",
+    "antd": "^5.21.4",
+    "autoprefixer": "^10.4.20",
+    "axios": "^1.7.7",
+    "bizcharts": "^4.1.11",
+    "ckeditor5": "^43.3.1",
+    "ckeditor5-premium-features": "^43.3.1",
+    "depcheck": "^1.4.7",
+    "glob": "^11.0.0",
+    "highcharts": "^11.4.8",
+    "highcharts-react-official": "^3.2.1",
+    "inflight": "^1.0.6",
+    "ldrs": "^1.0.2",
+    "pdfjs-dist": "^4.8.69",
+    "prop-types": "^15.8.1",
+    "rc-tween-one": "^3.0.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-pdf": "^9.1.1",
+    "react-router-dom": "^7.0.1",
+    "react-select": "^5.8.2",
+    "serve": "^14.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^1.0.7",
+    "tailwindcss": "^3.4.3",
+    "vite": "^4.5.5"
+  },
+  "engines": {
+    "node": ">=16.x",
+    "npm": ">=8.x"
+  },
+  "overrides": {
+    "pdfjs-dist": "^4.8.69",
+    "rollup": "^4.27.4",
+    "d3-color": "^3.1.0"
+  },
+  "description": "A React app built with Vite.",
+  "main": "postcss.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
