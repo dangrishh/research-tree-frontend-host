@@ -13,5 +13,10 @@ export default defineConfig({
     'process.env.VITE_APP_CLOUD_SERVICES_WEBSOCKET_URL': JSON.stringify(process.env.VITE_APP_CLOUD_SERVICES_WEBSOCKET_URL),
     'process.env.VITE_APP_LOCALHOSTKEY': JSON.stringify(process.env.VITE_APP_LOCALHOSTKEY)
   },
-
+  build: {
+    base: "/", // Update this if hosting in a subdirectory (e.g., "/my-app/")
+    rollupOptions: {
+      input: "/src/main.jsx", // Optional: explicitly define entry file
+    },
+  },
 });
