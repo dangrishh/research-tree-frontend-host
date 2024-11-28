@@ -13,10 +13,5 @@ export default defineConfig({
     'process.env.VITE_APP_CLOUD_SERVICES_WEBSOCKET_URL': JSON.stringify(process.env.VITE_APP_CLOUD_SERVICES_WEBSOCKET_URL),
     'process.env.VITE_APP_LOCALHOSTKEY': JSON.stringify(process.env.VITE_APP_LOCALHOSTKEY)
   },
-  build: {
-    outDir: 'dist',  // The folder where production files will be placed
-    rollupOptions: {
-      input: 'src/index.html', // Ensure your entry point is correctly set
-    },
-  },
+
 });
