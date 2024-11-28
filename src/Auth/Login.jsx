@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
-import ViewAnalytics from "../Dashboards/StudentDashboard/ViewAnalytics/ViewAnalyticsComponent";
 import "./login.css";
 import greenBackground from '../assets/green-background.png';
 

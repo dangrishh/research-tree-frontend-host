@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { DonutChart } from "bizcharts";
 import { SyncOutlined } from '@ant-design/icons';
 
-import './Styles/stats.css';
+
 import totalmanuscriptIcon from '../../../assets/totalManuscript-icon.png';
+import groupmatesIcon from '../../../assets/student-handle.png';
+import adviserIcon from '../../../assets/adviser-student.png';
+import panelistIcon from '../../../assets/panelist-student.png';
 
 export const Cards = () => {
     const [pdfCount, setPdfCount] = useState(0);
@@ -163,17 +165,13 @@ export const Cards = () => {
       
     return (
        <>
-        <div className="stats-container">
+        <div className="absolute flex gap-[17px] top-[190px] left-[390px]">
            
         <div className='absolute'>
        
        <div className="mt-[-100px] ml-[900px]">
         <p className="absolute text-white text-[42px] font-bold ml-[-900px] mt-[-10px]">View Analytics</p>
-       {/* <img className="inline-block mb-1 ml-[200px]" src="/src/assets/BSIT.png"/>
-       {/* <img className="inline-block mb-1 ml-[200px]" src="/src/assets/BSIT.png"/>
-       <span className='bsitColor'>200</span>
-       <img className="inline-block mb-1" src="/src/assets/BSCS.png"/>
-       <span className='bsitColor'>2500</span> */}
+   
        </div>
         
         </div>
@@ -181,20 +179,20 @@ export const Cards = () => {
                     <div className="absolute left-[290px] bottom-[56px]">
                     <img className="ml-[0px]" src={totalmanuscriptIcon}  />
                     </div>
-                    <div className="card-content">
+                    <div>
                        
-                        <p className="card-title">Total Manuscript</p>
-                        <p className="card-value-2 text-white ml-[60px]">{pdfCount} Manuscripts</p>
+                        <p className="text-[#08f677] flex">Total Manuscript</p>
+                        <p className="text-[25px] font-bold flex mt-[10px] text-white ml-[60px]">{pdfCount} Manuscripts</p>
                     </div>
                 </div>
               
                 <div className="bg-[#1E1E1E] p-[20px] rounded-[8px] border border-[#4B4B4B] w-[340px] h-[110px]">
                     <div className="absolute">
-                    <img className="ml-[270px] mt-[-5px] " src="/src/assets/student-handle.png"  />
+                    <img className="ml-[270px] mt-[-5px] "src={groupmatesIcon}  />
                     </div>
-                    <div className="card-content">
-                       <p className="card-title">Group Mates</p>
-                        <p className="card-value-2 text-[15px] text-white ml-[1.5px] mt-[3.3px]">
+                    <div>
+                    <p className="text-[#08f677] flex">Group Mates</p>
+                        <p className="text-[15px] text-white ml-[1.5px] mt-[3.3px] font-bold">
                         {user.groupMembers
                           .map(member => member.replace(/([a-z])([A-Z])/g, '$1 $2')) // Insert space between lowercase and uppercase letters
                           .join(', ')}
@@ -204,25 +202,25 @@ export const Cards = () => {
                 
                 <div className="bg-[#1E1E1E] p-[20px] rounded-[8px] border border-[#4B4B4B] w-[340px] h-[110px]">
 
-                <div className="absolute ml-[267px] mt-[-5px]">
-                    <img className="ml-[0px]" src="/src/assets/adviser-student.png"  />
+                <div className="absolute ml-[267px] ">
+                <img className="ml-[0px] mt-[-5px] "src={adviserIcon}  />
                 </div>
 
-                <div className="card-content">
-                    <p className="card-title ">Advicer</p>
-                    <p className="text-white whitespace-nowrap font-bold">{getStatusMessage(advisorStatus, advisorInfo)}</p>
+                <div>
+                <p className="text-[#08f677] flex">Advicer</p>
+                    <p className="text-white whitespace-nowrap font-bold ">{getStatusMessage(advisorStatus, advisorInfo)}</p>
                 </div>
             </div>
 
 
             <div className="bg-[#1E1E1E] p-[20px] rounded-[8px] border border-[#4B4B4B] w-[340px] h-[110px]">
-                <div className="absolute ml-[267px] mt-[-5px]">
-                    <img className="ml-[0px]" src="/src/assets/panelist-student.png"  />
+                <div className="absolute ml-[267px] ">
+                <img className="ml-[0px] mt-[-5px]  "src={panelistIcon}  />
                 </div>
 
-                <div className="card-content ">
-                    <p className="card-title">Panelist</p>
-                    <p className="card-title text-white">
+                <div>
+                <p className="text-[#08f677] flex">Panelist</p>
+                    <p className="text-white text-[13px]">
                         {advisorStatus === 'accepted' && <PanelistList panelists={panelists} />}</p>
                         {advisorStatus === 'declined' && (<p style={{ color: 'red' }} className="">Submit another title proposal...</p>)}
                         {advisorStatus === 'pending' && (<p style={{ color: 'orange'}} className="">Pending <SyncOutlined spin /></p>)}
@@ -230,49 +228,10 @@ export const Cards = () => {
                 </div>
             </div>
         
-            
-            <div className='absolute mt-[128px] ml-[1020px] border border-[#4B4B4B]'>
-         
-      {/* <DonutChart
-  
-        data={[
-          { type: "Progress", value: progress || 0 },
-          { type: "Task", value: 100 - (progress || 0) }
-        ]}
-        autoFit
-        key={progress || 0}
-        legend={true}
-        width={386}
-        height={420}
-        radius={0.9}
-        innerRadius={0.7}
-        padding="auto"
-        angleField="value"
-        colorField="type"
-        color={["#0BF677", "#353535"]}
-        pieStyle={{
+            <div className='absolute ml-[450px] text-[#272727] mt-[650px]'>
+              <h1>Copyright 2024 | Developed by Franklin Mayad & Daniel Detorres</h1>
+            </div>
           
-          stroke: "", 
-          lineWidth: 1, 
-          lineCap: "round",
-          shadowBlur: 10,
-          shadowColor: "rgba(0, 0, 0, 0.6)",
-          shadowOffsetX: 3,
-          shadowOffsetY: 3,
-        }}
-        statistic={{
-          title: {
-            content: "Progress",
-            style: { color: "white", fontSize: 15 },
-          },
-          content: {
-            style: { color: "#0BF677", fontSize: 20 },
-            formatter: () => `${progress || 0}%`, // Display the progress value or 0 if undefined
-          },
-        }}
-      /> */}
-
-    </div> 
         </div>
        </>
     );

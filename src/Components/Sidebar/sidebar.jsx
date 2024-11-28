@@ -3,7 +3,12 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import UserAvatar from './Avatar';
 import HeaderTools from './TitleProposals';
-import './Sidebar.css';
+
+
+import mymanuscriptIcon from '../../../src/assets/my-manuscript.png';
+import exploremanuscriptIcon from '../../../src/assets/explore-manuscript.png';
+import viewanalyticsIcon from '../../../src/assets/User.png';
+
 
 const Sidebar = () => {
   const location = useLocation(); // Get current location
@@ -54,7 +59,7 @@ const Sidebar = () => {
           }`}
           onClick={() => handleLinkClick('/StudentDashboard/MyManuscript')}
         >
-          <img className="inline-block mr-2 mb-1" src="/src/assets/my-manuscript.png" alt="My Manuscript" />
+          <img className="inline-block mr-2 mb-1" src={mymanuscriptIcon} />
           My Manuscript
         </Link>
 
@@ -68,7 +73,7 @@ const Sidebar = () => {
           }`}
           onClick={() => handleLinkClick('/StudentDashboard/ExploreManuscript')}
         >
-          <img className="inline-block mr-2 mb-1" src="/src/assets/explore-manuscript.png" alt="Explore Manuscript" />
+          <img className="inline-block mr-2 mb-1" src={exploremanuscriptIcon}  />
           Explore Manuscript
         </Link>
 
@@ -82,7 +87,7 @@ const Sidebar = () => {
           }`}
           onClick={() => handleLinkClick('/StudentDashboard/ViewAnalytics')}
         >
-          <img className="inline-block mr-2 mb-1" src="/src/assets/User.png" alt="View Analytics" />
+          <img className="inline-block mr-2 mb-1" src={viewanalyticsIcon} />
           View Analytics
         </Link>
 
