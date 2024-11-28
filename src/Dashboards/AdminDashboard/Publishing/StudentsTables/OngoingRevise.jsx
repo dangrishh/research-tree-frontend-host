@@ -532,7 +532,7 @@ const fetchTaskProgress = async (studentId) => {
 
       <Modal
         title='Grading Rubric'
-        visible={isGradingModalVisible}
+        open={isGradingModalVisible}
         onOk={submitGrading}
         onCancel={() => setIsGradingModalVisible(false)}
         okText='Submit'
@@ -572,7 +572,7 @@ const fetchTaskProgress = async (studentId) => {
 
       <ConfigProvider>
       <Modal
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={() => setIsModalVisible(false)} // Ensures modal can close
           closable={true}
           footer={[

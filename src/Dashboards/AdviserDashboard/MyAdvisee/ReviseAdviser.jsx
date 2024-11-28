@@ -469,7 +469,7 @@ export default function NewTables() {
         </Dialog>
 
         <Modal
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={() => setIsModalVisible(false)}
           footer={[
             <Button key='close' onClick={() => setIsModalVisible(false)}>

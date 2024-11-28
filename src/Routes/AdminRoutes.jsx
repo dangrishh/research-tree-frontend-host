@@ -32,7 +32,7 @@ function AdviserRoutes() {
 
   // If no admin is found, render UnauthorizedAccess
   if (!admin) {
-    console.log('Admin already Login: ', admin)
+    // console.log('Admin already Login: ', admin)
   }
 
   return (

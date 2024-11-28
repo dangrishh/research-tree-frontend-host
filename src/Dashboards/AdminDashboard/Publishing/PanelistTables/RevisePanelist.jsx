@@ -567,7 +567,7 @@ Modal.confirm({
 
       <Modal
         title='Grading Rubric'
-        visible={isGradingModalVisible}
+        open={isGradingModalVisible}
         onOk={submitGrading}
         onCancel={() => setIsGradingModalVisible(false)}
         okText='Submit'
@@ -607,7 +607,7 @@ Modal.confirm({
 
       <ConfigProvider>
       <Modal
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={() => setIsModalVisible(false)} // Ensures modal can close
           footer={[
             <Button key='close' onClick={() => setIsModalVisible(false)}>

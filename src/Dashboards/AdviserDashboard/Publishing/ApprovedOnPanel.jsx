@@ -385,7 +385,7 @@ export default function NewTables() {
       )} */}
 
           <Modal
-            visible={isGradeModalVisible}
+            open={isGradeModalVisible}
             onCancel={closeGradeModal}
             footer={null}
             width="100%" // Makes the modal span the full width
@@ -457,7 +457,7 @@ export default function NewTables() {
         }}
       >
       <Modal
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={() => setIsModalVisible(false)} // Ensures modal can close
           footer={[
             <Button key='close' onClick={() => setIsModalVisible(false)}>

@@ -13,6 +13,7 @@ const App = () => {
   const [newPassword, setNewPassword] = useState("");
   const [file, setFile] = useState(null);
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState([]);
 
   const [specializationsOptions, setSpecializationsOptions] = useState([]);
 
@@ -66,7 +67,7 @@ const App = () => {
         design: designOptions.find(option => option.value === currentUser.design),
       });
     }
-  }, [currentUser, form]);
+  }, [currentUser]);
 
   const handleEditUser = async (values) => {
     const formData = new FormData();
@@ -146,8 +147,13 @@ const App = () => {
     }
   };
 
-  const handleFileChange = (info) => {
-    setFile(info.file.originFileObj);
+  const handleFileChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+    if (newFileList.length > 0) {
+      setFile(newFileList[0].originFileObj);
+    } else {
+      setFile(null);
+    }
   };
 
   const openEditModal = (user) => {
@@ -230,7 +236,7 @@ const App = () => {
       {/* Edit User Modal */}
       <Modal
         title="Edit User"
-        visible={isEditModalVisible}
+        open={isEditModalVisible}
         onCancel={handleModalClose}
         footer={null}
         centered
@@ -253,16 +259,12 @@ const App = () => {
           <Form.Item name="handleNumber" label="Handle Student" style={{ marginBottom: "15px" }}>
             <Input />
           </Form.Item>
-
           <Form.Item label="Specializations" name="specializations">
             <Select
               isMulti
               options={specializationsOptions}
-              value={form.getFieldValue("specializations")}
-              onChange={(selectedOptions) => form.setFieldsValue({ specializations: selectedOptions })}
             />
           </Form.Item>
-          
           <Form.Item label="Design" name="design">
             <Select
               options={designOptions}
@@ -272,19 +274,18 @@ const App = () => {
 
           <Form.Item name="profileImage" label="Profile Image" style={{ marginBottom: "15px" }}>
             <Upload
-              beforeUpload={(file) => {
-                setFile(file);
-                return false;  // Prevent auto upload
-              }}
-              showUploadList={false}
+              fileList={fileList}
+              onChange={handleFileChange}
+              beforeUpload={() => false} // Prevent automatic upload
+              showUploadList={true} // Show the uploaded file list
             >
               <Button icon={<UploadOutlined />}>Upload Profile Image</Button>
             </Upload>
           </Form.Item>
 
-          <Form.Item name="deleteProfileImage" valuePropName="checked">
+          {/* <Form.Item name="deleteProfileImage" valuePropName="checked">
             <Checkbox>Delete Profile Image</Checkbox>
-          </Form.Item>
+          </Form.Item> */}
 
           <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
             <Button type="primary" htmlType="submit" style={{ width: "48%" }}>
@@ -301,7 +302,7 @@ const App = () => {
       {/* Reset Password Modal */}
       <Modal
         title="Reset Password"
-        visible={isResetPasswordModalVisible}
+        open={isResetPasswordModalVisible}
         onCancel={() => setIsResetPasswordModalVisible(false)}
         onOk={handleResetPassword}
         centered

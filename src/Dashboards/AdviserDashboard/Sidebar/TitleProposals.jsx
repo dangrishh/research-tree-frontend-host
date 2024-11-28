@@ -383,7 +383,7 @@ export default function TabsPricingExample() {
       <Modal
         width={1000}
         title='View Proposal'
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleCancel}
         footer={[
           <Button key='close' onClick={handleCancel}>

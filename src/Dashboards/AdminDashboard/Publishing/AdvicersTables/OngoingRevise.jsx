@@ -320,7 +320,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
 
       <ConfigProvider>
       <Modal
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={() => setIsModalVisible(false)} // Ensures modal can close
           footer={[
             <Button key='close' onClick={() => setIsModalVisible(false)}>

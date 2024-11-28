@@ -602,7 +602,7 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
 
       <Modal
         title='Grading Rubric'
-        visible={isGradingModalVisible}
+        open={isGradingModalVisible}
         onOk={submitGrading}
         onCancel={() => setIsGradingModalVisible(false)}
         okText='Submit'
@@ -642,7 +642,7 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
 
       <ConfigProvider>
       <Modal
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={() => setIsModalVisible(false)} // Ensures modal can close
           footer={[
             <Button key='close' onClick={() => setIsModalVisible(false)}>

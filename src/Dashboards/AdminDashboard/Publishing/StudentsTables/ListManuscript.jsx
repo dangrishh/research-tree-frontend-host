@@ -533,7 +533,7 @@ const fetchTaskProgress = async (studentId) => {
 
       <ConfigProvider>
       <Modal
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={() => setIsModalVisible(false)} // Ensures modal can close
           closable={true}
           footer={[

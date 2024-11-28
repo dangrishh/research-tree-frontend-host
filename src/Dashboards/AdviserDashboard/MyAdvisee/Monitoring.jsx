@@ -591,7 +591,7 @@ export default function NewTables() {
       )} */}
 
       <Modal
-        visible={isGradeModalVisible}
+        open={isGradeModalVisible}
         onCancel={closeGradeModal}
         footer={null}
       >
@@ -654,7 +654,7 @@ export default function NewTables() {
         </Dialog>
 
         <Modal
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={() => setIsModalVisible(false)}
           footer={[
             <Button key='close' onClick={() => setIsModalVisible(false)}>

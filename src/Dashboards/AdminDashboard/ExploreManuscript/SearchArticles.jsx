@@ -85,7 +85,7 @@ const ArticleList = () => {
     const fetchArticles = async () => {
       try {
         const response = await axios.get('https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/student/articles/search');
-        // console.log('Fetched Articles:', response.data); // Debugging
+        console.log('Fetched Articles:', response.data); // Debugging
         setArticles(response.data);
         setFilteredArticles(response.data); // Show all articles initially
       } catch (error) {
@@ -132,7 +132,7 @@ const ArticleList = () => {
           style={{ width: 1080 }}
           onSearch={(value) => setQuery(value)}
           onSelect={handleSearch}
-          size="xxl"
+          // size="xxl"
         >
           <Input
             style={{
@@ -234,21 +234,12 @@ const ArticleList = () => {
             <CloseIcon />
           </IconButton>
           {selectedPdf && (
-            // <iframe
-            //   src={selectedPdf}
-            //   width="100%"
-            //   height="100%"
-            //   title="PDF Viewer"
-            //   style={{ border: 'none' }}
-            // />
-
-            <iframe 
-              src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/files/${selectedPdf}`} 
-              width="100%" 
-              height="100%" 
-              title="PDF Viewer" 
+            <iframe
+              src={selectedPdf}
+              width="100%"
+              height="100%"
+              title="PDF Viewer"
               style={{ border: 'none' }}
-              sandbox="allow-scripts allow-same-origin"
             />
           )}
         </Box>

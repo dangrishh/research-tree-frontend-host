@@ -674,7 +674,7 @@ export default function NewTables() {
 {/* Grading */}
       <Modal
               title='Grading Rubric'
-              visible={isGradingModalVisible}
+              open={isGradingModalVisible}
               onOk={submitGrading}
               onCancel={() => setIsGradingModalVisible(false)}
               okText='Submit'
@@ -701,7 +701,7 @@ export default function NewTables() {
 
       <ConfigProvider theme={{ components: { Modal: { algorithm: true } } }}>
       <Modal
-          visible={isModalVisible}
+          open={isModalVisible}
           onCancel={() => setIsModalVisible(false)} // Ensures modal can close
           footer={[
             <Button key='close' onClick={() => setIsModalVisible(false)}>
