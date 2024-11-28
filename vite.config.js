@@ -17,7 +17,7 @@ export default defineConfig({
   build: {
     base: "/", // Update this if hosting in a subdirectory (e.g., "/my-app/")
     rollupOptions: {
-      input: './src/main.jsx', // Make sure this path is correct
+      input: './src/Main.jsx', // Make sure this path is correct
     },
   },
 });
