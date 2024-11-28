@@ -665,43 +665,39 @@ export default function App({ userId, channelId }) {
 
   return (
     <div>
-      <div className='main-container'>
-        <div className='presence' ref={editorPresenceRef}></div>
+      <div className="main-container">
+        <div className="presence" ref={editorPresenceRef}></div>
         <div
-          className='editor-container editor-container_document-editor editor-container_include-outline editor-container_include-annotations editor-container_include-pagination'
+          className="editor-container editor-container_document-editor editor-container_include-outline editor-container_include-annotations editor-container_include-pagination"
           ref={editorContainerRef}
         >
-          <div
-            className='editor-container__menu-bar'
-            ref={editorMenuBarRef}
-          ></div>
-          <div
-            className='editor-container__toolbar'
-            ref={editorToolbarRef}
-          ></div>
-          <div className='editor-container__editor-wrapper'>
-            <div className='editor-container__sidebar'>
+          <div className="editor-container__menu-bar" ref={editorMenuBarRef}></div>
+          <div className="editor-container__toolbar" ref={editorToolbarRef}></div>
+          <div className="editor-container__editor-wrapper">
+            <div className="editor-container__sidebar">
               <div ref={editorOutlineRef}></div>
             </div>
-            <div className='editor-container__editor'>
+            <div className="editor-container__editor">
               <div ref={editorRef}>
                 {isLayoutReady && (
                   <CKEditor
                     onReady={(editor) => {
-                      editorToolbarRef.current.appendChild(
-                        editor.ui.view.toolbar.element
-                      );
-                      editorMenuBarRef.current.appendChild(
-                        editor.ui.view.menuBarView.element
-                      );
+                      // Ensure the refs are valid before appending children
+                      if (editorToolbarRef.current) {
+                        editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
+                      }
+                      if (editorMenuBarRef.current) {
+                        editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
+                      }
                     }}
                     onAfterDestroy={() => {
-                      Array.from(editorToolbarRef.current.children).forEach(
-                        (child) => child.remove()
-                      );
-                      Array.from(editorMenuBarRef.current.children).forEach(
-                        (child) => child.remove()
-                      );
+                      // Ensure the refs are valid before accessing children
+                      if (editorToolbarRef.current) {
+                        Array.from(editorToolbarRef.current.children).forEach((child) => child.remove());
+                      }
+                      if (editorMenuBarRef.current) {
+                        Array.from(editorMenuBarRef.current.children).forEach((child) => child.remove());
+                      }
                     }}
                     editor={DecoupledEditor}
                     config={editorConfig}
@@ -709,25 +705,18 @@ export default function App({ userId, channelId }) {
                 )}
               </div>
             </div>
-            <div className='editor-container__sidebar'>
+            <div className="editor-container__sidebar">
               <div ref={editorAnnotationsRef}></div>
             </div>
           </div>
         </div>
-
-        <div className='revision-history' ref={editorRevisionHistoryRef}>
-          <div className='revision-history__wrapper'>
-            <div
-              className='revision-history__editor'
-              ref={editorRevisionHistoryEditorRef}
-            ></div>
-            <div
-              className='revision-history__sidebar'
-              ref={editorRevisionHistorySidebarRef}
-            ></div>
+        <div className="revision-history" ref={editorRevisionHistoryRef}>
+          <div className="revision-history__wrapper">
+            <div className="revision-history__editor" ref={editorRevisionHistoryEditorRef}></div>
+            <div className="revision-history__sidebar" ref={editorRevisionHistorySidebarRef}></div>
           </div>
         </div>
       </div>
     </div>
-  );
+  );  
 }

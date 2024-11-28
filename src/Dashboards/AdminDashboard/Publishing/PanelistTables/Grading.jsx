@@ -45,7 +45,7 @@ export default function GradingTable({ studentId }) {
             setSelectedRubricId(uniqueRubrics[0]._id);
           }
         } else {
-          console.warn('No grades data found for the user.');
+          console.log('No grades data found for the student.');
         }
       } catch (error) {
         console.error('Error fetching grades:', error);
@@ -114,7 +114,7 @@ export default function GradingTable({ studentId }) {
       setGrades(panelistGradeData.grades || []);
       setGradeSummary(panelistGradeData.summary || null);
     } else {
-      console.warn('No grades available for panelist:', panelistId);
+      console.log('List Panelist:', panelistId);
       setGradeSummary(null);
     }
   };
@@ -251,8 +251,8 @@ export default function GradingTable({ studentId }) {
     })}
   </div>
 ) : (
-  <p className='text-white text-[30px]  h-[200px]'> 
-  <div className='fixed inset-0 mt-[450px] ml-[870px]'> No graded yet</div></p>
+  <div className='text-white text-[30px]  h-[200px]'> 
+  <div className='fixed inset-0 mt-[450px] ml-[870px]'> No graded yet</div></div>
 )}
 {/* Grade Summary */}
 {gradeSummary && gradeSummary.totalGradeValue ? (
@@ -270,12 +270,11 @@ export default function GradingTable({ studentId }) {
     </p>
   </div>
 ) : (
-  <p className="text-center text-white text-[30px] mt-[300px]">
+  <div className="text-center text-white text-[30px] mt-[300px]">
     <div className=''>
-    <p></p>
-
+      <div><p></p></div>
     </div>
-</p> 
+</div> 
 )}
 
       {/* Final Grade Modal */}

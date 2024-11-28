@@ -658,13 +658,23 @@ export default function App({userId, channelId }) {
 							<div ref={editorRef}>
 								{isLayoutReady && (
 									<CKEditor
-										onReady={editor => {
-											editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
-											editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
+										onReady={(editor) => {
+											// Ensure the refs are valid before appending children
+											if (editorToolbarRef.current) {
+												editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
+											}
+											if (editorMenuBarRef.current) {
+												editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
+											}
 										}}
 										onAfterDestroy={() => {
-											Array.from(editorToolbarRef.current.children).forEach(child => child.remove());
-											Array.from(editorMenuBarRef.current.children).forEach(child => child.remove());
+											// Ensure the refs are valid before accessing children
+											if (editorToolbarRef.current) {
+												Array.from(editorToolbarRef.current.children).forEach((child) => child.remove());
+											}
+											if (editorMenuBarRef.current) {
+												Array.from(editorMenuBarRef.current.children).forEach((child) => child.remove());
+											}
 										}}
 										editor={DecoupledEditor}
 										config={editorConfig}
@@ -677,7 +687,6 @@ export default function App({userId, channelId }) {
 						</div>
 					</div>
 				</div>
-				
 				<div className="revision-history" ref={editorRevisionHistoryRef}>
 					<div className="revision-history__wrapper">
 						<div className="revision-history__editor" ref={editorRevisionHistoryEditorRef}></div>
@@ -686,5 +695,5 @@ export default function App({userId, channelId }) {
 				</div>
 			</div>
 		</div>
-	);
+	);	
 }

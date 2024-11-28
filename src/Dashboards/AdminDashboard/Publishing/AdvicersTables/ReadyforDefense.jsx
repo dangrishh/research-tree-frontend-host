@@ -229,6 +229,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
   };
 
   return (
+
     <div style={{ flex: 1, overflowX: "hidden", padding: "20px", width: "1263px" }}>
           <Avatar
         src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
@@ -442,6 +443,15 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
             </Button>, */
           ]}
         >
+        <Button onClick={() => setIsModalVisible(true)}>Confirm Action</Button>
+        <Modal
+          title="Are you sure?"
+          open={isModalVisible}
+          onOk={handleConfirm}
+          onCancel={() => setIsModalVisible(false)}
+        >
+          <p>This action cannot be undone.</p>
+        </Modal>
 
           <Text strong style={{ fontSize: "18px", color: "#000000" }}>
             {currentTaskStudent?.proposalTitle || "Proposal Title"}
