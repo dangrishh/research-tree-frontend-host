@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && copyfiles -u 1 src/public/* dist/",
+    "build": "vite build && copyfiles -u 1 src/assets/* dist/",
     "preview": "vite preview",
     "start": "serve -s dist" 
   },
