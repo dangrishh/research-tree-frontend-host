@@ -205,7 +205,7 @@ export default function TabsPricingExample() {
             render={(text, student) => (
               <Space size='middle'>
                 <Avatar
-                  src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                  src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${
                     student.profileImage || "default-avatar.png"
                   }`}
                 >
@@ -249,7 +249,7 @@ export default function TabsPricingExample() {
             render={(text, student) => (
               <Space size='middle'>
                 <Avatar
-                  src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                  src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${
                     student.profileImage || "default-avatar.png"
                   }`}
                 >
@@ -292,7 +292,7 @@ export default function TabsPricingExample() {
             render={(text, student) => (
               <Space size='middle'>
                 <Avatar
-                  src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                  src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${
                     student.profileImage || "default-avatar.png"
                   }`}
                 >
@@ -345,7 +345,7 @@ export default function TabsPricingExample() {
             render={(text, student) => (
               <Space size='middle'>
                 <Avatar
-                  src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                  src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${
                     student.profileImage || "default-avatar.png"
                   }`}
                 >
@@ -363,7 +363,7 @@ export default function TabsPricingExample() {
                 {student.chosenAdvisor ? (
                   <>
                     <Avatar
-                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${
                         student.chosenAdvisor.profileImage ||
                         "default-avatar.png"
                       }`}

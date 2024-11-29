@@ -326,7 +326,7 @@ const chooseAdvisor = async (advisorId) => {
          
            {/* Profile Image */}
            <img
-             src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${advisorInfo.profileImage}`}
+             src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${advisorInfo.profileImage}`}
              className="w-[230px] h-[230px] rounded-full"
              alt={advisorInfo.name}
            />
@@ -374,7 +374,7 @@ const chooseAdvisor = async (advisorId) => {
                 Accepted
               </Tag>
               <img
-                src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${advisorInfo.profileImage}`}
+                src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${advisorInfo.profileImage}`}
                 className=' mt-[120px] ml-[60px] w-[197px] h-[197px] rounded-full border-[5px] border-green-500'
                 alt={advisorInfo.name}
               />
@@ -402,7 +402,7 @@ const chooseAdvisor = async (advisorId) => {
                 {getPanelists.map((panelist) => (
                   <li key={panelist._id} className=''>
                     <img
-                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${panelist.profileImage}`}
+                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${panelist.profileImage}`}
                       alt={panelist.name}
                       className=' w-[80px] h-[80px] rounded-full mr-[53px] '
                     />
@@ -431,7 +431,7 @@ const chooseAdvisor = async (advisorId) => {
                 {topAdvisors.map((result) => ( 
                   <li className='' key={advisor._id}>
                     <img
-                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${advisor.profileImage}`}
+                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${advisor.profileImage}`}
                       alt={advisor.name}
                       className='w-[80px] h-[80px] rounded-full mr-[53px]'
                       onClick={() => chooseAdvisor(advisor._id)}
@@ -461,7 +461,7 @@ const chooseAdvisor = async (advisorId) => {
     return (
       <li key={advisor._id} className="text-center ml-[20px]">
         <img
-          src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${advisor.profileImage}`}
+          src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${advisor.profileImage}`}
           alt={advisor.name}
           className="w-[80px] h-[80px] rounded-full mb-2 mx-auto"
           onClick={() => chooseAdvisor(advisor._id)}

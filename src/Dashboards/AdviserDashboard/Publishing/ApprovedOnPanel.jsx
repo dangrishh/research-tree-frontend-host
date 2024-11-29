@@ -315,7 +315,7 @@ export default function NewTables() {
 
                 <div className="flex">
                   <Avatar
-                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${student.chosenAdvisor ? student.chosenAdvisor.profileImage || 'default-images.png' : 'default-images.png'}`}
+                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${student.chosenAdvisor ? student.chosenAdvisor.profileImage || 'default-images.png' : 'default-images.png'}`}
                       sx={{  }}
                       style={{}}
                     />

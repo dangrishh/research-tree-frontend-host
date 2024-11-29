@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && copyfiles -u 1 src/assets/* dist/",
     "preview": "vite preview",
-  "start": "vite build && serve -s dist"
+    "start": "serve -s dist" 
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
@@ -47,7 +47,8 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.7",
     "tailwindcss": "^3.4.3",
-    "vite": "^4.5.5"
+    "vite": "^4.5.5",
+    "copyfiles": "^2.4.1"
   },
   "engines": {
     "node": ">=16.x",

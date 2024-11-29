@@ -96,7 +96,7 @@ const ArticleList = () => {
   }, [query]);
 
   const handleArticleClick = (pdfUrl) => {
-    setSelectedPdf(`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/files/${pdfUrl}`);
+    setSelectedPdf(`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/files/${pdfUrl}`);
   };
 
   return (

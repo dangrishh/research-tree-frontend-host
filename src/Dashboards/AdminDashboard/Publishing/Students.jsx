@@ -75,7 +75,7 @@ const App = () => {
                     <td className='whitespace-nowrap text-center px-4 py-3 font-medium text-white'>
                       <div className=''>
                         <Avatar
-                          src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                          src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${
                             students.profileImage || "default-avatar.png"}`}
                           sx={{ width: 79, height: 79 }}
                         />

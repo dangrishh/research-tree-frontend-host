@@ -75,7 +75,7 @@ const App = () => {
                     <td className='flex whitespace-nowrap text-center px-4 py-3 font-medium text-white '>
                       <div className="transition-transform duration-300 ease-in-out transform hover:scale-110">
                         <Avatar
-                          src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                          src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${
                             advicer.profileImage || "default-avatar.png"}`}
                           sx={{ width: 79, height: 79 }}
                           className="opacity-0 transition-opacity duration-500 ease-in-out"
