@@ -4,6 +4,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import "./login.css";
+
 import greenBackground from '../assets/green-background.png';
 
 const LoginFunction = () => {
@@ -68,6 +69,7 @@ const LoginFunction = () => {
       <img
         className='studentgirl'
         src='./src/assets/student.png'
+        type="image/png"
         alt='Student'
       />
       <img className='leaves' src='./src/assets/leaves.png' alt='Leaves' />
