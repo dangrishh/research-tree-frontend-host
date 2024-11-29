@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Chart, Interval, Tooltip, Axis, Legend } from 'bizcharts';
+import { Chart, Interval, Axis, Legend } from 'bizcharts';
 import axios from 'axios';  // Import axios to make the API request
 
 
@@ -30,18 +30,18 @@ export const BarChart = () => {
   // Create a copy of the fetched data to modify
   const sortedData = [...data];
 
-  // Find the index of 'Machine Learning'
-  const mlIndex = sortedData.findIndex(item => item.category === 'Machine Learning');
+  // // Find the index of 'Machine Learning'
+  // const mlIndex = sortedData.findIndex(item => item.category === 'Machine Learning');
 
-  // Move 'Machine Learning' to the middle of the array
-  if (mlIndex > 0) {
-    const mlItem = sortedData.splice(mlIndex, 1)[0];
-    const middleIndex = Math.floor(sortedData.length / 2);
-    sortedData.splice(middleIndex, 0, mlItem);
-  }
+  // // Move 'Machine Learning' to the middle of the array
+  // if (mlIndex > 0) {
+  //   const mlItem = sortedData.splice(mlIndex, 1)[0];
+  //   const middleIndex = Math.floor(sortedData.length / 2);
+  //   sortedData.splice(middleIndex, 0, mlItem);
+  // }
 
   return (
-    <div className="p-10 mr-5 rounded-lg shadow-custom-shadow bg-[#1E1E1E] border border-[#4B4B4B] w-[1000px]">
+    <div className="p-10 mr-5 rounded-lg bg-[#1E1E1E] border border-[#4B4B4B] w-[1000px]">
       <h2 className="text-[#0BF677] text-xl mb-4">Top 10 Trending Manuscript</h2>
       <Chart height={300} width={950} autoFit data={sortedData} interactions={['active-region']} >
         <Axis name="value" visible={true} />
@@ -58,7 +58,7 @@ export const BarChart = () => {
             style: { fill: '#FFFFFF', fontSize: 14, } // Set legend text color to white
           }}
         />
-        <Tooltip shared />
+       {/* <Tooltip shared />  */}
         <Interval
           position="category*value"
           size={50} // Adjust this value to make the bars thicker

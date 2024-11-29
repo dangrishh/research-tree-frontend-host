@@ -4,8 +4,6 @@ import { Dialog, DialogContent, DialogActions, Button } from '@mui/material';
 import { Modal, Checkbox, Divider, Typography, List, Tag } from 'antd';
 
 import CkEditorDocuments from './CkEditorDocuments';
-import './Styles/descriptions.css';
-// import Categories from './Categories';
 import { Tooltip } from '@mui/material';
 
 import { DonutChart } from "bizcharts";
@@ -254,7 +252,7 @@ const ResearchCard = () => {
   };  
 
   return (
-    <div className="headerCard ">
+    <div className="absolute top-[30px] left-[100px] w-[88%]">
       <div className="ml-[320px] border border-[#4B4B4B] bg-[#1E1E1E] p-[40px] pl-[80px] rounded-lg shadow-lg text-white">
         <div className="flex items-center mb-4 ">
           <span className="bg-[#868686] text-white px-2 py-0 mr-2">Research Title</span>

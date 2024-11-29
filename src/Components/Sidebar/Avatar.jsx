@@ -4,12 +4,10 @@ import {
   DialogContent, DialogActions, TextField, Button, Divider, ListItemIcon, Typography
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import Settings from "@mui/icons-material/Settings";
 import axios from "axios";
-
 import { Snackbar, Alert } from "@mui/material";
 
-import "./Sidebar.css";
+
 
 export default function AccountMenu() {
   const [user, setUser] = useState(null);
@@ -139,27 +137,26 @@ export default function AccountMenu() {
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
+        sx={{
+          mt: 1.5,
+          ml: 5,
+          "& .MuiPaper-root": {
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            ml: 5,
             bgcolor: "#1E1E1E",
             color: "white",
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            "& .MuiMenuItem-root": {
-              color: "white",
-            },
-            "& .MuiListItemIcon-root": {
-              color: "white",
-            },
+          },
+          "& .MuiAvatar-root": {
+            width: 32,
+            height: 32,
+            ml: -0.5,
+            mr: 1,
+          },
+          "& .MuiMenuItem-root": {
+            color: "white",
+          },
+          "& .MuiListItemIcon-root": {
+            color: "white",
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}

@@ -5,12 +5,12 @@ import MyManuscript from '../Dashboards/StudentDashboard/MyManuscript/MyManuscri
 import ExploreManuscript from '../Dashboards/StudentDashboard/ExploreManuscript/SearchArticles';
 import ViewAnalytics from '../Dashboards/StudentDashboard/ViewAnalytics/ViewAnalyticsComponent';
 
-
-
 import TitleProposal from '../Components/Sidebar/TitleProposals'
 import Sidebar from '../Components/Sidebar/sidebar';
 import UnauthorizedAccess from './UnauthorizedAccess'; // Import the UnauthorizedAccess component
 import Grading from '../Dashboards/StudentDashboard/MyManuscript/Grading'
+
+
 function StudentRoutes() {
   const user = JSON.parse(localStorage.getItem('user'));
 

@@ -2,22 +2,24 @@ import React from 'react'
 import { BarChart } from './BarCharts'
 import { PieChart } from './Piechart'
 import { Cards } from './Statistics'
-import "./Styles/viewAnalytics.css";
 
 
 const Chart = () => {
   return (
        <div className="h-[800px]">
-     <div className="chart-1">
-   <div className="bar-charts">
-        <BarChart />
-        <Cards/>    
+     <div className="flex ml-[380px] w-[80%]">
+      
+      <div className="w-[68.3%] ml-[10px]"> 
+            <Cards/>    
+      </div>
 
-   </div>
-  
-  <div className="chart-2">
-  <PieChart/>    
-  </div> 
+      <div className='mt-[190px]'>
+          <PieChart/>    
+      </div> 
+
+      <div className='absolute mt-[317px] ml-[10px]'>
+          <BarChart/>
+      </div>
      </div>
        </div>
   )
