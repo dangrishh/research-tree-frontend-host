@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -10,10 +9,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { AutoComplete, Input, ConfigProvider, Pagination } from 'antd';
 import 'ldrs/trefoil'
 
-
-
-
-import PDFUploader from './PDFUploader';
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
@@ -132,7 +127,7 @@ const ArticleList = () => {
           style={{ width: 1080 }}
           onSearch={(value) => setQuery(value)}
           onSelect={handleSearch}
-          size="xxl"
+      
         >
           <Input
             style={{
