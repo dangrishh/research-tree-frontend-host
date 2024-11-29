@@ -286,7 +286,7 @@ const ResearchCard = () => {
                 onClick={handleEditProposalTitle} 
                 className='absolute mt-[5px] ml-[-30px] cursor-pointer' 
                 >
-                <Tooltip title="Edit Title"><img src="/src/assets/edit-title-icon.png"/></Tooltip>
+                <Tooltip title="Edit Title"><img src="/src/public/edit-title-icon.png"/></Tooltip>
         </button>
             
             <h1 className="text-2xl font-bold mb-2 max-w-[1010px]">
@@ -450,7 +450,7 @@ const ResearchCard = () => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button sx={{marginTop: '-1680px', }}onClick={closeEditorModal}  color="primary"><img className="inline-block mr-2 mb-1 h-[30px] w-[30px]" src="/src/assets/close.png" alt="My Manuscript" /></Button>
+          <Button sx={{marginTop: '-1680px', }}onClick={closeEditorModal}  color="primary"><img className="inline-block mr-2 mb-1 h-[30px] w-[30px]" src="/src/public/close.png" alt="My Manuscript" /></Button>
         </DialogActions>
       </Dialog>
 

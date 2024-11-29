@@ -114,7 +114,7 @@ const saveProfileChanges = async () => {
         <Tooltip title="Account settings">
           <IconButton onClick={handleClick} size="small" sx={{ ml: 0 }}>
             {admin && admin.profileImage ? (
-              <Avatar src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${admin.profileImage}`} sx={{ width: 79, height: 79 }} />
+              <Avatar src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${admin.profileImage}`} sx={{ width: 79, height: 79 }} />
             ) : (
               <Avatar sx={{ width: 79, height: 79 }} />
             )}

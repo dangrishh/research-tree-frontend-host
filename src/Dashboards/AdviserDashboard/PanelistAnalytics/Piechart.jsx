@@ -68,10 +68,10 @@ export const PieChart = () => {
                 z: 124.6,
                 color: '#C70039' // Customize color for Poland
             }, {
-                name: 'Czech Reassets',
+                name: 'Czech Republic',
                 y: 372,
                 z: 137.5,
-                color: '#272827' // Customize color for Czech Reassets
+                color: '#272827' // Customize color for Czech Republic
             }, {
                 name: 'Italy',
                 y: 200,

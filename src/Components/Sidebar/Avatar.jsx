@@ -122,7 +122,7 @@ export default function AccountMenu() {
             {user && user.profileImage ? (
               <Avatar
                 src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com
-/assets/uploads/${user.profileImage}`}
+/public/uploads/${user.profileImage}`}
                 sx={{ width: 79, height: 79 }}
               />
             ) : (

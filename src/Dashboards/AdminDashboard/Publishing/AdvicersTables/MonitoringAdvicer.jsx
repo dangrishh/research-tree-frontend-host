@@ -240,7 +240,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
   return (
     <div style={{ flex: 1, overflowX: "hidden", padding: "20px", width: "1263px" }}>
          <Avatar
-        src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${
+        src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
           adviserImage|| "default-avatar.png"}`}
 
           style={{position: 'absolute', width: 100, height: 100, marginTop: '-200px' }}

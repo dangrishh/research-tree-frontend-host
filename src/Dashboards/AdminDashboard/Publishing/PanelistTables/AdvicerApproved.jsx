@@ -326,7 +326,7 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
   return (
     <div style={{ flex: 1, overflowX: "hidden", padding: "20px", width: "1263px" }}>
        <Avatar
-        src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${
+        src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
           panelImage|| "default-avatar.png"}`}
 
           style={{position: 'absolute', width: 100, height: 100, marginTop: '-200px' }}
@@ -406,7 +406,7 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
 
                 <div className="flex">
                   <Avatar
-                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/assets/uploads/${student.chosenAdvisor ? student.chosenAdvisor.profileImage || 'default-images.png' : 'default-images.png'}`}
+                      src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${student.chosenAdvisor ? student.chosenAdvisor.profileImage || 'default-images.png' : 'default-images.png'}`}
                       sx={{  }}
                       style={{}}
                     />

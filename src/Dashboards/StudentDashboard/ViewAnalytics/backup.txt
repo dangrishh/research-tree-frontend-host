@@ -12,14 +12,14 @@ export default function BasicModal() {
    <div className="Tooltop w-[100%]">
      <div className="mt-[12px] ">
             <Tooltip title="Notification" arrow>
-           <img className="tooltip cursor-pointer w-[auto] inline-block mr-2" src="/src/assets/notification.png" />
+           <img className="tooltip cursor-pointer w-[auto] inline-block mr-2" src="/src/public/notification.png" />
             </Tooltip>
         </div>
        
         <div className="mt-[12px]" >
        
             <Tooltip title="Download Thesis Format" arrow>
-                <img className="tooltip2 cursor-pointer inline-block mr-2" src="/src/assets/docxtemplate.png" />
+                <img className="tooltip2 cursor-pointer inline-block mr-2" src="/src/public/docxtemplate.png" />
             </Tooltip>
         
 
@@ -27,7 +27,7 @@ export default function BasicModal() {
        
         <div className="mt-[12px]">
             <Tooltip title="Title Proposals" arrow>
-                <img className="tooltip3 cursor-pointer inline-block mr-2 mt-[2px]" src="/src/assets/title-proposals-icon.png" />
+                <img className="tooltip3 cursor-pointer inline-block mr-2 mt-[2px]" src="/src/public/title-proposals-icon.png" />
             </Tooltip>
         </div>
     </div>
