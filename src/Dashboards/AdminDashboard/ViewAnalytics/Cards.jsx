@@ -10,6 +10,8 @@ import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 // import ITCS from './IT&CS' 
 import axios from "axios"; // Import axios
+import Skeleton from "@mui/material/Skeleton"; // Import Skeleton loader
+
 
 export const Cards = () => {
   const [admin, setAdmin] = useState(null);
@@ -195,6 +197,7 @@ export const Cards = () => {
   };
 
   if (!admin) return <div>Loading...</div>;
+  
 
   return (
     <div>
@@ -433,7 +436,7 @@ export const Cards = () => {
         </div>
       </div> */}
 
-      <Box
+      {/* <Box
         sx={{
           position: "fixed",
           top: 45,
@@ -459,7 +462,7 @@ export const Cards = () => {
             Download Complete
           </Alert>
         </Collapse>
-      </Box>
+      </Box> */}
     </div>
   );
 };

@@ -1,27 +1,17 @@
 import React from 'react'
 import { BarChart } from './BarCharts'
 import { PieChart } from './Piechart'
-import { LineChart } from './LineChart'
 import { Cards } from './Cards'
-
-
-
-import "./ViewAnalytics.css";
-
 
 
 const Chart = () => {
   return (
    <div className="">
     
-   <div className="chart-1">
+   <div className="flex ml-[300px]">
    < Cards />
-   <div className="bar-charts">
-
-            <BarChart />
-     
-     
-         
+   <div className="w-[68.3%] mt-[290px] ml-[35px]">
+            <BarChart />   
    </div>
 
   <div className="chart-2">

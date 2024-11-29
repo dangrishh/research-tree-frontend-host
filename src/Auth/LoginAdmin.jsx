@@ -120,7 +120,7 @@ const LoginFunction = () => {
         </Button>
 
         {message && (
-          <p style={{ color: message.includes("failed") ? "red" : "green" }}>
+          <p style={{ marginLeft: '130px', marginTop:'20px', color: message.includes("failed") ? "red" : "green" }}>
             {message}
           </p>
         )}
