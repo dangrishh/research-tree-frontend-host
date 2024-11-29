@@ -15,9 +15,9 @@ export default defineConfig({
   },
   root: './', // Ensure this points to your project root
   build: {
-    base: "/", // Update this if hosting in a subdirectory (e.g., "/my-app/")
+    outDir: 'dist',
     rollupOptions: {
-      input: './src/Main.jsx', // Make sure this path is correct
+      input: 'index.html', // Ensure Vite uses index.html for the build
     },
   },
 });
