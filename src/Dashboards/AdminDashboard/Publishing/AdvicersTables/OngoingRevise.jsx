@@ -24,6 +24,13 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+
+
+import DocumentIcon from '../../../../assets/view-docs.png';
+import ReviseIcon from '../../../../assets/revise.png';
+import AddtaskIcon from '../../../../assets/addtask.png';
+import ApprovedIcon from '../../../../assets/approved.png';
+
 import CkEditorDocuments from "../CkEditorDocuments";
 
 const { Text } = Typography;
@@ -270,7 +277,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
                 onClick={() => handleViewManuscript(student._id, student.channelId)} 
                 style={{ marginBottom: "10px", width: "105px" }}
                 >
-                 <img className="mr-[-4px]" src="/src/assets/revise.png" /> 
+                 <img className="mr-[-4px]" src={ReviseIcon} /> 
                  Revise
                 </Button>
 {/*                 <Button icon={<LoadingOutlined />} style={{ marginBottom: "20px", width: "100px" }} />
@@ -279,7 +286,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
                 onClick={() => openTaskModal(student)} 
                 style={{ marginBottom: "10px", width: "105px" }}
                 >
-                  <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                  <img className="mr-[-4px]" src={AddtaskIcon} />
                   View Task
               </Button>
               </div>

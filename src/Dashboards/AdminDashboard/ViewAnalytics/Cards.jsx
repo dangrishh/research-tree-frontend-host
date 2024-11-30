@@ -13,6 +13,22 @@ import axios from "axios"; // Import axios
 import Skeleton from "@mui/material/Skeleton"; // Import Skeleton loader
 
 
+import BSCSicon from '../../../assets/BSCS.png';
+import BSITicon from '../../../assets/BSIT.png';
+import TOTALMANUSCRIPTicon from '../../../assets/totalManuscript-icon.png';
+import STUDENTNOADVISERicon from '../../../assets/no-adviser.png';
+import STUDENTHANDLEicon from '../../../assets/student-handle.png';
+import PANELISTicon from '../../../assets/adviserAnalytics-icon-3.png';
+import NEWUPLOADSicon from '../../../assets/adviserAnalytics-icon-1.png';
+import ONGOINGREVISIONicon from '../../../assets/adviserAnalytics-icon-1.png';
+import ADVISERDEFicon from '../../../assets/adviserAnalytics-icon-6.png';
+import PANELISTDEFicon from '../../../assets/adviserAnalytics-icon-7.png';
+import PANELISTREVicon from '../../../assets/adviserAnalytics-icon-3.png';
+import FINISHEDicon from '../../../assets/adviserAnalytics-icon-5.png';
+
+import ALLUSERSicon from '../../../assets/all-users.png';
+import PANELISTSTUDENTicon from '../../../assets/panelist-student-icon.png';
+
 export const Cards = () => {
   const [admin, setAdmin] = useState(null);
   const [open, setOpen] = useState(false); // Start with the alert closed
@@ -205,16 +221,16 @@ export const Cards = () => {
         <div className="absolute">
           <div className="mt-[-100px] ml-[900px]">
             <p className="absolute text-[42px] font-bold ml-[-900px] mt-[-10px]">View Analytics</p>
-            <img className="inline-block mb-1 ml-[200px]" src="/src/assets/BSIT.png" />
+            <img className="inline-block mb-1 ml-[200px]" src={BSITicon} />
             <span className="bsitColor">{totalCountBSITStudents}</span>
-            <img className="inline-block mb-1" src="/src/assets/BSCS.png" />
+            <img className="inline-block mb-1" src={BSCSicon}/>
             <span className="bsitColor">{totalCountBSCSStudents}</span> 
           </div>
         </div>
 
         <div className="card">
           <div className="card-icon-1">
-          <img className="ml-[0px]" src="/src/assets/totalManuscript-icon.png"  />
+          <img className="ml-[0px]" src={TOTALMANUSCRIPTicon}  />
           </div>
           <div className="card-content">
             <p className="card-title">Total Manuscripts</p>
@@ -224,7 +240,7 @@ export const Cards = () => {
 
         <div className="card">
           <div className="card-icon-1">
-          <img className="ml-[290px]" src="/src/assets/student-handle.png" />
+          <img className="ml-[290px]" src={STUDENTNOADVISERicon} />
           </div>
           <div className="card-content">
             <p className="card-title"> <span className="ml-1"></span> Student No Adviser</p>
@@ -235,7 +251,7 @@ export const Cards = () => {
         {/* New Uploads Card displaying PDF count */}
         <div className="card">
           <div className="card-icon-2">
-          <img className="ml-[290px]" src="/src/assets/adviserAnalytics-icon-2.png" />
+          <img className="ml-[290px]" src={STUDENTHANDLEicon}/>
           </div>
           <div className="card-content">
             <p className="card-title">Adviser Student Handle</p>
@@ -245,7 +261,7 @@ export const Cards = () => {
 
         <div className="card">
           <div className="card-icon-3">
-          <img className="ml-[295px]" src="/src/assets/adviserAnalytics-icon-1.png" />
+          <img className="ml-[295px]" src={NEWUPLOADSicon} />
           </div>
           <div className="card-content">
             <p className="card-title">New Uploads</p>
@@ -255,7 +271,7 @@ export const Cards = () => {
 
         <div className="card">
           <div className="card-icon-4">
-          <img className="ml-[290px]" src="/src/assets/adviserAnalytics-icon-3.png" />
+          <img className="ml-[290px]" src={PANELISTREVicon} />
           </div>
           <div className="card-content">
             <p className="card-title">Adviser's Revision</p>
@@ -266,7 +282,7 @@ export const Cards = () => {
         <div className="flex absolute mt-[125px]">
           <div className="card">
             <div className="absolute ml-[204px] bottom-[56px]">
-              <img className="mt-[-20px]" src="/src/assets/adviserAnalytics-icon-6.png" />
+              <img className="mt-[-20px]" src={ADVISERDEFicon} />
             </div>
             <div className="card-content">
               <p className="card-title">Defenders</p>
@@ -276,7 +292,7 @@ export const Cards = () => {
 
           <div className="card ml-[18px]">
             <div className="absolute ml-[204px] bottom-[56px]">
-              <img className="" src="/src/assets/adviserAnalytics-icon-7.png" />
+              <img className="" src={PANELISTREVicon} />
             </div>
             <div className="card-content">
               <p className="card-title">Defender's Revision</p>
@@ -286,7 +302,7 @@ export const Cards = () => {
 
           <div className="card ml-[18px]">
             <div className="absolute ml-[204px] bottom-[56px]">
-              <img className="" src="/src/assets/adviserAnalytics-icon-5.png" />
+              <img className="" src={FINISHEDicon} />
             </div>
             <div className="card-content">
               <p className="card-title">Finished</p>
@@ -331,7 +347,7 @@ export const Cards = () => {
   {/* Tooltip Trigger Card */}
   <div className="card ml-[18px]">
     <div className="absolute ml-[177px] bottom-[56px]">
-      <img className="ml-[20px]" src="/src/assets/all-users.png" alt="Users Overview" />
+      <img className="ml-[20px]" src={ALLUSERSicon}  />
     </div>
     <div className="card-content">
       <p className="card-title">All Users</p>
@@ -344,7 +360,7 @@ export const Cards = () => {
         
   <div className="card ml-[18px]">
     <div className="absolute ml-[177px] bottom-[56px]">
-      <img className="ml-[20px]" src="/src/assets/panelist-student-icon.png" alt="Pending Proposal" />
+      <img className="ml-[20px]" src={PANELISTSTUDENTicon} />
     </div>
     <div className="card-content">
       <p className="card-title">Panelist Student</p>
@@ -436,7 +452,9 @@ export const Cards = () => {
         </div>
       </div> */}
 
-     
+<div className='cursor-pointer absolute ml-[490px] text-[#272727] mt-[880px] hover:text-[#1B5123]'>
+              <h1 className="">Copyright 2024 | Developed by Franklin Mayad & Daniel Detorres</h1>
+            </div>
     </div>
   );
 };

@@ -27,13 +27,20 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-
+import axios from "axios";
 
 
 import CkEditorDocuments from "../CkEditorDocuments";
 import ViewGrading from './Grading';
 
-import axios from "axios";
+import DocumentIcon from '../../../../assets/view-docs.png';
+import ReviseIcon from '../../../../assets/revise.png';
+import AddtaskIcon from '../../../../assets/addtask.png';
+
+import gradeIcon from '../../../../assets/grade.png';
+
+
+
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -463,7 +470,7 @@ const fetchTaskProgress = async (studentId) => {
                 onClick={() => handleViewManuscript(student._id, student.channelId)}                   
                 
                 style={{  width: "105px" }}>
-                     <img className="mr-[-4px]" src="/src/assets/view-docs.png" />
+                     <img className="mr-[-4px]" src={DocumentIcon} />
                   Document
                 </Button>
 
@@ -477,7 +484,7 @@ const fetchTaskProgress = async (studentId) => {
                   }
                   style={{width: "105px" }}
                 >
-                 <img className="mr-[-4px]" src="/src/assets/revise.png" /> 
+                 <img className="mr-[-4px]" src={ReviseIcon} /> 
                  Revise 
                  </Button>
 
@@ -487,7 +494,7 @@ const fetchTaskProgress = async (studentId) => {
                   onClick={() => handleViewGrade(student._id)}
                   style={{ width: "105px" }}
                   > 
-                    <img className="mr-[-4px]" src="/src/assets/grade.png" />
+                    <img className="mr-[-4px]" src={gradeIcon} />
                   View Grade 
               </Button>
 
@@ -507,7 +514,7 @@ const fetchTaskProgress = async (studentId) => {
                   onClick={() => openTaskModal(student)}
                   style={{  width: "105px" }}
                   >
-                    <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                    <img className="mr-[-4px]" src={AddtaskIcon} />
                     Add Task
                 </Button>
 

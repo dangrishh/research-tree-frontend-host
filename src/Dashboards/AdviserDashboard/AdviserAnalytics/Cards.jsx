@@ -334,7 +334,9 @@ export const Cards = () => {
         </div>
       </div>
 
-     
+      <div className='cursor-pointer absolute ml-[490px] text-[#272727] mt-[880px] hover:text-[#1B5123]'>
+              <h1 className="">Copyright 2024 | Developed by Franklin Mayad & Daniel Detorres</h1>
+            </div>
     </div>
   );
 };

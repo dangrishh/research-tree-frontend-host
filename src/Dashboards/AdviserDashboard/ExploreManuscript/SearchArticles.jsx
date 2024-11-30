@@ -153,7 +153,7 @@ const ArticleList = () => {
 
 
 
-      <div className="w-1/4 fixed text-right p-4 ml-[1200px] mb-[50px] w-[auto]">
+      <div className="w-1/4 fixed text-right p-4 ml-[1200px] mt-[-18px] w-[auto]">
       <p
         className="text-red-500 mr-[12.3px] mb-2 cursor-pointer"
         onClick={() => filterArticlesByYear("AnyTime")}
@@ -222,12 +222,23 @@ const ArticleList = () => {
             overflow: 'hidden',
           }}
         >
-          <IconButton
+           <IconButton
             onClick={() => setSelectedPdf(null)}
-            sx={{ position: 'absolute', top: 8, right: 8 }}
+            sx={{
+              color: 'red',
+              position: 'absolute',
+              top: 90,
+              right: 125,
+              fontSize: '26px', // Adjust size
+              '&:hover': {
+                color: 'darkred', // Change color on hover
+                backgroundColor: 'rgba(255, 0, 0, 0.1)', // Optional hover background
+              },
+            }}
           >
-            <CloseIcon />
+            <CloseIcon fontSize="inherit" />
           </IconButton>
+
           {selectedPdf && (
             <iframe
               src={selectedPdf}

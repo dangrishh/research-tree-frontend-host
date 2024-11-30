@@ -9,6 +9,18 @@ import "./Sidebar.css";
 
 import Rubrics from './Rubrics';
 
+import exploremanuscriptIcon from '../../../assets/explore-manuscript.png';
+import viewanalyticsIcon from '../../../assets/User.png';
+import studentmanuscriptIcon from '../../../assets/student-manuscript.png';
+import advisermanuscriptIcon from '../../../assets/adviser-manuscript.png';
+import panelistmanuscriptIcon from '../../../assets/panelist-manuscript.png';
+
+import liststudentIcon from '../../../assets/ListStudent.png';
+import profilemanagementIcon from '../../../assets/profile-management.png';
+
+import managespecializationIcon from '../../../assets/admin-special.png';
+import  graderubricsIcon from '../../../assets/admin-rubrics.png';
+
 const Sidebar = ({ onSelect }) => {
   const location = useLocation();
   const [admin, setAdmin] = useState(null);
@@ -91,16 +103,16 @@ const Sidebar = ({ onSelect }) => {
   return (
     <div className='sidebar z-1 h-screen w-[313px] bg-[#1E1E1E] text-white flex flex-col fixed'>
       <div>
-        <img src='/src/assets/rstreelogo.png' alt='Logo' />
+      <img className="" src="https://imgur.com/5xai53y.png" />
 
         <img
-          className='absolute mt-[570px] ml-[30px]'
-          src='/src/assets/ListStudent.png'
+          className='absolute mt-[570px] ml-[35px]'
+          src={liststudentIcon}
           alt='Logo'
         />
         <img
           className='absolute mt-[425px] ml-[35px]'
-          src='/src/assets/profile-management.png'
+          src={profilemanagementIcon}
           alt='Logo'
         />
       </div>
@@ -138,7 +150,7 @@ const Sidebar = ({ onSelect }) => {
         >
           <img
             className='inline-block mr-2 mb-1'
-            src='/src/assets/User.png'
+            src={viewanalyticsIcon}
             alt='View Analytics'
           />
           View Analytics
@@ -156,7 +168,7 @@ const Sidebar = ({ onSelect }) => {
         >
           <img
             className='inline-block mr-2 mb-1'
-            src='/src/assets/explore-manuscript.png'
+            src={exploremanuscriptIcon}
             alt='Explore Manuscript'
           />
           Explore Manuscript
@@ -174,7 +186,7 @@ const Sidebar = ({ onSelect }) => {
         >
           <img
             className='inline-block mr-2 mb-1'
-            src='/src/assets/student-manuscript.png'
+            src={studentmanuscriptIcon}
             alt='My Manuscript'
           />
           Student Manuscript
@@ -192,7 +204,7 @@ const Sidebar = ({ onSelect }) => {
         >
           <img
             className='inline-block mr-2 mb-1'
-            src='/src/assets/adviser-manuscript.png'
+            src={advisermanuscriptIcon}
             alt='My Manuscript'
           />
           Adviser Manuscript
@@ -209,7 +221,7 @@ const Sidebar = ({ onSelect }) => {
         >
           <img
             className='inline-block mr-2 mb-1'
-            src='/src/assets/panelist-manuscript.png'
+            src={panelistmanuscriptIcon}
             alt='My Manuscript'
           />
           Panelist Manuscript
@@ -299,7 +311,7 @@ const Sidebar = ({ onSelect }) => {
         onClick={openSpecializationModal}
       >
         
-        <img className='inline-block ' src='/src/assets/admin-special.png' alt='My Manuscript'/> <span className="ml-2"> Specialization </span> 
+        <img className='inline-block ' src={managespecializationIcon} /> <span className="ml-2"> Specialization </span> 
        </Button>
 
       <Button
@@ -325,7 +337,7 @@ const Sidebar = ({ onSelect }) => {
 
         onClick={HandleEditRubrics}
       >
-        <img className='inline-block ' src='/src/assets/admin-rubrics.png' alt='My Manuscript'/> <span className="ml-2"> Grade Rubrics </span> 
+        <img className='inline-block ' src={graderubricsIcon} /> <span className="ml-2"> Grade Rubrics </span> 
       </Button>
 
       <Modal 
