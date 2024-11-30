@@ -191,7 +191,7 @@ const chooseAdvisor = async (advisorId) => {
         {" "}
         <img
           className='mt-[420px] ml-[25px]'
-          src='/src/assets/title-proposal-button.png'
+          src="https://imgur.com/422ougl.jpg"
         ></img>{" "}
       </button>
       <Modal
@@ -205,8 +205,8 @@ const chooseAdvisor = async (advisorId) => {
         <Box sx={style}>
           <img
             className='mt-2 ml-[270px]'
-            src='/src/assets/title-proposals-logo2.png'
-            alt='Logo'
+            src="https://imgur.com/MzO2b68.png"
+        
           />
 
           {/* Dynamic Title based on advisorStatus */}

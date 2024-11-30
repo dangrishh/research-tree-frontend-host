@@ -436,33 +436,7 @@ export const Cards = () => {
         </div>
       </div> */}
 
-      {/* <Box
-        sx={{
-          position: "fixed",
-          top: 45,
-          left: 1200,
-          width: "16%",
-          zIndex: 9999,
-        }}
-      >
-        <Collapse in={open}>
-          <Alert
-            action={
-              <IconButton
-                aria-label='close'
-                color='inherit'
-                size='small'
-                onClick={() => setOpen(false)} // Close the alert when the close button is clicked
-              >
-                <CloseIcon fontSize='inherit' />
-              </IconButton>
-            }
-            sx={{ mb: 2, color: "white", backgroundColor: "green" }}
-          >
-            Download Complete
-          </Alert>
-        </Collapse>
-      </Box> */}
+     
     </div>
   );
 };

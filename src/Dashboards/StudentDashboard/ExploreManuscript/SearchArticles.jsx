@@ -158,7 +158,7 @@ const ArticleList = () => {
 
 
 
-      <div className="w-1/4 fixed text-right p-4 ml-[1200px] mb-[50px] w-[auto]">
+      <div className="w-1/4 fixed text-right p-4 ml-[1200px] mt-[-18px] w-[auto]">
       <p
         className="text-red-500 mr-[12.3px] mb-2 cursor-pointer"
         onClick={() => filterArticlesByYear("AnyTime")}

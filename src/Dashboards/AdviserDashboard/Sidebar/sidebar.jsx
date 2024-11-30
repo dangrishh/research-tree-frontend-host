@@ -4,6 +4,17 @@ import UserAvatar from './Avatar';
 import PDFUploader from './PDFUploader'
 import './Sidebar.css';
 
+import AdviserMode from '../../../assets/adviser-side.png';
+
+import mymanuscriptIcon from '../../../assets/my-manuscript.png';
+import exploremanuscriptIcon from '../../../assets/explore-manuscript.png';
+import viewanalyticsIcon from '../../../assets/User.png';
+import StudentProposalIcon from '../../../assets/revision-icon.png';
+
+import PanelistMode from '../../../assets/panelist-side.png';
+import mydefendeeIcon from '../../../assets/panelist-manuscript.png';
+
+
 const Sidebar = ({ onSelect }) => {
   const location = useLocation(); // Get current location
   const user = JSON.parse(localStorage.getItem('user'));
@@ -19,9 +30,9 @@ const Sidebar = ({ onSelect }) => {
   return (
     <div className="sidebar z-1 h-screen w-[313px] bg-[#1E1E1E] text-white flex flex-col fixed">
       <div>
-        <img src="/src/assets/rstreelogo.png" alt="Logo" />
-        <img className="absolute mt-[210px] ml-[20px]" src="/src/assets/adviser-side.png" alt="Logo" />
-        <img className="absolute mt-[480px] ml-[20px]" src="/src/assets/panelist-side.png" alt="Logo" />
+      <img className="" src="https://imgur.com/5xai53y.png" />
+        <img className="absolute mt-[210px] ml-[20px]" src={AdviserMode}  />
+        <img className="absolute mt-[480px] ml-[20px]" src={PanelistMode} />
       </div>
 
       
@@ -45,7 +56,7 @@ const Sidebar = ({ onSelect }) => {
           }`}
           onClick={() => handleLinkClick('/AdviserDashboard/MyAdvisee')}
         >
-          <img className="inline-block mr-2 mb-1" src="/src/assets/my-manuscript.png" alt="My Manuscript" />
+          <img className="inline-block mr-2 mb-1" src={mymanuscriptIcon}/>
           My Advisee
         </Link>
 
@@ -61,7 +72,7 @@ const Sidebar = ({ onSelect }) => {
           }`}
           onClick={() => handleLinkClick('/AdviserDashboard/ExploreManuscript')}
         >
-          <img className="inline-block mr-2 mb-1" src="/src/assets/explore-manuscript.png" alt="Explore Manuscript" />
+          <img className="inline-block mr-2 mb-1" src={exploremanuscriptIcon}  />
           Explore Manuscript
         </Link>
         
@@ -76,7 +87,7 @@ const Sidebar = ({ onSelect }) => {
           }`}
           onClick={() => handleLinkClick('/AdviserDashboard/ViewAnalytics')}
         >
-          <img className="inline-block mr-2 mb-1" src="/src/assets/User.png" alt="View Analytics" />
+          <img className="inline-block mr-2 mb-1" src={viewanalyticsIcon}  />
           View Analytics
         </Link>
 
@@ -90,7 +101,7 @@ const Sidebar = ({ onSelect }) => {
           }`}
           onClick={() => handleLinkClick('/AdviserDashboard/TitleProposal')}
         >
-          <img className="inline-block mr-2 mb-1" src="/src/assets/revision-icon.png" alt="Title Proposal" />
+          <img className="inline-block mr-2 mb-1" src={StudentProposalIcon}  />
           Title Proposal
         </Link>
 
@@ -122,7 +133,7 @@ const Sidebar = ({ onSelect }) => {
           }`}
           onClick={() => handleLinkClick('/AdviserDashboard/Publishing')}
         >
-          <img className="inline-block mr-2 mb-1" src="/src/assets/my-manuscript.png" alt="Panelist Group" />
+          <img className="inline-block mr-2 mb-1" src={mydefendeeIcon} />
           My Defendee
         </Link>
 

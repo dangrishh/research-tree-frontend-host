@@ -9,6 +9,7 @@ const Chart = () => {
    <div className="">
     
    <div className="flex ml-[300px]">
+    
    < Cards />
    <div className="w-[68.3%] mt-[290px] ml-[35px]">
             <BarChart />   
@@ -19,6 +20,7 @@ const Chart = () => {
   <PieChart/>
 
   </div> 
+
    </div>
    </div>
   )

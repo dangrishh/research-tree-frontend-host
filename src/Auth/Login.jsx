@@ -4,7 +4,8 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import "./login.css";
-import greenBackground from '../assets/green-background.png';
+
+// import greenbackgroundIcon from '../../src/assets/compressbg.png';
 
 const LoginFunction = () => {
   const [form] = Form.useForm();
@@ -65,23 +66,22 @@ const LoginFunction = () => {
 
   return (
     <div className='rectangle'>
-      <img
+      {/* <img
         className='studentgirl'
         src='./src/assets/student.png'
         alt='Student'
-      />
-      <img className='leaves' src='./src/assets/leaves.png' alt='Leaves' />
-      <img
-        className='green-background'
-        src={greenBackground}
-        alt='Background'
-      />
+      /> */}
+      {/* <img className='leaves' src='./src/assets/leaves.png' alt='Leaves' /> */}
+      <img 
+      className="green-background"
+      src="https://imgur.com/cYkLjmr.gif"/>
+
       <h1 className='logintext ml-[65px] '>Sign in</h1>
       <h1 className='logintext2'>Explore more manuscripts</h1>
       <img
         className='logorstree'
-        src='./src/assets/LogoResearchTree.png'
-        alt='Logo'
+        src="https://imgur.com/fCYU9Sr.jpg"
+        
       />
 
       <Form
