@@ -38,13 +38,19 @@ const LoginFunction = () => {
 
   return (
     <div className='rectangle'>
-     
+       <img
+        className='studentgirl'
+        src="https://imgur.com/KGLG1IQ.png"
+      /> 
+      <img className='leaves' src="https://imgur.com/vOb88aZ.png"/> 
       
       <img 
-      className="green-background"
-      src="https://imgur.com/cYkLjmr.gif"/>
+      className="relative z-0 left-[483px] w-[600px] h-[655px] rounded-tr-[24px] rounded-br-[24px]"
 
-      <h1 className='logintext ml-[60px]'>Admin</h1>
+      src="https://imgur.com/BaCwGRk.gif"/>
+
+<h1 className="text-[#0BF677] font-poppins text-[30px] font-extrabold uppercase absolute top-[200px] left-[193px]">
+  Admin</h1>
       <h1 className='logintext2'>Explore more manuscripts</h1>
       <img
         className='logorstree'
