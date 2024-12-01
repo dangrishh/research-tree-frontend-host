@@ -25,7 +25,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar z-1 h-screen w-[313px] bg-[#1E1E1E] text-white flex flex-col fixed">
       <div>
-        <img className="" src="/src/assets/rstreelogo.png" />
+        <img className="" src="https://imgur.com/5xai53y.png" />
       </div>
 
       <div className="max-w-xs mx-auto p-4 flex flex-col items-center mt-5">

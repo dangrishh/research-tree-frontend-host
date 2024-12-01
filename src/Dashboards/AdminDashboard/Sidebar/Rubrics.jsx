@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Textarea from '@mui/joy/Textarea';
 
+import EditRubricsIcon from '../../../assets/edit-rubrics.png'
+
 export default function GradingTable() {
   const [rubrics, setRubrics] = useState([]);
   const [selectedRubricId, setSelectedRubricId] = useState(null);
   const [editableRubric, setEditableRubric] = useState(null); // For editing
+
+
 
   // Fetch rubrics on component mount
   useEffect(() => {
@@ -66,9 +70,29 @@ export default function GradingTable() {
   // Get the selected rubric
   const selectedRubric = rubrics.find((rubric) => rubric._id === selectedRubricId);
 
+
+
+  const items = [
+    { number: "4", text: "Excellent", bgColor: "bg-green-500" },
+    { number: "3", text: "Good", bgColor: "bg-blue-500" },
+    { number: "2", text: "Satisfactory", bgColor: "bg-orange-500" },
+    { number: "1", text: "Needs Improvement", bgColor: "bg-red-500" },
+  ];
+
   return (
     <div>
-      {/* <h2 className="text-center text-white">Grading Table</h2> */}
+      <div className="fixed w-[190px] h-[180px] inset-0 top-10 left-[1710px] space-y-4">
+          {items.map((item, index) => (
+            <div key={index} className="flex items-center space-x-4">
+              <div
+                className={`w-6 h-6 flex items-center justify-center text-white font-bold ${item.bgColor} rounded`}
+              >
+                {item.number}
+              </div>
+              <span className="text-white font-medium">{item.text}</span>
+            </div>
+          ))}
+        </div>
 
       {/* Rubric Selector */}
       <div className="flex justify-center mb-4 space-x-4">
@@ -103,11 +127,20 @@ export default function GradingTable() {
           <div className="grid grid-cols-5 gap-2 text-white text-center">
             {/* Table Header */}
             <div className="bg-[#575757] font-bold p-4">Criterion</div>
-            {['4', '3', '2', '1'].map((score) => (
-              <div key={score} className="p-4 font-bold bg-gray-700">
+            {['4', '3', '2', '1'].map((score) => {
+            const labelColor = {
+              '4': 'bg-green-500', // Excellent
+              '3': 'bg-blue-500', // Good
+              '2': 'bg-yellow-500', // Satisfactory
+              '1': 'bg-red-500', // Needs Improvement
+            }[score];
+
+            return (
+              <div key={score} className={`p-4 font-bold ${labelColor}`}>
                 {score}
               </div>
-            ))}
+            );
+            })}
 
             {/* Criteria Rows */}
             {selectedRubric.criteria.map((criterion) => (
@@ -165,7 +198,7 @@ export default function GradingTable() {
                 onClick={() => handleEditRubric(selectedRubric)}
                 className=" text-white py-2 px-4 rounded"
               >
-                    <img className="inline-block mb-1" src="/src/assets/edit-rubrics.png" />
+                    <img className="inline-block mb-1" src={EditRubricsIcon} />
                 Edit Rubric
               </button>
             </div>

@@ -15,8 +15,6 @@ const App = () => {
   const [file, setFile] = useState(null);
   const [form] = Form.useForm();
 
-  const [fileList, setFileList] = useState([]);
-
   const [panelists, setPanelists] = useState([]); // State for panelists
 
   useEffect(() => {
@@ -164,13 +162,8 @@ const App = () => {
     }
   };
 
-  const handleFileChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-    if (newFileList.length > 0) {
-      setFile(newFileList[0].originFileObj);
-    } else {
-      setFile(null);
-    }
+  const handleFileChange = (info) => {
+    setFile(info.file.originFileObj);
   };
 
   const columns = [
@@ -217,7 +210,7 @@ const App = () => {
   ];
 
   const openEditModal = (user) => {
-    // console.log("Editing user:", user); // Debug
+    console.log("Editing user:", user); // Debug
     setCurrentUser(user);
     setFile(null); // Reset file when opening modal for editing
     setIsEditModalVisible(true);
@@ -226,7 +219,6 @@ const App = () => {
   const handleModalClose = () => {
     setIsEditModalVisible(false);  // Close the modal
     setFile(null);                  // Reset selected file
-    setFileList([]);
   };  
 
   return (
@@ -307,28 +299,32 @@ const App = () => {
             />
           </Form.Item> */}
 
-<Form.Item label="panelists" name="Panelists">
-  <Select
-    isMulti
-    options={panelists}
-  />
-</Form.Item>
+          <Form.Item name="panelists" label="Panelists">
+            <Select
+              isMulti
+              options={panelists}
+              placeholder="Select Panelists"
+              value={form.getFieldValue("panelists")}
+              onChange={(selectedOptions) => form.setFieldsValue({ panelists: selectedOptions })}
+            />
+          </Form.Item>
 
 
           <Form.Item name="profileImage" label="Profile Image" style={{ marginBottom: "15px" }}>
-          <Upload
-            fileList={fileList}
-            onChange={handleFileChange}
-            beforeUpload={() => false} // Prevent automatic upload
-            showUploadList={true} // Show the uploaded file list
-          >
-            <Button icon={<UploadOutlined />}>Upload Profile Image</Button>
-          </Upload>
+            <Upload
+              beforeUpload={(file) => {
+                setFile(file);
+                return false;
+              }}
+              showUploadList={false}
+            >
+              <Button icon={<UploadOutlined />}>Upload Profile Image</Button>
+            </Upload>
           </Form.Item>
 
-          {/* <Form.Item name="deleteProfileImage" valuePropName="checked" style={{ marginBottom: "15px" }}>
+          <Form.Item name="deleteProfileImage" valuePropName="checked" style={{ marginBottom: "15px" }}>
             <Checkbox>Delete profile image</Checkbox>
-          </Form.Item> */}
+          </Form.Item>
 
           <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
             <Button type="primary" htmlType="submit" style={{ width: "48%" }}>

@@ -38,24 +38,26 @@ const LoginFunction = () => {
 
   return (
     <div className='rectangle'>
-      <img
+       <img
         className='studentgirl'
-        src='./src/assets/student.png'
-        alt='Student'
-      />
-      <img className='leaves' src='./src/assets/leaves.png' alt='Leaves' />
-      <img
-        className='green-background'
-        src='./src/assets/gif.gif'
-        alt='Background'
-      />
-      <h1 className='logintext ml-[60px]'>Admin</h1>
+        src="https://imgur.com/KGLG1IQ.png"
+      /> 
+      <img className='leaves' src="https://imgur.com/vOb88aZ.png"/> 
+      
+      <img 
+      className="relative z-0 left-[483px] w-[600px] h-[655px] rounded-tr-[24px] rounded-br-[24px]"
+
+      src="https://imgur.com/BaCwGRk.gif"/>
+
+<h1 className="text-[#0BF677] font-poppins text-[30px] font-extrabold uppercase absolute top-[200px] left-[193px]">
+  Admin</h1>
       <h1 className='logintext2'>Explore more manuscripts</h1>
       <img
         className='logorstree'
-        src='./src/assets/LogoResearchTree.png'
-        alt='Logo'
+        src="https://imgur.com/fCYU9Sr.jpg"
+        
       />
+      
 
       <Form
         style={{

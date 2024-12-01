@@ -111,6 +111,14 @@ export default function GradingTable({ studentId, panelistId }) {
     satisfactory: 'bg-yellow-500',
     needsImprovement: 'bg-red-500',
   };
+
+  const items = [
+    { number: "4", text: "Excellent", bgColor: "bg-green-500" },
+    { number: "3", text: "Good", bgColor: "bg-blue-500" },
+    { number: "2", text: "Satisfactory", bgColor: "bg-orange-500" },
+    { number: "1", text: "Needs Improvement", bgColor: "bg-red-500" },
+  ];
+  
   
 
   // Get the selected rubric
@@ -119,7 +127,18 @@ export default function GradingTable({ studentId, panelistId }) {
   return (
     <div className="bg-[#1E1E1E]">
       {/* <h2 className="text-center text-black">Grading Table</h2> */}
-      <img className="fixed inset-0 mr-2 mb-1 w-[150px] h-[150px] ml-[1750px] mt-[35px]" src="/src/assets/legend.png" />
+      <div className="bg-black fixed w-[190px] h-[250px] inset-0 top-8 left-[1740px] space-y-4">
+              {items.map((item, index) => (
+                <div key={index} className="flex items-center space-x-4">
+                  <div
+                    className={`w-6 h-6 flex items-center justify-center text-white font-bold ${item.bgColor} rounded`}
+                  >
+                    {item.number}
+                  </div>
+                  <span className="text-[14px] text-white font-normal">{item.text}</span>
+                </div>
+              ))}
+            </div>
        {/* Submit Button */}
        <div className="fixed mt-[-5px] ml-[1300px]  ">
         <button

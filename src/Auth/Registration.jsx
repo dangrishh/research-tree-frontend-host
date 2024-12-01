@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Select from 'react-select';
 import { TextField, MenuItem, Button, FormControl, InputLabel, Select as MUISelect } from '@mui/material';
-
+import BackButton from '../assets/back-icon.png'
 // Define constants at the top of the file
 const courseOptions = [
   { value: 'BSIT', label: 'BSIT' },
@@ -102,7 +102,7 @@ const LoginFunction = () => {
     <form onSubmit={handleSubmit} encType="multipart/form-data" className="flex justify-center items-center bg-[#1E1E1E]">
       <div className="bg-white p-8 shadow-lg w-[800px] h-[790px] mt-[70px] ml-[10px] rounded-xl">
       <Link to="/" className="absolute ml-[-140px] mt-[-40px]">
-          <img className="inline-block mb-1" src="/src/assets/back-icon.png" />
+          <img className="inline-block mb-1" src={BackButton} />
       </Link>
       {message && <p className="absolute text-[18px] text-center mt-[-80px] ml-[380px] text-green-600">  <img className="inline-block mb-1" src="/src/assets/check-icon.png" />{message}</p>}
       {/* <img

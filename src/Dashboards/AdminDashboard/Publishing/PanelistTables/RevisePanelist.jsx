@@ -27,6 +27,13 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+
+import DocumentIcon from '../../../../assets/view-docs.png';
+import ReviseIcon from '../../../../assets/revise.png';
+import AddtaskIcon from '../../../../assets/addtask.png';
+import ApprovedIcon from '../../../../assets/approved.png';
+
+
 import CkEditorDocuments from "./CkEditorDocuments";
 import axios from "axios";
 
@@ -91,6 +98,9 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
   };
 
   const resetVotes = async (userId) => {
+    Modal.confirm({
+      title: "Are you sure you want to proceed with this student's defense?",
+      onOk: async () => {
     try {
       const response = await axios.post(
         `https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/reset-manuscript-status/${userId}`  // Corrected URL
@@ -110,7 +120,9 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
         message.error("Error resetting votes");
       }
     }
-  };
+  },
+});
+};
 
   const updatePanelManuscriptStatus = async (channelId, newStatus, userId) => {
 
@@ -448,7 +460,7 @@ Modal.confirm({
                
                 onClick={() => handleViewManuscript(student._id, student.channelId)}                   
                 style={{  width: "105px" }}>
-                     <img className="mr-[-4px]" src="/src/assets/view-docs.png" />
+                     <img className="mr-[-4px]" src={DocumentIcon} />
                   Document
                   </Button>
 
@@ -473,7 +485,7 @@ Modal.confirm({
                   onClick={() => openTaskModal(student)}
                   style={{  width: "105px" }}
                   >
-                    <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                    <img className="mr-[-4px]" src={AddtaskIcon} />
                     Add Task
                 </Button>
 
@@ -481,7 +493,7 @@ Modal.confirm({
                   onClick={() => resetVotes(student._id)}
                   style={{marginBottom: '10px', width: "105px" }}
                   >
-                   <img className="mr-[-4px]" src="/src/assets/approved.png" /> 
+                   <img className="mr-[-4px]" src={ApprovedIcon}/> 
                    Done
                 </Button>
              

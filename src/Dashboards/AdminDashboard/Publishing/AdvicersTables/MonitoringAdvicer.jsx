@@ -7,6 +7,7 @@ import {
   Modal,
   Input,
   Checkbox,
+  message,
   ConfigProvider,
   Select,
   Progress,
@@ -25,6 +26,12 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+
+
+import DocumentIcon from '../../../../assets/view-docs.png';
+import ReviseIcon from '../../../../assets/revise.png';
+import AddtaskIcon from '../../../../assets/addtask.png';
+import ApprovedIcon from '../../../../assets/approved.png';
 
 import CkEditorDocuments from "../CkEditorDocuments";
 import ViewGrading from "./Grading";
@@ -111,28 +118,31 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
       setIsConfirmModalVisible(true);
     };
     
-    const handleConfirmOk = async () => {
-      setIsConfirmModalVisible(false);
-      const { userId } = confirmData;
-    try {
-      const response = await axios.post(
-        `https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/reset-manuscript-status/${userId}`  // Corrected URL
-      );
-  
-      const { message: successMessage } = response.data;
-      message.success(successMessage);
-  
-    } catch (error) {
-      if (error.response) {
-        console.error("Error response:", error.response.data);
-        message.error(
-          `Error: ${error.response.data.message || "Failed to reset votes"}`
+    const resetVotes = async (userId) => {
+      Modal.confirm({
+        title: "Are you sure you want to proceed with this student's defense?",
+        onOk: async () => {
+      try {
+        const response = await axios.post(
+          `https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/reset-manuscript-status/${userId}`  // Corrected URL
         );
-      } else {
-        console.error("Error:", error.message);
-        message.error("Error resetting votes");
+    
+        const { message: successMessage } = response.data;
+        message.success(successMessage);
+    
+      } catch (error) {
+        if (error.response) {
+          console.error("Error response:", error.response.data);
+          message.error(
+            `Error: ${error.response.data.message || "Failed to reset votes"}`
+          );
+        } else {
+          console.error("Error:", error.message);
+          message.error("Error resetting votes");
+        }
       }
-    }
+    },
+  });
   };
   
   const handleConfirmCancel = () => {
@@ -359,7 +369,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
                       }
                       style={{ marginBottom: "10px", width: "105px" }}
                     >
-                     <img className="mr-[-4px]" src="/src/assets/view-docs.png" />
+                     <img className="mr-[-4px]" src={DocumentIcon} />
                       Document
                     </Button>
 
@@ -368,12 +378,12 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
                       onClick={() => openTaskModal(student)}
                      style={{ marginBottom: "10px", width: "105px" }}
                     >
-                      <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                      <img className="mr-[-4px]" src={AddtaskIcon} />
                       Add Task
                     </Button>
 
                     <Button
-                      onClick={() => showConfirmModal(student._id)}
+                      onClick={() => resetVotes(student._id)}
                       style={{marginBottom: '10px', width: "105px" }}
                       onMouseEnter={(e) =>
                         (e.target.style.boxShadow = "0 0 25px rgba(0, 255, 0, 1)")
@@ -382,7 +392,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
                         (e.target.style.boxShadow = "0 0 15px rgba(0, 255, 0, 0.7)")
                       }
                     >
-                      <img className="mr-[-4px]" src="/src/assets/approved.png" /> 
+                      <img className="mr-[-4px]" src={ApprovedIcon} /> 
                       Done
                     </Button>
 
@@ -521,14 +531,14 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
         </DialogActions> */}
       </Dialog>
 
-      <Modal
+      {/* <Modal
         title="Confirm Manuscript Status"
         open={isConfirmModalVisible}
         onOk={handleConfirmOk}
         onCancel={handleConfirmCancel}
       >
         <p>Are you sure you want to proceed with the thesis defense?</p>
-      </Modal>
+      </Modal> */}
 
       <Modal
         open={isGradeModalVisible}

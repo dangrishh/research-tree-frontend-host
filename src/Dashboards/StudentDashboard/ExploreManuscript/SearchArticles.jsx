@@ -158,7 +158,7 @@ const ArticleList = () => {
 
 
 
-      <div className="w-1/4 fixed text-right p-4 ml-[1200px] mb-[50px] w-[auto]">
+      <div className="w-1/4 fixed text-right p-4 ml-[1200px] mt-[-18px] w-[auto]">
       <p
         className="text-red-500 mr-[12.3px] mb-2 cursor-pointer"
         onClick={() => filterArticlesByYear("AnyTime")}
@@ -178,17 +178,12 @@ const ArticleList = () => {
     
       {error && <p className="absolute mt-[4px] ml-[900px] text-red-500"><span className='mt-5'><ErrorIcon/></span>{error}</p>}
 
-     {/* Loading Spinner */}
+    
      {loading ? (
         <div className="flex justify-center items-center ml-[-350px] mt-[250px]">
-         <l-trefoil
-            size="100"
-            stroke="7"
-            stroke-length="0.15"
-            bg-opacity="0.1"
-            speed="1.4"
-            color="#1E1E" 
-        ></l-trefoil>
+
+            {/* Loading  */}
+
         </div>
       ) : (
         <div className="p-[50px] flex mt-[30px]">
@@ -227,11 +222,21 @@ const ArticleList = () => {
             overflow: 'hidden',
           }}
         >
-          <IconButton
+            <IconButton
             onClick={() => setSelectedPdf(null)}
-            sx={{ position: 'absolute', top: 8, right: 8 }}
+            sx={{
+              color: 'red',
+              position: 'absolute',
+              top: 90,
+              right: 125,
+              fontSize: '26px', // Adjust size
+              '&:hover': {
+                color: 'darkred', // Change color on hover
+                backgroundColor: 'rgba(255, 0, 0, 0.1)', // Optional hover background
+              },
+            }}
           >
-            <CloseIcon />
+            <CloseIcon fontSize="inherit" />
           </IconButton>
           {selectedPdf && (
             <iframe

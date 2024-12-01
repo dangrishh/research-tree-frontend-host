@@ -10,7 +10,7 @@
 
 .green-background {
     position: relative;
-   z-index: 0;
+    z-index: 0;
     left: 483px;
     width: 600px;
     height: 655px;
@@ -18,18 +18,7 @@
     border-bottom-right-radius: 24px;
 }
 
-.logintext {
-    color: #0BF677;
-    font-family: Poppins;
-    font-size: 30px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: uppercase;
-    position: absolute;
-    top: 200px;
-    left: 193px;
-}
+
 .logintext2 {
     font-family: Poppins;
     font-size: 15px;

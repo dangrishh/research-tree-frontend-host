@@ -228,7 +228,7 @@ export const Cards = () => {
                 </div>
             </div>
         
-            <div className='absolute ml-[450px] text-[#272727] mt-[650px]'>
+            <div className='cursor-pointer absolute ml-[450px] text-[#272727]  hover:text-[#1B5123] mt-[650px]'>
               <h1>Copyright 2024 | Developed by Franklin Mayad & Daniel Detorres</h1>
             </div>
           

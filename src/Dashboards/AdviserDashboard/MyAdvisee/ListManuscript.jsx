@@ -26,6 +26,12 @@ import {
 import CkEditorDocuments from "./CkEditorDocuments";
 import axios from "axios";
 
+import DocumentIcon from '../../../assets/view-docs.png';
+import ReviseIcon from '../../../assets/revise.png';
+import AddtaskIcon from '../../../assets/addtask.png';
+import ApprovedIcon from '../../../assets/approved.png';
+
+
 const { Text } = Typography;
 const { Option } = Select;
 
@@ -164,27 +170,32 @@ export default function NewTables() {
     Modal.confirm({
       title: 'Are you sure you want to update manuscript?',
       onOk: async () => {
-    try {
-      const response = await axios.patch(
-        "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/manuscript-status",
-        { channelId, manuscriptStatus: newStatus } // Send student ID and new status
-      );
-
-      message.success("Manuscript status updated for Revision");
-    } catch (error) {
-      if (error.response) {
-        console.error("Error response:", error.response.data);
-        message.error(
-          `Error: ${error.response.data.message || "Failed to update status"}`
-        );
-      } else {
-        console.error("Error:", error.message);
-        message.error("Error updating status");
-      }
-    }
-  },
-});
-};
+        try {
+          console.log("Sending to API:", { channelId, manuscriptStatus: newStatus });
+  
+          const response = await axios.patch(
+            "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/manuscript-status",
+            { channelId, manuscriptStatus: newStatus }
+          );
+  
+          console.log("API Response:", response.data);
+          message.success("Manuscript status updated and notification sent.");
+        } catch (error) {
+          if (error.response) {
+            console.error("Error response:", error.response.data);
+            message.error(
+              `Error: ${error.response.data.message || "Failed to update status"}`
+            );
+          } else {
+            console.error("Error:", error.message);
+            message.error("Error updating status");
+          }
+        }
+      },
+    });
+  };
+  
+  
 
   const deleteTask = async (studentId, taskId) => {
     try {
@@ -385,14 +396,14 @@ export default function NewTables() {
                     <span style={{ color: "white", fontSize: "20px" }}>{percent}%</span>
                   )}
                 />
-
+         
                 <Button
                  
                   onClick={() =>
                     handleViewManuscript(student._id, student.channelId)
                   }
                   style={{ marginBottom: "10px", width: "105px" }}>
-                     <img className="mr-[-4px]" src="/src/assets/view-docs.png" />
+                     <img className="mr-[-4px]" src={DocumentIcon} />
                   Document
                 </Button>
 
@@ -403,7 +414,7 @@ export default function NewTables() {
                   }
                   style={{ marginBottom: "10px", width: "105px" }}
                 >
-                 <img className="mr-[-4px]" src="/src/assets/revise.png" /> 
+                 <img className="mr-[-4px]" src={ReviseIcon} /> 
                  Revise
                 </Button>
 
@@ -414,7 +425,7 @@ export default function NewTables() {
                   onClick={() => openTaskModal(student)}
                   style={{ marginBottom: "10px", width: "105px" }}
                   >
-                    <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                    <img className="mr-[-4px]" src={AddtaskIcon} />
                     Add Task
                 </Button>
 
@@ -425,7 +436,7 @@ export default function NewTables() {
               }
               style={{ marginBottom: "10px", width: "105px" }}
             > 
-              <img className="mr-[-4px]" src="/src/assets/approved.png" />
+              <img className="mr-[-4px]" src={ApprovedIcon} />
             Approved
             
             </Button>

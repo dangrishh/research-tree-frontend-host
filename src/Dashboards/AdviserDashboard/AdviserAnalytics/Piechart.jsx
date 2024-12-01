@@ -13,20 +13,35 @@ export const PieChart = () => {
   const [error, setError] = useState(null); // State for error handling
   const [chartData, setChartData] = useState([]); // State for storing fetched chart data
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
-    // Define fetchKeywordCounts within useEffect to avoid scope issues
     const fetchKeywordCounts = async () => {
       try {
         setLoading(true); // Start loading
+  
         // Fetch keyword counts
         const response = await axios.get(
           "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/student/PdfKeywordsCount"
         );
-
+  
         // Check if valid data is returned
         if (response.data && Array.isArray(response.data) && response.data.length > 0) {
-          const top5Data = response.data.slice(0, 6); // Limit to top 5
+          // Find the absolute highest value across all keywords
+          const absoluteHighest = response.data.reduce(
+            (max, item) => (item.value > max.value ? item : max),
+            response.data[0]
+          );
+  
+          // Sort data by value in descending order and limit to top 5
+          let top5Data = response.data.sort((a, b) => b.value - a.value).slice(0, 5);
+  
+          // Ensure the highest value is in the top 5
+          if (!top5Data.some((item) => item.category === absoluteHighest.category)) {
+            top5Data = [...top5Data, absoluteHighest]; // Add highest value if it's not already in the top 5
+          }
+  
+          // Sort the data again to maintain descending order
+          top5Data.sort((a, b) => b.value - a.value);
+  
           setChartData(top5Data); // Update state with the data
         } else {
           setChartData([]); // Set chartData to an empty array if no data is found
@@ -39,10 +54,10 @@ export const PieChart = () => {
         setLoading(false); // End loading
       }
     };
-
+  
     fetchKeywordCounts(); // Fetch data on component mount
   }, []); // Empty dependency array ensures this runs only once
-
+  
   const colors = [
     "#222222",  // Dark color (perhaps for background)
     "#0C8900",  // Rich Green (used in your trending graph)
@@ -50,7 +65,8 @@ export const PieChart = () => {
     "#9CFF00",  // Light Green (for highlights or success)
     "#39FF13",  // Neon Green (for highlights or accents)
     "#31572c",  // Forest Green (for background or text contrast)
-  ];
+];
+  
 
   const options = {
     chart: {
@@ -61,7 +77,7 @@ export const PieChart = () => {
       spacingLeft: 0,
       spacingRight: 0,
       height: 425,
-      width: 502,
+      width: 482,
       borderColor: "#4B4B4B",
       borderWidth: 3,
     },
@@ -81,30 +97,34 @@ export const PieChart = () => {
         zMin: 0,
         showInLegend: true,
         borderColor: null, // Remove border color for pie segments
-        borderWidth: 0, // Remove border width for pie segments
+            borderWidth: 0, // Remove border width for pie segments
         dataLabels: {
           enabled: false,
         },
         data: chartData.map((item, index) => ({
-          name: item.category,
-          y: item.value,
-          z: 20 + index * 5, // Different z value for each category
-          color: colors[index % colors.length], // Cycle through colors
-        })),
+            name: item.category,
+            y: item.value,
+            z: 20 + index * 5, // Different z value for each category
+            color: colors[index % colors.length], // Cycle through colors
+          })),
       },
     ],
   };
 
   return (
-    <div className="flex justify-center items-center w-[566px] mt-[250px] ml-[-155px] border-t border-[#4B4B4B] rounded-t">
-      {loading ? (
-        <div className="mt-[150px]"> 
-          <l-dot-spinner
+    <div className="flex justify-center items-center w-[566px] mt-[250px] ml-[-170px] border-t border-[#4B4B4B] rounded-t">
+       {loading ? (
+
+
+            <div className="mt-[150px]"> 
+           
+            <l-dot-spinner
             size="70"
             speed="0.9"
             color="#0BF677" 
-          ></l-dot-spinner>
-        </div>
+            ></l-dot-spinner>
+            </div>
+       
       ) : error ? (
         <div className="text-white">{error}</div>
       ) : chartData.length > 0 ? (

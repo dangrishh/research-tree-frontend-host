@@ -5,7 +5,7 @@ import { Button, Form, Input } from "antd";
 import axios from "axios";
 import "./login.css";
 
-import greenBackground from '../assets/green-background.png';
+// import greenbackgroundIcon from '../../src/assets/compressbg.png';
 
 const LoginFunction = () => {
   const [form] = Form.useForm();
@@ -65,25 +65,27 @@ const LoginFunction = () => {
 
 
   return (
-    <div className='rectangle'>
+    <div className="w-[1083px] h-[655px] bg-white rounded-[24px] absolute top-[143px] left-[448px]">
+
       <img
         className='studentgirl'
-        src='./src/assets/student.png'
-        type="image/png"
-        alt='Student'
-      />
-      <img className='leaves' src='./src/assets/leaves.png' alt='Leaves' />
-      <img
-        className='green-background'
-        src={greenBackground}
-        alt='Background'
-      />
-      <h1 className='logintext ml-[65px] '>Sign in</h1>
+        src="https://imgur.com/KGLG1IQ.png"
+      /> 
+      <img className='leaves' src="https://imgur.com/vOb88aZ.png"/> 
+      <img 
+      className="relative z-0 left-[483px] w-[600px] h-[655px] rounded-tr-[24px] rounded-br-[24px]"
+
+      src="https://imgur.com/BaCwGRk.gif"/>
+
+      <h1 className="text-[#0BF677] font-poppins text-[30px] font-extrabold uppercase absolute top-[200px] left-[189px]">
+        Sign in
+      </h1>
+
       <h1 className='logintext2'>Explore more manuscripts</h1>
       <img
         className='logorstree'
-        src='./src/assets/LogoResearchTree.png'
-        alt='Logo'
+        src="https://imgur.com/fCYU9Sr.jpg"
+        
       />
 
       <Form

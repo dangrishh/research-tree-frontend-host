@@ -23,11 +23,18 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import axios from "axios";
 
 import CkEditorDocuments from "./CkEditorDocuments";
 import GradingAdvicer from "./ViewGrading";
 
-import axios from "axios";
+
+import DocumentIcon from '../../../assets/view-docs.png';
+import ReviseIcon from '../../../assets/revise.png';
+import AddtaskIcon from '../../../assets/addtask.png';
+import ApprovedIcon from '../../../assets/approved.png';
+import gradeIcon from '../../../assets/grade.png';
+
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -216,7 +223,7 @@ export default function NewTables() {
             remainingVotes > 0
           ) {
             message.info(
-              `Only ${remainingVotes} more vote(s) needed to proceed with the manuscript`
+              `Only ${remainingVotes} more vote(s) needed to finalize the manuscript status.`
             );
           }
         } catch (error) {
@@ -232,7 +239,7 @@ export default function NewTables() {
         }
       },
     });
-    };
+  };
 
 
   const deleteTask = async (studentId, taskId) => {
@@ -443,7 +450,7 @@ export default function NewTables() {
                   }
                   style={{ marginBottom: "10px", width: "105px" }}
                 >
-                 <img className="mr-[-4px]" src="/src/assets/view-docs.png" /> 
+                 <img className="mr-[-4px]" src={DocumentIcon} /> 
                  Document
                 </Button>
                 
@@ -459,7 +466,7 @@ export default function NewTables() {
                   onClick={() => handleViewGrade(student._id)}
                   style={{ marginBottom: "10px", width: "105px" }}
                     > 
-                      <img className="mr-[-4px]" src="/src/assets/grade.png" />
+                      <img className="mr-[-4px]" src={gradeIcon} />
                     View Grade 
                 </Button>
 
@@ -468,7 +475,7 @@ export default function NewTables() {
                       onClick={() => openTaskModal(student)}
                       style={{ marginBottom: "10px", width: "105px" }}
                     >
-                      <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                      <img className="mr-[-4px]" src={AddtaskIcon} />
                       Add Task
                 </Button>
 
@@ -477,7 +484,7 @@ export default function NewTables() {
                   onClick={() => updatePanelManuscriptStatus(student._id, 'Approved on Panel')}
                   style={{ marginBottom: "10px", width: "105px" }}
                 > 
-                  <img className="mr-[-4px]" src="/src/assets/approved.png" />
+                  <img className="mr-[-4px]" src={ApprovedIcon} />
                 Approved
                 </Button>
 

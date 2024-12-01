@@ -9,7 +9,7 @@ import { Tooltip } from '@mui/material';
 import { DonutChart } from "bizcharts";
 import { SyncOutlined,StarOutlined,CloseOutlined } from '@ant-design/icons';
 
-
+import EditIcon from '../../../assets/edit-title-icon.png'
 
 
 const { Title, Text } = Typography;
@@ -286,7 +286,7 @@ const ResearchCard = () => {
                 onClick={handleEditProposalTitle} 
                 className='absolute mt-[5px] ml-[-30px] cursor-pointer' 
                 >
-                <Tooltip title="Edit Title"><img src="/src/assets/edit-title-icon.png"/></Tooltip>
+                <Tooltip title="Edit Title"><img src={EditIcon} /></Tooltip>
         </button>
             
             <h1 className="text-2xl font-bold mb-2 max-w-[1010px]">

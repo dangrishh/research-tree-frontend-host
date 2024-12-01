@@ -28,6 +28,13 @@ import {
   DialogTitle,
 } from "@mui/material";
 
+
+import DocumentIcon from '../../../../assets/view-docs.png';
+import ReviseIcon from '../../../../assets/revise.png';
+import AddtaskIcon from '../../../../assets/addtask.png';
+import ApprovedIcon from '../../../../assets/approved.png';
+import gradeIcon from '../../../../assets/grade.png';
+
 import CkEditorDocuments from "./CkEditorDocuments";
 import ViewGrading from "./Grading";
 
@@ -113,25 +120,19 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
         "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/panel/manuscript-status",
         { channelId, manuscriptStatus: newStatus, userId }
       );
-  
-      const { remainingVotes, message: successMessage } = response.data;
-  
+
+      const { message: successMessage } = response.data;
+
+      // Display the backend-generated message
       message.success(successMessage);
-  
-      if (
-        (newStatus === "Revise on Panelist" || newStatus === "Approved on Panel") &&
-        remainingVotes > 0
-      ) {
-        message.info(
-          `Only ${remainingVotes} more vote(s) needed to proceed with the manuscript`
-        );
-      }
     } catch (error) {
       if (error.response) {
+        console.error("Error response:", error.response.data);
         message.error(
           `Error: ${error.response.data.message || "Failed to update status"}`
         );
       } else {
+        console.error("Error:", error.message);
         message.error("Error updating status");
       }
     }
@@ -442,7 +443,7 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
                 <Button 
                 onClick={() => handleViewManuscript(student._id, student.channelId)}                   
                 style={{  width: "105px" }}>
-                <img className="mr-[-4px]" src="/src/assets/view-docs.png" />
+                <img className="mr-[-4px]" src={DocumentIcon} />
                   Document
                   </Button>
 
@@ -456,7 +457,7 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
                   }
                   style={{width: "105px" }}
                   >
-                   <img className="mr-[-4px]" src="/src/assets/revise.png" /> 
+                   <img className="mr-[-4px]" src={ReviseIcon} /> 
                    Revise 
                    </Button>
 
@@ -478,7 +479,7 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
                   onClick={() => handleViewGrade(student._id)}
                   style={{ width: "105px" }}
                     > 
-                      <img className="mr-[-4px]" src="/src/assets/grade.png" />
+                      <img className="mr-[-4px]" src={gradeIcon} />
                     View Grade 
                 </Button>
 
@@ -487,7 +488,7 @@ export default function ListManuscript({ panelName, panelImage, panelistStudents
                   onClick={() => openTaskModal(student)}
                   style={{  width: "105px" }}
                   >
-                    <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                    <img className="mr-[-4px]" src={AddtaskIcon} />
                     View Task
                 </Button>
 

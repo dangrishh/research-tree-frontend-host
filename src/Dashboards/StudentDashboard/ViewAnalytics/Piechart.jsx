@@ -17,14 +17,31 @@ export const PieChart = () => {
     const fetchKeywordCounts = async () => {
       try {
         setLoading(true); // Start loading
+  
         // Fetch keyword counts
         const response = await axios.get(
           "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/student/PdfKeywordsCount"
         );
-
+  
         // Check if valid data is returned
         if (response.data && Array.isArray(response.data) && response.data.length > 0) {
-          const top5Data = response.data.slice(0, 6); // Limit to top 5
+          // Find the absolute highest value across all keywords
+          const absoluteHighest = response.data.reduce(
+            (max, item) => (item.value > max.value ? item : max),
+            response.data[0]
+          );
+  
+          // Sort data by value in descending order and limit to top 5
+          let top5Data = response.data.sort((a, b) => b.value - a.value).slice(0, 5);
+  
+          // Ensure the highest value is in the top 5
+          if (!top5Data.some((item) => item.category === absoluteHighest.category)) {
+            top5Data = [...top5Data, absoluteHighest]; // Add highest value if it's not already in the top 5
+          }
+  
+          // Sort the data again to maintain descending order
+          top5Data.sort((a, b) => b.value - a.value);
+  
           setChartData(top5Data); // Update state with the data
         } else {
           setChartData([]); // Set chartData to an empty array if no data is found
@@ -34,14 +51,13 @@ export const PieChart = () => {
         setError("Failed to fetch keyword counts.");
         console.error("Error fetching keyword counts:", error);
       } finally {
-        setLoading(false);
-        
-      }// End loading
+        setLoading(false); // End loading
+      }
     };
-
+  
     fetchKeywordCounts(); // Fetch data on component mount
   }, []); // Empty dependency array ensures this runs only once
-
+  
   const colors = [
     "#222222",  // Dark color (perhaps for background)
     "#0C8900",  // Rich Green (used in your trending graph)

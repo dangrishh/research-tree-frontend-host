@@ -4,6 +4,8 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography }
 
 import GradingProcess from './ProcessGrading';
 
+import EditGradeIcon from '../../../assets/edit-rubrics.png'
+
 export default function GradingTable({ panelistId, studentId }) {
   const [rubrics, setRubrics] = useState([]); // All rubrics
   const [selectedRubricId, setSelectedRubricId] = useState(null); // Selected rubricId
@@ -152,6 +154,13 @@ export default function GradingTable({ panelistId, studentId }) {
     satisfactory: 'bg-yellow-500',
     needsImprovement: 'bg-red-500',
   };
+
+  const items = [
+    { number: "4", text: "Excellent", bgColor: "bg-green-500" },
+    { number: "3", text: "Good", bgColor: "bg-blue-500" },
+    { number: "2", text: "Satisfactory", bgColor: "bg-orange-500" },
+    { number: "1", text: "Needs Improvement", bgColor: "bg-red-500" },
+  ];
   
 
   return (
@@ -216,9 +225,9 @@ export default function GradingTable({ panelistId, studentId }) {
             {panelists.map((panelist) => (
               <button
                 key={panelist._id}
-                className={`px-4 py-2 m-2 text-white rounded ${
-                  selectedPanelist === panelist._id ? 'bg-[#4B4B4B]' : 'bg-[#2B2B2B]'
-                }`}
+                className={`px-4 py-2 m-2 text-white rounded 
+                  ${selectedPanelist === panelist._id ? 'bg-[#4B4B4B]' : 'bg-[#1E1E1E] border-2 border-[gray]'} 
+                  hover:bg-[#4B4B4B] active:bg-[]`}
                 onClick={() => handlePanelistClick(panelist._id, gradesData)}
               >
                 {panelist.name}
@@ -248,7 +257,7 @@ export default function GradingTable({ panelistId, studentId }) {
         >
           <img 
             className="inline-block mr-2 mb-1" 
-            src="/src/assets/edit-rubrics.png" 
+            src={EditGradeIcon}
             alt="Edit Rubrics"
           />
           Set Grading
@@ -324,6 +333,20 @@ export default function GradingTable({ panelistId, studentId }) {
 {/* Grade Summary */}
 {gradeSummary ? (
   <div className="text-white mt-4 p-4 bg-[#2B2B2B] rounded flex flex-col items-center justify-center text-center">
+    
+     <div className="fixed w-[180px] h-[180px] inset-0 mt-[120px] left-[1740px] space-y-4">
+              {items.map((item, index) => (
+                <div key={index} className="flex items-center space-x-4">
+                  <div
+                    className={`w-6 h-6 flex items-center justify-center text-white font-bold ${item.bgColor} rounded`}
+                  >
+                    {item.number}
+                  </div>
+                  <span className="text-white font-medium">{item.text}</span>
+                </div>
+              ))}
+            </div>
+
     <h3 className="text-[20px] font-bold mb-2">Grade Summary</h3>
     <p className="text-[16px]">Total Grade: {gradeSummary.totalGradeValue}</p>
     <p className="text-[16px]">Overall Grade: {gradeSummary.overallGradeLabel}</p>

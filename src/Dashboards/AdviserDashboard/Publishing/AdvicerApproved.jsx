@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import {
   List,
   Typography,
@@ -28,6 +29,17 @@ import {
   DialogTitle,
 } from "@mui/material";
 
+import axios from "axios";
+
+
+import DocumentIcon from '../../../assets/view-docs.png';
+import ReviseIcon from '../../../assets/revise.png';
+import AddtaskIcon from '../../../assets/addtask.png';
+import ApprovedIcon from '../../../assets/approved.png';
+import gradeIcon from '../../../assets/grade.png';
+
+
+
 import GradingButton from './GradingAdvicer'
 
 
@@ -35,7 +47,7 @@ import GradingButton from './GradingAdvicer'
 
 import CkEditorDocuments from "./CkEditorDocuments";
 import GradingAdvicer from "./GradingAdvicer";
-import axios from "axios";
+
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -228,27 +240,18 @@ export default function NewTables() {
 
   const updatePanelManuscriptStatus = async (channelId, newStatus, userId) => {
     Modal.confirm({
-      title: 'Are you sure you want to update manuscript?',
+      title: 'Are you sure you want to update the manuscript?',
       onOk: async () => {
         try {
           const response = await axios.patch(
             "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/panel/manuscript-status",
             { channelId, manuscriptStatus: newStatus, userId }
           );
-
-          const { remainingVotes, message: successMessage } = response.data;
-
+  
+          const { message: successMessage } = response.data;
+  
+          // Display the backend-generated message
           message.success(successMessage);
-
-          // Display remaining votes if status is `Approved on Panel` or `Revise on Panelist` and there are pending votes
-          if (
-            (newStatus === "Revise on Panelist" || newStatus === "Approved on Panel") &&
-            remainingVotes > 0
-          ) {
-            message.info(
-              `Only ${remainingVotes} more vote(s) needed to proceed with the manuscript`
-            );
-          }
         } catch (error) {
           if (error.response) {
             console.error("Error response:", error.response.data);
@@ -262,7 +265,8 @@ export default function NewTables() {
         }
       },
     });
-    };
+  };
+  
 
   const deleteTask = async (studentId, taskId) => {
     try {
@@ -537,7 +541,7 @@ export default function NewTables() {
                     handleViewManuscript(student._id, student.channelId)
                   }
                   style={{  width: "105px" }}>
-                     <img className="mr-[-4px]" src="/src/assets/view-docs.png" />
+                     <img className="mr-[-4px]" src={DocumentIcon}/>
                   Document
                   </Button>
 
@@ -551,7 +555,7 @@ export default function NewTables() {
                   }
                   style={{width: "105px" }}
                 >
-                 <img className="mr-[-4px]" src="/src/assets/revise.png" /> 
+                 <img className="mr-[-4px]" src={ReviseIcon}/> 
                  Revise 
                  </Button>
 
@@ -565,7 +569,7 @@ export default function NewTables() {
                   onClick={() => handleViewGrade(student._id)}
                   style={{ width: "105px" }}
                     > 
-                      <img className="mr-[-4px]" src="/src/assets/grade.png" />
+                      <img className="mr-[-4px]" src={gradeIcon} />
                     View Grade 
                 </Button>
 
@@ -573,7 +577,7 @@ export default function NewTables() {
                   onClick={() => openTaskModal(student)}
                   style={{  width: "105px" }}
                   >
-                    <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                    <img className="mr-[-4px]" src={AddtaskIcon} />
                     Add Task
                 </Button>
 

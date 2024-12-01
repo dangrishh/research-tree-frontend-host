@@ -29,12 +29,16 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import axios from "axios";
 
 import CkEditorDocuments from "./CkEditorDocuments";
 import GradingAdvicer from "./ViewGrading";
 
-import axios from "axios";
-import { bgcolor, maxWidth } from "@mui/system";
+import DocumentIcon from '../../../assets/view-docs.png';
+import ReviseIcon from '../../../assets/revise.png';
+import AddtaskIcon from '../../../assets/addtask.png';
+import ApprovedIcon from '../../../assets/approved.png';
+import gradeIcon from '../../../assets/grade.png';
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -97,7 +101,12 @@ export default function NewTables() {
     fetchStudents();
   }, [user._id]);
 
+
   const resetVotes = async (userId) => {
+    Modal.confirm({
+      title: "Are you sure you want to proceed with this student's defense?",
+      onOk: async () => {
+    
     try {
       const response = await axios.post(
         `https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/reset-manuscript-status/${userId}`  // Corrected URL
@@ -117,7 +126,10 @@ export default function NewTables() {
         message.error("Error resetting votes");
       }
     }
-  };
+  },
+});
+};
+
 
   const handleViewManuscript = (studentId, channelId) => {
     setSelectedStudentId(studentId);
@@ -546,7 +558,7 @@ export default function NewTables() {
                   }
                   style={{ marginBottom: "10px", width: "105px" }}
                 >
-                 <img className="mr-[-4px]" src="/src/assets/view-docs.png" /> 
+                 <img className="mr-[-4px]" src={DocumentIcon} /> 
                  Document
                 </Button>
                 
@@ -555,7 +567,7 @@ export default function NewTables() {
                       onClick={() => openTaskModal(student)}
                       style={{ marginBottom: "10px", width: "105px" }}
                     >
-                       <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                       <img className="mr-[-4px]" src={AddtaskIcon} />
                       View Task
                     </Button>
 
@@ -563,7 +575,7 @@ export default function NewTables() {
                       onClick={() => handleViewGrade(student._id)}
                       style={{ marginBottom: "10px", width: "105px" }}
                     >
-                    <img className="mr-[-4px]" src="/src/assets/grade.png" />
+                    <img className="mr-[-4px]" src={gradeIcon} />
                       View Grade
                     </Button>
 
