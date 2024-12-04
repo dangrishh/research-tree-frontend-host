@@ -293,37 +293,43 @@ export default function NewTables() {
 });
 };
 
-  const updatePanelManuscriptStatus = async (channelId, newStatus, userId) => {
-    try {
-      const response = await axios.patch(
-        "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/panel/manuscript-status",
-        { channelId, manuscriptStatus: newStatus, userId }
-      );
+const updatePanelManuscriptStatus = async (channelId, newStatus, userId) => {
 
-      const { remainingVotes, message: successMessage } = response.data;
-
-      message.success(successMessage);
-
-      // Display remaining votes if status is `Approved on Panel` or `Revise on Panelist` and there are pending votes
-      if (
-        (newStatus === "Revise on Panelist" || newStatus === "Approved on Panel") &&
-        remainingVotes > 0
-      ) {
-        message.info(
-          `Only ${remainingVotes} more vote(s) needed to proceed with the manuscript`
+  Modal.confirm({
+    title: 'Are you sure you want to update manuscript?',
+    onOk: async () => {
+      try {
+        const response = await axios.patch(
+          "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/panel/manuscript-status",
+          { channelId, manuscriptStatus: newStatus, userId }
         );
+
+        const { remainingVotes, message: successMessage } = response.data;
+
+        message.success(successMessage);
+
+        // Display remaining votes if status is `Approved on Panel` or `Revise on Panelist` and there are pending votes
+        if (
+          (newStatus === "Revise on Panelist" || newStatus === "Approved on Panel") &&
+          remainingVotes > 0
+        ) {
+          message.info(
+           `Only ${remainingVotes} more vote(s) needed to finalize the manuscript status.`
+          );
+        }
+      } catch (error) {
+        if (error.response) {
+          console.error("Error response:", error.response.data);
+          message.error(
+            `Error: ${error.response.data.message || "Failed to update status"}`
+          );
+        } else {
+          console.error("Error:", error.message);
+          message.error("Error updating status");
+        }
       }
-    } catch (error) {
-      if (error.response) {
-        console.error("Error response:", error.response.data);
-        message.error(
-          `Error: ${error.response.data.message || "Failed to update status"}`
-        );
-      } else {
-        console.error("Error:", error.message);
-        message.error("Error updating status");
-      }
-    }
+    },
+  });
   };
 
   const openTaskModal = (student) => {
@@ -504,13 +510,12 @@ export default function NewTables() {
                 {student.manuscriptStatus === "Revise on Panelist" ? (
                   <>
                     <Button
-                     
                       onClick={() =>
                         handleViewManuscript(student._id, student.channelId)
                       }
                       style={{ marginBottom: "10px", width: "105px" }}
                     >
-                     <img className="mr-[-4px]" src="/src/assets/view-docs.png" />
+                     <img className="mr-[-4px]" src={DocumentIcon} /> 
                       Document
                     </Button>
 
@@ -518,9 +523,37 @@ export default function NewTables() {
                       onClick={() => openTaskModal(student)}
                       style={{ marginBottom: "10px", width: "105px" }}
                     >
-                      <img className="mr-[-4px]" src="/src/assets/addtask.png" />
+                      <img className="mr-[-4px]" src={AddtaskIcon} />
                       Add Task
                     </Button>
+
+                    <Button
+                  
+                    onClick={() =>
+                      updatePanelManuscriptStatus(
+                        student._id,
+                        "Approved on Panel",
+                        user._id
+                      )
+                    }
+                    style={{
+                      width: "105px",
+                      background: "#1E1E",
+                      border: "none",
+                      color: "white",
+
+                      boxShadow: "0 0 10px rgba(0, 255, 0, 0.7)", // Green glow effect around the button
+                      transition: "box-shadow 0.3s ease-in-out", // Smooth glow transition
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.target.style.boxShadow = "0 0 25px rgba(0, 255, 0, 1)") // Brighter green on hover
+                    }
+                    onMouseLeave={(e) =>
+                      (e.target.style.boxShadow = "0 0 15px rgba(0, 255, 0, 0.7)") // Reset to original green glow
+                    }
+                  >
+                    Approved
+              </Button>
 
                     {/* <Button
                       
@@ -537,13 +570,13 @@ export default function NewTables() {
                     View Grade
                     </Button> */}
                     
-                    <Button
+                    {/* <Button
                       onClick={() => resetVotes(student._id)}
                       style={{marginBottom: '10px', width: "105px" }}
                     >
                       <img className="mr-[-4px]" src="/src/assets/approved.png" /> 
                       Done
-                    </Button>
+                    </Button> */}
 
                    
 
@@ -562,14 +595,14 @@ export default function NewTables() {
                  Document
                 </Button>
                 
-                    <Button
+                    {/* <Button
                       
                       onClick={() => openTaskModal(student)}
                       style={{ marginBottom: "10px", width: "105px" }}
                     >
                        <img className="mr-[-4px]" src={AddtaskIcon} />
                       View Task
-                    </Button>
+                    </Button> */}
 
                     <Button
                       onClick={() => handleViewGrade(student._id)}
@@ -578,6 +611,8 @@ export default function NewTables() {
                     <img className="mr-[-4px]" src={gradeIcon} />
                       View Grade
                     </Button>
+
+
 
                     {/* <Button
                       onClick={() => resetVotes(student._id)}
@@ -667,24 +702,20 @@ export default function NewTables() {
 
         <Modal
           open={isModalVisible}
-          onCancel={() => setIsModalVisible(false)}
+          onCancel={() => setIsModalVisible(false)} // Ensures modal can close
           footer={[
             <Button key='close' onClick={() => setIsModalVisible(false)}>
               Close
             </Button>,
-            <Button key='add' type='primary' onClick={handleAddTask}>
+/*             <Button key='add' type='primary' onClick={handleAddTask}>
               Add Task
-            </Button>,
+            </Button>, */
           ]}
         >
-          <Input
-            placeholder='Enter a task'
-            value={taskInput}
-            onChange={(e) => setTaskInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleAddTask();
-            }}
-          />
+
+          <Text strong style={{ fontSize: "18px", color: "#000000" }}>
+            {currentTaskStudent?.proposalTitle || "Proposal Title"}
+          </Text>
           <br />
           <br />
           <List
@@ -694,14 +725,21 @@ export default function NewTables() {
               <List.Item
                 key={task._id}
                 actions={[
+/*                   <Checkbox
+                    checked={task.isCompleted}
+                    onChange={() => handleCompleteTask(task._id)}
+                  >
+                    {task.isCompleted ? "Completed" : "Pending"}
+                  </Checkbox>, */
+
                   <Text style={{ fontWeight: "bold", color: task.isCompleted ? "green" : "red" }}>
                     {task.isCompleted ? "Completed" : "Not Done"}
-                  </Text>,
-                  <Button
+                  </Text>
+/*                   <Button
                     type='link'
                     icon={<DeleteOutlined />}
                     onClick={() => deleteTask(currentTaskStudent._id, task._id)} // Pass studentId and taskId
-                  />,
+                  />, */
                 ]}
               >
                 <Text delete={task.isCompleted}>{task.taskTitle}</Text>

@@ -14,7 +14,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 function App() {
   const [title, setTitle] = useState("");
   const [authors, setAuthors] = useState("");
-  const [dateUploaded, setDateUploaded] = useState("");
+  // const [dateUploaded, setDateUploaded] = useState("");
   const [datePublished, setDatePublished] = useState("");
   const [file, setFile] = useState(null);
   const [allImage, setAllImage] = useState([]);
@@ -52,7 +52,7 @@ function App() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("authors", authors);
-    formData.append("dateUploaded", dateUploaded);
+    // formData.append("dateUploaded", dateUploaded);
     formData.append("datePublished", datePublished);
     formData.append("file", file);
 
@@ -120,13 +120,13 @@ function App() {
               onChange={(e) => setAuthors(e.target.value)}
               className="w-full p-1 text-sm text-[#222222] border border-gray-300 rounded"
             />
-            <input
+            {/* <input
               type="text"
               placeholder="Date Uploaded"
               required
               onChange={(e) => setDateUploaded(e.target.value)}
               className="w-full p-1 text-sm text-[#222222] border border-gray-300 rounded"
-            />
+            /> */}
             <input
               type="text"
               placeholder="Date Published"

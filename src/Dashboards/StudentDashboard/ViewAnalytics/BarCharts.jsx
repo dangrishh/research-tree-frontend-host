@@ -49,7 +49,7 @@ export const BarChart = () => {
     
       <Chart height={300} width={900} autoFit data={data} interactions={['active-region']}>
         <Axis name="value" visible={true} />
-        <Axis name="category" visible={true} />
+        <Axis name="category" label={null} visible={true} />
         <Legend
           position="right"
           offsetY={-20}

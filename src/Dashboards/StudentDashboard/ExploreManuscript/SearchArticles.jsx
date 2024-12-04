@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -10,10 +9,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { AutoComplete, Input, ConfigProvider, Pagination } from 'antd';
 import 'ldrs/trefoil'
 
-
-
-
-import PDFUploader from './PDFUploader';
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
@@ -23,6 +18,7 @@ const ArticleList = () => {
   const [error, setError] = useState('');
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
+
 
   const handleSearch = async () => {
     if (!query) return; // Only search if there's a query
@@ -60,44 +56,65 @@ const ArticleList = () => {
     );
   };
 
+  const getUniqueYears = (articles) => {
+    const years = new Set(
+      articles
+        .filter((article) => article.datePublished && !isNaN(new Date(article.datePublished).getFullYear())) // Ensure datePublished exists and is valid
+        .map((article) => new Date(article.datePublished).getFullYear())
+    );
+    return Array.from(years).sort((a, b) => b - a); // Sort in descending order
+  };
+  
+
+
+  const handleArticleClick = (pdfUrl) => {
+    setSelectedPdf(`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/files/${pdfUrl}`);
+  };
+
+
+
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get("https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/student/articles/search");
+      setArticles(response.data);
+      setFilteredArticles(response.data); // Show all articles initially
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!query) fetchArticles(); // Fetch articles only if there's no search query
+  }, [query]);
+
   const filterArticlesByYear = (year) => {
     if (year === "AnyTime") {
       setFilteredArticles(articles); // Show all articles
       return;
     }
+  
     const filtered = articles.filter((article) => {
-      const date = new Date(article.datePublished);
-      return date.getFullYear() === year;
+      const match = article.datePublished.match(/\b\d{4}\b/); // Extract 4-digit year
+      const articleYear = match ? parseInt(match[0], 10) : null; // Get the year
+      return articleYear === parseInt(year, 10); // Compare with the selected year
     });
+  
     setFilteredArticles(filtered);
   };
 
-  const getUniqueYears = (articles) => {
+  const uniqueYears = useMemo(() => {
     const years = new Set(
-      articles.map((article) => new Date(article.datePublished).getFullYear())
+      articles
+        .filter((article) => article.datePublished) // Ensure datePublished exists
+        .map((article) => {
+          // Safely extract the year from datePublished
+          const match = article.datePublished.match(/\b\d{4}\b/); // Extract 4-digit year
+          return match ? parseInt(match[0], 10) : null; // Return the year if valid, else null
+        })
+        .filter((year) => year) // Remove null or undefined years
     );
     return Array.from(years).sort((a, b) => b - a); // Sort in descending order
-  };
-  
-  
-
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const response = await axios.get('https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/student/articles/search');
-        console.log('Fetched Articles:', response.data); // Debugging
-        setArticles(response.data);
-        setFilteredArticles(response.data); // Show all articles initially
-      } catch (error) {
-        console.error('Error fetching articles:', error);
-      }
-    };
-    if (!query) fetchArticles(); // Fetch articles only if there's no search query
-  }, [query]);
-
-  const handleArticleClick = (pdfUrl) => {
-    setSelectedPdf(`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/files/${pdfUrl}`);
-  };
+  }, [articles]);
 
   return (
     <div className="min-h-screen text-white p-6 ml-[300px]">
@@ -132,7 +149,7 @@ const ArticleList = () => {
           style={{ width: 1080 }}
           onSearch={(value) => setQuery(value)}
           onSelect={handleSearch}
-          // size="xxl"
+      
         >
           <Input
             style={{
@@ -157,7 +174,6 @@ const ArticleList = () => {
       {/* <PDFUploader /> */}
 
 
-
       <div className="w-1/4 fixed text-right p-4 ml-[1200px] mt-[-18px] w-[auto]">
       <p
         className="text-red-500 mr-[12.3px] mb-2 cursor-pointer"
@@ -165,7 +181,7 @@ const ArticleList = () => {
       >
         AnyTime
       </p>
-      {getUniqueYears(articles).map((year) => (
+      {uniqueYears.map((year) => (
         <p
           key={year}
           className="text-green-500 mb-2 cursor-pointer hover:text-red-500"
@@ -174,16 +190,22 @@ const ArticleList = () => {
           Since {year}
         </p>
       ))}
-    </div>
+      </div>
+
     
       {error && <p className="absolute mt-[4px] ml-[900px] text-red-500"><span className='mt-5'><ErrorIcon/></span>{error}</p>}
 
-    
+     {/* Loading Spinner */}
      {loading ? (
         <div className="flex justify-center items-center ml-[-350px] mt-[250px]">
-
-            {/* Loading  */}
-
+         <l-trefoil
+            size="100"
+            stroke="7"
+            stroke-length="0.15"
+            bg-opacity="0.1"
+            speed="1.4"
+            color="#1E1E" 
+        ></l-trefoil>
         </div>
       ) : (
         <div className="p-[50px] flex mt-[30px]">
@@ -197,7 +219,7 @@ const ArticleList = () => {
                 <h2 className="text-xl font-bold mb-2">{highlightText(article.title, query)}</h2>
                 <p className="text-[#7C7C7C] text-sm mb-2">{highlightText(article.authors, query)}</p>
                 <p className="text-[#7C7C7C] text-sm">
-                  <span className="font-bold">Date Uploaded:</span> {article.dateUploaded} &nbsp;&nbsp;
+                  {/* <span className="font-bold">Date Uploaded:</span> {article.dateUploaded} &nbsp;&nbsp; */}
                   <span className="font-bold">Published:</span> {article.datePublished}
                 </p>
               </div>
@@ -222,7 +244,7 @@ const ArticleList = () => {
             overflow: 'hidden',
           }}
         >
-            <IconButton
+           <IconButton
             onClick={() => setSelectedPdf(null)}
             sx={{
               color: 'red',
@@ -238,6 +260,7 @@ const ArticleList = () => {
           >
             <CloseIcon fontSize="inherit" />
           </IconButton>
+
           {selectedPdf && (
             <iframe
               src={selectedPdf}

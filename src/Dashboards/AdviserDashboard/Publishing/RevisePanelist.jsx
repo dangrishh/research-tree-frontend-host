@@ -232,37 +232,34 @@ export default function NewTables() {
   };
 
   const updatePanelManuscriptStatus = async (channelId, newStatus, userId) => {
-    try {
-      const response = await axios.patch(
-        "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/panel/manuscript-status",
-        { channelId, manuscriptStatus: newStatus, userId }
-      );
-
-      const { remainingVotes, message: successMessage } = response.data;
-
-      message.success(successMessage);
-
-      // Display remaining votes if status is `Approved on Panel` or `Revise on Panelist` and there are pending votes
-      if (
-        (newStatus === "Revise on Panelist" || newStatus === "Approved on Panel") &&
-        remainingVotes > 0
-      ) {
-        message.info(
-          `Only ${remainingVotes} more vote(s) needed to proceed with the manuscript`
-        );
-      }
-    } catch (error) {
-      if (error.response) {
-        console.error("Error response:", error.response.data);
-        message.error(
-          `Error: ${error.response.data.message || "Failed to update status"}`
-        );
-      } else {
-        console.error("Error:", error.message);
-        message.error("Error updating status");
-      }
-    }
+    Modal.confirm({
+      title: 'Are you sure you want to update the manuscript?',
+      onOk: async () => {
+        try {
+          const response = await axios.patch(
+            "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/panel/manuscript-status",
+            { channelId, manuscriptStatus: newStatus, userId }
+          );
+  
+          const { message: successMessage } = response.data;
+  
+          // Display the backend-generated message
+          message.success(successMessage);
+        } catch (error) {
+          if (error.response) {
+            console.error("Error response:", error.response.data);
+            message.error(
+              `Error: ${error.response.data.message || "Failed to update status"}`
+            );
+          } else {
+            console.error("Error:", error.message);
+            message.error("Error updating status");
+          }
+        }
+      },
+    });
   };
+  
 
   const deleteTask = async (studentId, taskId) => {
     try {
@@ -541,10 +538,37 @@ export default function NewTables() {
                 <Button
                   
                   onClick={() => openTaskModal(student)}
-                  style={{  width: "105px" }}
+                  style={{  marginBottom: '10px', width: "105px" }}
                   >
                     <img className="mr-[-4px]" src={AddtaskIcon} />
                     Add Task
+                </Button>
+
+                <Button
+                  onClick={() =>
+                    updatePanelManuscriptStatus(
+                      student._id,
+                      "Approved on Panel",
+                      user._id
+                    )
+                  }
+                  style={{
+                    width: "105px",
+                    background: "#1E1E",
+                    border: "none",
+                    color: "white",
+
+                    boxShadow: "0 0 10px rgba(0, 255, 0, 0.7)", // Green glow effect around the button
+                    transition: "box-shadow 0.3s ease-in-out", // Smooth glow transition
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.boxShadow = "0 0 25px rgba(0, 255, 0, 1)") // Brighter green on hover
+                  }
+                  onMouseLeave={(e) =>
+                    (e.target.style.boxShadow = "0 0 15px rgba(0, 255, 0, 0.7)") // Reset to original green glow
+                  }
+                >
+                  Approved
                 </Button>
 
                 {/* <Button

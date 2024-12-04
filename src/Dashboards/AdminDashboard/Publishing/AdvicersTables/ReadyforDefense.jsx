@@ -95,7 +95,45 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
       setConfirmData({ channelId, newStatus, userId });
       setIsConfirmModalVisible(true);
     };
+
+    const updatePanelManuscriptStatus = async (channelId, newStatus, userId) => {
+      Modal.confirm({
+        title: 'Are you sure you want to update manuscript?',
+        onOk: async () => {
+          try {
+            const response = await axios.patch(
+              "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/thesis/panel/manuscript-status",
+              { channelId, manuscriptStatus: newStatus, userId }
+            );
     
+            const { remainingVotes, message: successMessage } = response.data;
+    
+            message.success(successMessage);
+    
+            // Display remaining votes if status is `Approved on Panel` or `Revise on Panelist` and there are pending votes
+            if (
+              (newStatus === "Revise on Panelist" || newStatus === "Approved on Panel") &&
+              remainingVotes > 0
+            ) {
+              message.info(
+                `Only ${remainingVotes} more vote(s) needed to finalize the manuscript status.`
+              );
+            }
+          } catch (error) {
+            if (error.response) {
+              console.error("Error response:", error.response.data);
+              message.error(
+                `Error: ${error.response.data.message || "Failed to update status"}`
+              );
+            } else {
+              console.error("Error:", error.message);
+              message.error("Error updating status");
+            }
+          }
+        },
+      });
+    };
+
     const handleConfirmOk = async () => {
       setIsConfirmModalVisible(false);
       const { channelId, newStatus, userId } = confirmData;
@@ -359,7 +397,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
 
                 <Button
                   onClick={() =>
-                    showConfirmModal(student._id, "Approved on Panel", admin.id)
+                    updatePanelManuscriptStatus(student._id, "Approved on Panel", admin.id)
                   }
                   style={{
                     width: "105px",

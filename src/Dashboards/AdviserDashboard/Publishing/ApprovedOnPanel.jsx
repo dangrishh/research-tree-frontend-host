@@ -191,7 +191,7 @@ export default function NewTables() {
   const openTaskModal = (student) => {
     setCurrentTaskStudent(student);
     setIsModalVisible(true);
-    console.log("Selected student tasks: ", student.tasks); // Check if tasks exist here
+    fetchTasks(student._id); // Fetch tasks when opening modal
   };
 
   const handleTaskInputChange = (e) => {
@@ -237,6 +237,28 @@ export default function NewTables() {
 
   const closeGradeModal = () => {
     setIsGradeModalVisible(false);
+  };
+
+  const fetchTasks = async (studentId) => {
+    try {
+      const response = await fetch(
+        `https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/tasks/${studentId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setTasks(data.tasks); // Set fetched tasks
+      } else {
+        const errorData = await response.json();
+        console.error("Error fetching tasks:", errorData.message);
+      }
+    } catch (error) {
+      console.error("Error fetching tasks:", error.message);
+    }
   };
 
   return (
@@ -363,6 +385,16 @@ export default function NewTables() {
                   onClick={() => updateManuscriptStatus(student._id, 'Approved on Panel')}
                   style={{ marginBottom: "20px", width: "100px" }}
                 /> */}
+              <Button
+              
+              onClick={() => openTaskModal(student)}
+              style={{ marginBottom: "10px", width: "105px" }}
+            >
+                 <img className="mr-[-4px]" src={AddtaskIcon} />
+              View Task
+            </Button>
+
+
                 <Button
                   onClick={() => handleViewGrade(student._id)}
                   style={{ width: "105px" }}
@@ -471,24 +503,15 @@ export default function NewTables() {
             <Button key='close' onClick={() => setIsModalVisible(false)}>
               Close
             </Button>,
-            <Button key='add' type='primary' onClick={handleAddTask}>
-            Add Task
-          </Button>,
+/*             <Button key='add' type='primary' onClick={handleAddTask}>
+              Add Task
+            </Button>, */
           ]}
         >
 
           <Text strong style={{ fontSize: "18px", color: "#000000" }}>
             {currentTaskStudent?.proposalTitle || "Proposal Title"}
           </Text>
-
-          <Input
-            placeholder='Enter a task'
-            value={taskInput}
-            onChange={handleTaskInputChange}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleAddTask();
-            }}
-          />
           <br />
           <br />
           <List
@@ -498,18 +521,21 @@ export default function NewTables() {
               <List.Item
                 key={task._id}
                 actions={[
+/*                   <Checkbox
+                    checked={task.isCompleted}
+                    onChange={() => handleCompleteTask(task._id)}
+                  >
+                    {task.isCompleted ? "Completed" : "Pending"}
+                  </Checkbox>, */
 
-
-                   <Text style={{ fontWeight: "bold", color: task.isCompleted ? "green" : "red" }}>
+                  <Text style={{ fontWeight: "bold", color: task.isCompleted ? "green" : "red" }}>
                     {task.isCompleted ? "Completed" : "Not Done"}
-                  </Text>,
-
-                  <Button
+                  </Text>
+/*                   <Button
                     type='link'
                     icon={<DeleteOutlined />}
                     onClick={() => deleteTask(currentTaskStudent._id, task._id)} // Pass studentId and taskId
-                  />,
-                  
+                  />, */
                 ]}
               >
                 <Text delete={task.isCompleted}>{task.taskTitle}</Text>
