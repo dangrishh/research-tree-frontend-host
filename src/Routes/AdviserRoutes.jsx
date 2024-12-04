@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 
 
@@ -12,6 +12,7 @@ import PanelistAnalytics from '../Dashboards/AdviserDashboard/PanelistAnalytics/
 import UnauthorizedAccess from './UnauthorizedAccess'; // Import the UnauthorizedAccess component
 import GradingModal from '../Dashboards/AdviserDashboard/Publishing/GradingAdvicer'
 import Sidebar from '../Dashboards/AdviserDashboard/Sidebar/sidebar'
+import NotificationDropdown from '../Dashboards/AdviserDashboard/AdviserAnalytics/NotificationDropDown'
 
 
 function AdviserRoutes() {
@@ -23,10 +24,22 @@ function AdviserRoutes() {
     return <UnauthorizedAccess />;
   }
 
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    // Trigger visibility after the component mounts
+    setIsVisible(true);
+  }, []);
+
   return (
     <>
      
       <Sidebar />
+      <div  className={`absolute top-[40px] left-[1830px] transition-all duration-500 ease-in-out ${
+        isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-0"
+      }`}
+    >
+          <NotificationDropdown  userId={user._id}  />
+    </div>
               <Routes>
 
               <Route path="/TitleProposal" element={<TitleProposal/>} />

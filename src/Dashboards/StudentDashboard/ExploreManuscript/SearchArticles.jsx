@@ -9,7 +9,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import ErrorIcon from '@mui/icons-material/Error';
 import { AutoComplete, Input, ConfigProvider, Pagination } from 'antd';
 import 'ldrs/trefoil'
+// import NotificationDropdown from '../ViewAnalytics/NotificationDropDown'
 
+const user = JSON.parse(localStorage.getItem("user"));
 
 
 
@@ -23,6 +25,16 @@ const ArticleList = () => {
   const [error, setError] = useState('');
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
+
+
+  // const [isVisible, setIsVisible] = useState(false);
+
+  // useEffect(() => {
+  //   // Trigger visibility after the component mounts
+  //   setIsVisible(true);
+  // }, []);
+
+
 
   const handleSearch = async () => {
     if (!query) return; // Only search if there's a query
@@ -103,6 +115,12 @@ const ArticleList = () => {
     <div className="min-h-screen text-white p-6 ml-[300px]">
       <h1 className="text-[38px] font-bold mt-[20px] ml-[55px]">Manuscripts</h1>
      
+{/* <div  className={`absolute top-[90px] left-[1760px] transition-all duration-500 ease-in-out ${
+        isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-0"
+      }`}
+    >
+     <NotificationDropdown userId={user.id}/>
+     </div> */}
       <ConfigProvider
         theme={{
           components: {

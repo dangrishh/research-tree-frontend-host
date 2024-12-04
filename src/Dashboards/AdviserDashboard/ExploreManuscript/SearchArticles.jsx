@@ -171,7 +171,7 @@ const ArticleList = () => {
       ))}
     </div>
     
-      {error && <p className="absolute mt-[4px] ml-[900px] text-red-500"><span className='mt-5'><ErrorIcon/></span>{error}</p>}
+      {error && <p className="absolute mt-[0px] ml-[900px] text-red-500"><span className='mt-4 ml-2 pr-2'><ErrorIcon/></span>{error}</p>}
 
      {/* Loading Spinner */}
      {loading ? (

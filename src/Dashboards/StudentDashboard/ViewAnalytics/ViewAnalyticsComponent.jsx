@@ -3,7 +3,7 @@ import { BarChart } from './BarCharts'
 import { PieChart } from './Piechart'
 import { Cards } from './Statistics'
 
-import NotificationDropdown from './NotificationDropDown'
+// import NotificationDropdown from './NotificationDropDown'
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -12,9 +12,9 @@ const Chart = () => {
        <div className="h-[800px]">
      <div className="flex ml-[380px] w-[80%]">
         {/* Notification Icon */}
-        <div style={{ position: "absolute", top: "50px", right: "50px" }}>
+        {/* <div style={{ position: "absolute", top: "50px", right: "50px" }}>
           <NotificationDropdown userId={user._id} />
-        </div>
+        </div> */}
       <div className="w-[68.3%] ml-[10px]"> 
             <Cards/>    
       </div>

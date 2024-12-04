@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import UserAvatar from './Avatar';
 import PDFUploader from './PDFUploader'
-import './Sidebar.css';
 
 import AdviserMode from '../../../assets/adviser-side.png';
 
@@ -13,7 +12,7 @@ import StudentProposalIcon from '../../../assets/revision-icon.png';
 
 import PanelistMode from '../../../assets/panelist-side.png';
 import mydefendeeIcon from '../../../assets/panelist-manuscript.png';
-
+import "./Sidebar.css";
 
 const Sidebar = ({ onSelect }) => {
   const location = useLocation(); // Get current location

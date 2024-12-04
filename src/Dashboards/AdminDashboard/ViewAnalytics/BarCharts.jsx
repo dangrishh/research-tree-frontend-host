@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Chart, Interval, Axis, Legend } from 'bizcharts';
+import { Chart, Interval, Tooltip, Axis, Legend } from 'bizcharts';
 import axios from 'axios';
 
 export const BarChart = () => {
@@ -44,12 +44,12 @@ export const BarChart = () => {
   }, []);
   
   return (
-    <div className="p-10 mr-5  mt-[125px] rounded-lg shadow-custom-shadow bg-[#1E1E1E] border border-[#4B4B4B] w-[966px]">
+<div className="p-10 mr-5  mt-[125px] rounded-lg shadow-custom-shadow bg-[#1E1E1E] border border-[#4B4B4B] w-[966px]">
       <h2 className="text-[#0BF677] text-xl mb-4">Top 10 Most Upload Manuscript</h2>
     
       <Chart height={300} width={900} autoFit data={data} interactions={['active-region']}>
         <Axis name="value" visible={true} />
-        <Axis name="category" visible={true} />
+        <Axis name="category" label={null} visible={true} />
         <Legend
           position="right"
           offsetY={-20}
@@ -62,7 +62,7 @@ export const BarChart = () => {
             style: { fill: '#FFFFFF', fontSize: 14 },
           }}
         />
-      
+        <Tooltip shared />
         <Interval
           position="category*value"
           size={50}

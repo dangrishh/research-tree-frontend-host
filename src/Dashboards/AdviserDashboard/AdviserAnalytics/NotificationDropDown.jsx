@@ -48,18 +48,19 @@ console.log("user", user);
   };
 
   const menu = (
-    <div style={{ width: "300px", maxHeight: "400px", overflowY: "auto" }}>
+    <div style={{ width: "400px",  maxHeight: "400px", overflowY: "auto", borderRadius: 10,}}>
       <List
         itemLayout="horizontal"
         dataSource={notifications}
         loading={loading}
         renderItem={(item) => (
           <List.Item
-            style={{
-              background: item.read ? "#f0f0f0" : "#fff",
-              borderBottom: "1px solid #ddd",
-              padding: "10px",
-            }}
+          style={{
+            color: 'white',
+            background: item.read ? "gray" : "#343434",
+            borderBottom: "1px solid #ddd",
+            padding: "15px",
+          }}
           >
             <div style={{ width: "100%" }}>
               <p style={{ margin: 0 }}>{item.message}</p>

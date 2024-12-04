@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import UserAvatar from './Avatar';
 import HeaderTools from './TitleProposals';
-
+import "./Sidebar.css";
 
 import mymanuscriptIcon from '../../../src/assets/my-manuscript.png';
 import exploremanuscriptIcon from '../../../src/assets/explore-manuscript.png';

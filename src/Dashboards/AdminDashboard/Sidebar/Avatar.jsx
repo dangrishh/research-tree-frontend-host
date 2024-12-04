@@ -125,7 +125,7 @@ const saveProfileChanges = async () => {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        PaperProps={{ sx: { mt: 1.5, ml: 4, bgcolor: "#1E1E1E", color: "white" } }}
+        PaperProps={{ sx: { mt: 1.5, ml: 5, bgcolor: "#1E1E1E", color: "white" } }}
       >
         <MenuItem onClick={openModal}>
           <ListItemIcon><Settings fontSize="small" /></ListItemIcon>

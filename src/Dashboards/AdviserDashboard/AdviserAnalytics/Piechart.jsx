@@ -5,7 +5,7 @@ import variablePie from "highcharts/modules/variable-pie";
 import axios from "axios";
 import "tailwindcss/tailwind.css";
 import 'ldrs/dotSpinner'
-
+import '../Sidebar/Sidebar.css'
 // Initialize the variable pie module
 variablePie(Highcharts);
 
@@ -67,49 +67,57 @@ export const PieChart = () => {
     "#31572c",  // Forest Green (for background or text contrast)
 ];
   
+const options = {
+  chart: {
+    type: "variablepie",
+    backgroundColor: "#1E1E1E",
+    spacingBottom: 10,
+    spacingTop: 10,
+    spacingLeft: 0,
+    spacingRight: 0,
+    height: 425,
+    width: 482,
+    borderColor: "#4B4B4B",
+    borderWidth: 3,
+  },
+  title: {
+    text: null,
+  },
+  legend: {
+    enabled: true,
+    itemStyle: {
+      color: "#FFFFFF",
+    },
+  },
+  tooltip: {
+    useHTML: true, // Enable HTML formatting
+    pointFormat: '<b>{point.name}</b>: {point.y}', // Only show the name and value (y) in the tooltip
+  },
+  series: [
+    {
+      minPointSize: 20,
+      innerSize: "30%",
+      zMin: 0,
+      showInLegend: true,
+      borderColor: null, // Remove border color for pie segments
+      borderWidth: 0, // Remove border width for pie segments
+      dataLabels: {
+        enabled: false,
+      },
+      data: chartData.map((item, index) => {
+        const isLowest = item.value === Math.min(...chartData.map(data => data.value));
+        const isHighest = item.value === Math.max(...chartData.map(data => data.value)); // Check if it is the highest value
+        return {
+          name: item.category,
+          y: item.value,
+          z: 20 + index * 10, // Different z value for each category
+          color: isHighest ? "#FFA500" : isLowest ? "#1B271A" : colors[index % colors.length], // Use orange for highest, dark for lowest, and cycle for others
+        };
+      }),
+    },
+  ],
+};
 
-  const options = {
-    chart: {
-      type: "variablepie",
-      backgroundColor: "#1E1E1E",
-      spacingBottom: 10,
-      spacingTop: 10,
-      spacingLeft: 0,
-      spacingRight: 0,
-      height: 425,
-      width: 482,
-      borderColor: "#4B4B4B",
-      borderWidth: 3,
-    },
-    title: {
-      text: null,
-    },
-    legend: {
-      enabled: true,
-      itemStyle: {
-        color: "#FFFFFF",
-      },
-    },
-    series: [
-      {
-        minPointSize: 20,
-        innerSize: "30%",
-        zMin: 0,
-        showInLegend: true,
-        borderColor: null, // Remove border color for pie segments
-            borderWidth: 0, // Remove border width for pie segments
-        dataLabels: {
-          enabled: false,
-        },
-        data: chartData.map((item, index) => ({
-            name: item.category,
-            y: item.value,
-            z: 20 + index * 5, // Different z value for each category
-            color: colors[index % colors.length], // Cycle through colors
-          })),
-      },
-    ],
-  };
 
   return (
     <div className="flex justify-center items-center w-[566px] mt-[250px] ml-[-170px] border-t border-[#4B4B4B] rounded-t">

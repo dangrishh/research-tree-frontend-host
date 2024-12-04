@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ErrorIcon from '@mui/icons-material/Error';
 import { AutoComplete, Input, ConfigProvider, Pagination } from 'antd';
 import 'ldrs/trefoil'
-
+import PDFUploader from '../PDFUploader/PDFUploader'
 
 
 const ArticleList = () => {
@@ -98,7 +98,10 @@ const ArticleList = () => {
   return (
     <div className="min-h-screen text-white p-6 ml-[300px]">
       <h1 className="text-[38px] font-bold mt-[20px] ml-[55px]">Manuscripts</h1>
-     
+      <div style={{position: 'absolute', top: '-150px', marginLeft: '1200px'}}>
+      <PDFUploader/>
+      </div>
+      
       <ConfigProvider
         theme={{
           components: {
