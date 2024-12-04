@@ -159,13 +159,13 @@ function App() {
               onChange={(e) => setAuthors(e.target.value)}
               className="w-full p-1 text-sm text-[#222222] border border-gray-300 rounded"
             />
-            <input
+            {/* <input
               type="text"
               placeholder="Date Uploaded"
               required
               onChange={(e) => setDateUploaded(e.target.value)}
               className="w-full p-1 text-sm text-[#222222] border border-gray-300 rounded"
-            />
+            /> */}
             <input
               type="text"
               placeholder="Date Published"

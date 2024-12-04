@@ -595,9 +595,7 @@ export default function NewTables() {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeEditorModal} color='primary'>
-            Close
-          </Button>
+          <Button sx={{marginTop: '-1630px', }}onClick={closeEditorModal}  color="primary"><img className="inline-block mr-2 mb-1 h-[30px] w-[30px]" src={closeIcon}  /></Button>
         </DialogActions>
       </Dialog>
 

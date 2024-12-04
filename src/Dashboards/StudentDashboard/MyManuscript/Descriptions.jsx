@@ -450,7 +450,7 @@ const ResearchCard = () => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button sx={{marginTop: '-1680px', }}onClick={closeEditorModal}  color="primary"><img className="inline-block mr-2 mb-1 h-[30px] w-[30px]" src={closeIcon}  /></Button>
+          <Button sx={{marginTop: '-1630px', }}onClick={closeEditorModal}  color="primary"><img className="inline-block mr-2 mb-1 h-[30px] w-[30px]" src={closeIcon}  /></Button>
         </DialogActions>
       </Dialog>
 
@@ -462,9 +462,6 @@ const ResearchCard = () => {
             </Button>
 
             <Modal
-              
-              
-              title="Task Checklist"
               open={isTaskVisible}
               onCancel={() => setIsTaskVisible(false)}
               footer={null}

@@ -31,7 +31,7 @@ import axios from "axios";
 import CkEditorDocuments from "../CkEditorDocuments";
 
 import DocumentIcon from '../../../../assets/view-docs.png';
-
+import closeIcon from '../../../../assets/close.png';
 import AddtaskIcon from '../../../../assets/addtask.png';
 
 
@@ -522,6 +522,20 @@ const fetchTaskProgress = async (studentId) => {
           fullWidth
           maxWidth='xxl'
         >
+        <DialogActions sx={{ p: 0, border: 'none', margin: '15px'}}>
+          <img
+            onClick={closeEditorModal}
+            className="inline-block mr-2 mb-1 h-[30px] w-[30px]"
+            src={closeIcon}
+            alt="Close"
+            style={{
+              cursor: 'pointer',
+              transition: 'background-color 0.3s ease', // Optional transition for smooth hover effect
+            }}
+            onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.1)'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+          />
+        </DialogActions>
           <DialogContent sx={{ height: "1200px" }}>
             {selectedStudentId && selectedChannelId && (
               <CkEditorDocuments
@@ -530,11 +544,6 @@ const fetchTaskProgress = async (studentId) => {
               />
             )}
           </DialogContent>
-          <DialogActions>
-            <Button onClick={closeEditorModal} color='primary'>
-              Close
-            </Button>
-          </DialogActions>
         </Dialog>
 
       <ConfigProvider>
