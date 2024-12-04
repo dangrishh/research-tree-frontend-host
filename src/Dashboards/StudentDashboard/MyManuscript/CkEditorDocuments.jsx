@@ -19,7 +19,7 @@ import {
   CloudServices,
   Code,
   Essentials,
-  FindAndReplace,
+
   FontBackgroundColor,
   FontColor,
   FontFamily,
@@ -73,7 +73,7 @@ import {
   Undo,
 } from "ckeditor5";
 import {
-  AIAssistant,
+
   CaseChange,
   Comments,
   DocumentOutline,
@@ -289,14 +289,14 @@ export default function App({ userId, channelId }) {
         "commentsArchive",
         "|",
         "aiCommands",
-        "aiAssistant",
+       
         "|",
         "importWord",
         "exportWord",
         "exportPdf",
-        "formatPainter",
+       
         "caseChange",
-        "findAndReplace",
+       
         "selectAll",
         "|",
         "heading",
@@ -344,7 +344,7 @@ export default function App({ userId, channelId }) {
 
     plugins: [
       AccessibilityHelp,
-      AIAssistant,
+
       Alignment,
       Autoformat,
       AutoImage,
@@ -363,12 +363,12 @@ export default function App({ userId, channelId }) {
       Essentials,
       ExportPdf,
       ExportWord,
-      FindAndReplace,
+     
       FontBackgroundColor,
       FontColor,
       FontFamily,
       FontSize,
-      FormatPainter,
+    
       Heading,
       Highlight,
       HorizontalLine,
@@ -436,7 +436,7 @@ export default function App({ userId, channelId }) {
     balloonToolbar: [
       "comment",
       "|",
-      "aiAssistant",
+    
       "|",
       "bold",
       "italic",

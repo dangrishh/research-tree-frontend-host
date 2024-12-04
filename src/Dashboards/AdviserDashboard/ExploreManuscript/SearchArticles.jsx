@@ -2,12 +2,14 @@ import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorIcon from '@mui/icons-material/Error';
 import { AutoComplete, Input, ConfigProvider, Pagination } from 'antd';
-import 'ldrs/trefoil'
+import { MagnifyingGlass } from 'react-loader-spinner'
+const user = JSON.parse(localStorage.getItem("user"));
 
 
 const ArticleList = () => {
@@ -18,6 +20,15 @@ const ArticleList = () => {
   const [error, setError] = useState('');
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
+
+
+  // const [isVisible, setIsVisible] = useState(false);
+
+  // useEffect(() => {
+  //   // Trigger visibility after the component mounts
+  //   setIsVisible(true);
+  // }, []);
+
 
 
   const handleSearch = async () => {
@@ -120,6 +131,12 @@ const ArticleList = () => {
     <div className="min-h-screen text-white p-6 ml-[300px]">
       <h1 className="text-[38px] font-bold mt-[20px] ml-[55px]">Manuscripts</h1>
      
+{/* <div  className={`absolute top-[90px] left-[1760px] transition-all duration-500 ease-in-out ${
+        isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-0"
+      }`}
+    >
+     <NotificationDropdown userId={user.id}/>
+     </div> */}
       <ConfigProvider
         theme={{
           components: {
@@ -149,7 +166,7 @@ const ArticleList = () => {
           style={{ width: 1080 }}
           onSearch={(value) => setQuery(value)}
           onSelect={handleSearch}
-      
+          // size="xxl"
         >
           <Input
             style={{
@@ -190,23 +207,25 @@ const ArticleList = () => {
           Since {year}
         </p>
       ))}
-      </div>
+    </div>
+    
+      {error && <p className="absolute mt-[0px] ml-[900px] text-red-500"><span className='mt-0 pr-2'><ErrorIcon/></span>{error}</p>}
 
     
-      {error && <p className="absolute mt-[0px] ml-[900px] text-red-500"><span className='mt-4 ml-2 pr-2'><ErrorIcon/></span>{error}</p>}
-
-     {/* Loading Spinner */}
      {loading ? (
-        <div className="flex justify-center items-center ml-[-350px] mt-[250px]">
-         <l-trefoil
-            size="100"
-            stroke="7"
-            stroke-length="0.15"
-            bg-opacity="0.1"
-            speed="1.4"
-            color="#1E1E" 
-        ></l-trefoil>
-        </div>
+         <div className="flex justify-center items-center ml-[-350px] mt-[250px]">
+        <MagnifyingGlass
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="magnifying-glass-loading"
+          wrapperStyle={{}}
+          wrapperClass="magnifying-glass-wrapper"
+          glassColor="#c0efff"
+          color="#1e1e"
+          />
+          <h1 className='mt-[120px] ml-[-70px]'>Searching...</h1>
+       </div>
       ) : (
         <div className="p-[50px] flex mt-[30px]">
           <div className="w-3/4">
@@ -244,7 +263,7 @@ const ArticleList = () => {
             overflow: 'hidden',
           }}
         >
-           <IconButton
+            <IconButton
             onClick={() => setSelectedPdf(null)}
             sx={{
               color: 'red',
@@ -260,7 +279,6 @@ const ArticleList = () => {
           >
             <CloseIcon fontSize="inherit" />
           </IconButton>
-
           {selectedPdf && (
             <iframe
               src={selectedPdf}

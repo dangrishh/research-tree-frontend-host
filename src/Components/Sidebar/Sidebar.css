@@ -42,3 +42,34 @@
 
 
 
+
+@media (min-width: 1920px) and (max-width: 1920px) and (min-height: 945px) and (max-height: 945px) {
+    .sidebar {
+      /* Adjust styles for sidebar */
+      box-shadow: 2px 4px 80px 0px #00000040; /* Example */
+    }
+  
+    .exploreManuscript, .myManuscript, .viewAnalytics, .revision {
+      /* Adjust styles for buttons */
+      font-size: 18px;
+      padding: 0px 0px;
+      white-space: nowrap;
+    }
+}  
+
+@media (min-width: 1912px) and (max-width: 1912px) and (min-height: 954px) and (max-height: 954px) {
+
+    .sidebar {
+        /* Adjust styles for sidebar */
+        box-shadow: 2px 4px 80px 0px #00000040; /* Example */
+      }
+    
+      .exploreManuscript, .myManuscript, .viewAnalytics, .revision {
+        /* Adjust styles for buttons */
+        font-size: 18px;
+        padding: 0px 0px;
+        white-space: nowrap;
+      }
+
+      
+}

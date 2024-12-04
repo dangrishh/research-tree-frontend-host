@@ -8,14 +8,9 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorIcon from '@mui/icons-material/Error';
 import { AutoComplete, Input, ConfigProvider, Pagination } from 'antd';
-import 'ldrs/trefoil'
-// import NotificationDropdown from '../ViewAnalytics/NotificationDropDown'
-
+import { MagnifyingGlass } from 'react-loader-spinner'
 const user = JSON.parse(localStorage.getItem("user"));
 
-
-
-import PDFUploader from './PDFUploader';
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
@@ -194,15 +189,23 @@ const ArticleList = () => {
       ))}
     </div>
     
-      {error && <p className="absolute mt-[4px] ml-[900px] text-red-500"><span className='mt-5'><ErrorIcon/></span>{error}</p>}
+      {error && <p className="absolute mt-[0px] ml-[900px] text-red-500"><span className='mt-0 pr-2'><ErrorIcon/></span>{error}</p>}
 
     
      {loading ? (
-        <div className="flex justify-center items-center ml-[-350px] mt-[250px]">
-
-            {/* Loading  */}
-
-        </div>
+         <div className="flex justify-center items-center ml-[-350px] mt-[250px]">
+        <MagnifyingGlass
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="magnifying-glass-loading"
+          wrapperStyle={{}}
+          wrapperClass="magnifying-glass-wrapper"
+          glassColor="#c0efff"
+          color="#1e1e"
+          />
+          <h1 className='mt-[120px] ml-[-70px]'>Searching...</h1>
+       </div>
       ) : (
         <div className="p-[50px] flex mt-[30px]">
           <div className="w-3/4">

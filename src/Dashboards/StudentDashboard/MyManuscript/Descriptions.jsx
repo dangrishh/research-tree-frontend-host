@@ -10,7 +10,7 @@ import { DonutChart } from "bizcharts";
 import { SyncOutlined,StarOutlined,CloseOutlined } from '@ant-design/icons';
 
 import EditIcon from '../../../assets/edit-title-icon.png'
-
+import closeIcon from '../../../assets/close.png'
 
 const { Title, Text } = Typography;
 
@@ -450,7 +450,7 @@ const ResearchCard = () => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button sx={{marginTop: '-1680px', }}onClick={closeEditorModal}  color="primary"><img className="inline-block mr-2 mb-1 h-[30px] w-[30px]" src="/src/assets/close.png" alt="My Manuscript" /></Button>
+          <Button sx={{marginTop: '-1680px', }}onClick={closeEditorModal}  color="primary"><img className="inline-block mr-2 mb-1 h-[30px] w-[30px]" src={closeIcon}  /></Button>
         </DialogActions>
       </Dialog>
 
