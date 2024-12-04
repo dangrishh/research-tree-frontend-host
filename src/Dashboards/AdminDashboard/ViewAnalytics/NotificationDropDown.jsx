@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Dropdown, Badge, List, Button } from "antd";
 import { BellOutlined } from "@ant-design/icons";
+import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 
 const NotificationDropdown = () => {
   const [notifications, setNotifications] = useState([]);
@@ -46,46 +47,96 @@ const NotificationDropdown = () => {
     }
   };
 
+  // Separate notifications into two categories
+  const unreadNotifications = notifications.filter((notif) => !notif.read);
+  const readNotifications = notifications.filter((notif) => notif.read);
+
   const menu = (
-    <div style={{ width: "400px",  maxHeight: "400px", overflowY: "auto", borderRadius: 10,}}>
-      <List
-        itemLayout="horizontal"
-        dataSource={notifications}
-        loading={loading}
-        renderItem={(item) => (
-          <List.Item
-          style={{
-            color: 'white',
-            background: item.read ? "gray" : "#343434",
-            borderBottom: "1px solid #ddd",
-            padding: "15px",
-          }}
-          >
-            <div style={{ width: "100%" }}>
-              <p style={{ margin: 0 }}>{item.message}</p>
-              <small style={{ color: "#888" }}>
-                {new Date(item.timestamp).toLocaleString()}
-              </small>
-              {!item.read && (
-                <Button
-                  size="small"
-                  type="link"
-                  onClick={() => markAsRead(item._id)}
-                >
-                  Mark as Read
-                </Button>
-              )}
-            </div>
-          </List.Item>
-        )}
-      />
+    <div  style={{
+      background: '#1E1E1E',
+      width: "500px",
+      maxHeight: "800px",
+      overflowY: "auto",
+      padding: 20,
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)", // Added boxShadow
+    }}>
+      {/* Unread Notifications Header */}
+      {unreadNotifications.length > 0 && (
+        <>
+          <div style={{ fontWeight: "bold", marginBottom: "10px", color: "white", padding: '10px'}}>
+            Unread Notifications
+          </div>
+          <List
+            itemLayout="horizontal"
+            dataSource={unreadNotifications}
+            loading={loading}
+            renderItem={(item) => (
+              <List.Item
+              style={{
+                color: "white",
+                background: "#2b2b2b",
+                borderBottom: "1px solid #3a3a3a",
+                marginTop: 3,
+                padding: "15px",
+              }}
+              >
+                <div style={{ width: "100%" }}>
+                  <p style={{ margin: 0 }}>{item.message}</p>
+                  <small style={{ color: "#888" }}>
+                    {new Date(item.timestamp).toLocaleString()}
+                  </small>
+                  <Button
+                    size="small"
+                    type="link"
+                    onClick={() => markAsRead(item._id)}
+                  >
+                    Mark as Read
+                  </Button>
+                </div>
+              </List.Item>
+            )}
+          />
+        </>
+      )}
+
+      {/* Read Notifications Header */}
+      {readNotifications.length > 0 && (
+        <>
+          <div style={{ fontWeight: "bold", marginBottom: "10px", color: "white" ,  padding: '10px',}}>
+            Read Notifications
+          </div>
+          <List
+            itemLayout="horizontal"
+            dataSource={readNotifications}
+            loading={loading}
+            renderItem={(item) => (
+              <List.Item
+                style={{
+                  color: "white",
+                  background: "#1E1E1E",
+                  borderBottom: "1px solid #3a3a3a",
+                  marginTop: 3,
+                  padding: "15px",
+                }}
+              >
+                <div style={{ width: "100%" }}>
+                  <p style={{ margin: 0 }}>{item.message}</p>
+                  <small style={{ color: "#888" }}>
+                    {new Date(item.timestamp).toLocaleString()}
+                  </small>
+                </div>
+              </List.Item>
+            )}
+          />
+        </>
+      )}
     </div>
   );
 
   return (
     <Dropdown overlay={menu} trigger={["click"]}>
-      <Badge count={notifications.filter((n) => !n.read).length}>
-        <BellOutlined style={{ color: 'white',fontSize: "34px", cursor: "pointer" }} />
+      <Badge count={unreadNotifications.length}>
+        <NotificationsActiveOutlinedIcon style={{ color: "white", fontSize: "34px", cursor: "pointer" }} />
       </Badge>
     </Dropdown>
   );
