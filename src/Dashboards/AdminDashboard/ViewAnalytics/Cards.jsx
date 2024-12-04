@@ -12,7 +12,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios"; // Import axios
 import Skeleton from "@mui/material/Skeleton"; // Import Skeleton loader
 
-
 import BSCSicon from '../../../assets/BSCS.png';
 import BSITicon from '../../../assets/BSIT.png';
 import TOTALMANUSCRIPTicon from '../../../assets/totalManuscript-icon.png';

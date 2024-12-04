@@ -4,7 +4,8 @@ import { PieChart } from './Piechart'
 import { LineChart } from './LineChart'
 import { Cards } from './Cards'
 
-import NotificationDropdown from './NotificationDropDown'
+
+// import NotificationDropdown from './NotificationDropDown'
 
 import "./ViewAnalytics.css";
 
@@ -12,11 +13,13 @@ const admin = JSON.parse(localStorage.getItem("user"));
 
 const Chart = () => {
   return (
-   <div className="">
+   <div >
+    
     {/* Notification Icon */}
-    <div style={{ position: "absolute", top: "50px", right: "50px" }}>
+    {/* <div style={{ position: "absolute", top: "50px", right: "50px" }}>
+    
       <NotificationDropdown adminId={admin.id} />
-    </div>
+    </div> */}
    <div className="chart-1">
  
    < Cards/>

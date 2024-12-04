@@ -16,10 +16,11 @@ import StudentPending from '../Dashboards/AdminDashboard/ProfileManagement/Stude
 
 import Sidebar from '../Dashboards/AdminDashboard/Sidebar/sidebar'
 import UnauthorizedAccess from './UnauthorizedAccess'; // Import the UnauthorizedAccess component
+import NotificationDropdown from '../Dashboards/AdminDashboard/ViewAnalytics/NotificationDropDown'
 
 
 function AdviserRoutes() {
-
+  const user = JSON.parse(localStorage.getItem('user'));
   const [admin, setAdmin] = useState(null);
 
   useEffect(() => {
@@ -35,10 +36,24 @@ function AdviserRoutes() {
     // console.log('Admin already Login: ', admin)
   }
 
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    // Trigger visibility after the component mounts
+    setIsVisible(true);
+  }, []);
+
+
+
   return (
     <>
     
       <Sidebar />
+      <div  className={`absolute top-[40px] left-[1830px] transition-all duration-500 ease-in-out ${
+        isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-0"
+      }`}
+    >
+          <NotificationDropdown  userId={user._id}  />
+    </div>
               <Routes>
                 <Route path="/" element={<ViewAnalytics/>} />
                 <Route path="/ViewAnalytics" element={<ViewAnalytics/>} />
