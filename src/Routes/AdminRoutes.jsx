@@ -36,11 +36,11 @@ function AdviserRoutes() {
     // console.log('Admin already Login: ', admin)
   }
 
-  const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => {
-    // Trigger visibility after the component mounts
-    setIsVisible(true);
-  }, []);
+  // const [isVisible, setIsVisible] = useState(false);
+  // useEffect(() => {
+  //   // Trigger visibility after the component mounts
+  //   setIsVisible(true);
+  // }, []);
 
 
 
@@ -48,12 +48,12 @@ function AdviserRoutes() {
     <>
     
       <Sidebar />
-      <div  className={`absolute top-[40px] left-[1830px] transition-all duration-500 ease-in-out ${
+      {/* <div  className={`absolute top-[40px] left-[1830px] transition-all duration-500 ease-in-out ${
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-0"
       }`}
     >
           <NotificationDropdown  userId={user._id}  />
-    </div>
+    </div> */}
               <Routes>
                 <Route path="/" element={<ViewAnalytics/>} />
                 <Route path="/ViewAnalytics" element={<ViewAnalytics/>} />
