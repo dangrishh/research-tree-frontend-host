@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Tabs from "@mui/joy/Tabs";
+import Modal from "@mui/joy/Modal";
 import TabList from "@mui/joy/TabList";
 import Tab, { tabClasses } from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
@@ -9,12 +10,15 @@ import {
   Table,
   Tag,
   Avatar,
-  Modal,
   Button,
   Divider,
   Typography,
+ 
 } from "antd";
-import { maxWidth } from "@mui/system";
+import { ConfigProvider } from "antd";
+import { bgcolor, height, maxWidth, width } from "@mui/system";
+import { color } from "highcharts";
+import CloseIcon from '@mui/icons-material/Close'; // Importing the close icon
 
 const { Column, ColumnGroup } = Table;
 const { Title, Paragraph } = Typography;
@@ -139,14 +143,14 @@ export default function TabsPricingExample() {
       aria-label='Student Management'
       defaultValue={0}
       sx={{
-        backgroundColor: "#222222",
+        backgroundColor: "#1e1e1e",
         position: "absolute",
         left: "500px",
         top: "100px",
         width: 1243,
         height: "800px",
         borderRadius: "lg",
-        boxShadow: "sm",
+
         overflow: "auto",
       }}
     >
@@ -155,22 +159,27 @@ export default function TabsPricingExample() {
         tabFlex={1}
         sx={{
           [`& .${tabClasses.root}`]: {
-            fontSize: "sm",
+            fontSize: "lg",
             fontWeight: "lg",
-            backgroundColor: "#333333", // Customize the tab background color
+            backgroundColor: "#1e1e1e", // Customize the tab background color
             color: "#ffffff", // Text color for unselected tabs
-            "&:hover": {
-              backgroundColor: "#444444", // Background color on hover
-            },
+        
             [`&[aria-selected="true"]`]: {
               color: "green", // Text color for selected tab
-              bgcolor: "black", // Background color for selected tab
+              bgcolor: "#1e1e1e", // Background color for selected tab
             },
+        
+            // Hide or set hover background to transparent or #1e1e1e
+            "&:hover": {
+              backgroundColor: "transparent", // Or you can use '#1e1e1e' to match the background
+            },
+        
             [`&.${tabClasses.focusVisible}`]: {
               outlineOffset: "-4px",
             },
           },
         }}
+        
       >
         <Tab disableIndicator variant='soft' sx={{ flexGrow: 1 }}>
           Accepted
@@ -188,63 +197,110 @@ export default function TabsPricingExample() {
 
       {/* Accepted Students List */}
       <TabPanel value={0}>
-        <Table
+        <ConfigProvider
+        theme={{
+          token: {
+            colorBgContainer: "#1e1e1e", // Dark background for the table
+            colorText: "#fff",            // Ensure text is visible on the dark background
+            tableBorderColor: "#333",     // Add border color to the table
+            tableHeaderBg: "#1e1e1e",     // Match the header background with the table
+            tableRowHoverBg: "transparent", // Disable row hover effect (optional)
+            colorBorderSecondary: "#333", // Add a border color for secondary borders
+            borderRadius: "4px",          // Optionally add rounded borders
+          },
+        }}
         
-          dataSource={acceptedStudents}
-          rowKey='_id'
-          style={{
-            position: "absolute",
-            top: "100px",
-            width: "70%",
-            marginLeft: "120px",
-          }}
         >
-          <Column
-            title='Name of Students'
-            key='name'
-            render={(text, student) => (
-              <Space size='middle'>
-                <Avatar
-                  src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
-                    student.profileImage || "default-avatar.png"
-                  }`}
-                >
-                  {student.name.charAt(0)}
-                </Avatar>
-                <span>{student.name}</span>
-              </Space>
-            )}
-          />
-          <Column
-          
-            title='Action'
-            key='action'
-            render={(_, student) => (
-              <Space size='middle'>
-                <Button  onClick={() => showModal(student)}>
-                  View Proposal
-                </Button>{" "}
-                {/* Pass the student object to showModal */}
-              </Space>
-            )}
-          />
-        </Table>
-      </TabPanel>
+    <div
+      style={{
+        position: "absolute",
+        top: "100px",
+        width: "80%",
+        marginLeft: "120px",
+        padding: "40px", // Optional padding for aesthetics
+        borderRadius: "8px", // Optional for rounded corners
+      }}
+    >
+      <Table
+        pagination={false} 
+        dataSource={acceptedStudents}
+        rowKey="_id"
+        bordered={false} // Ensure no borders are applied
+        style={{
+          background: "transparent", // Set transparent background
+        }}
+        showHeader={false} // Completely hides the table header
+      >
+        <Table.Column
+          key="name"
+          render={(text, student) => (
+            <Space size="middle">
+              <Avatar
+                src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                  student.profileImage || "default-avatar.png"
+                }`}
+                style={{ width: 60, height: 60 }}
+              >
+                {student.name.charAt(0)}
+              </Avatar>
+              <span>{student.name}</span>
+            </Space>
+          )}
+        />
+        
+      
+        
+        <Table.Column
+     
+          key="action"
+          render={(_, student) => (
+            <Space size="middle">
+              <Button  onClick={() => showModal(student)}>View Proposal</Button>
+            </Space>
+          )}
+        />
+      </Table>
+    </div>
+  </ConfigProvider>
+</TabPanel>
+
 
       {/* Declined Students List */}
       <TabPanel value={1}>
+      <ConfigProvider
+    theme={{
+      token: {
+        colorBgContainer: "#1e1e1e", // Dark background for the table
+        colorText: "#fff",            // Ensure text is visible on the dark background
+        tableBorderColor: "#333",     // Add border color to the table
+        tableHeaderBg: "#1e1e1e",     // Match the header background with the table
+        tableRowHoverBg: "transparent", // Disable row hover effect (optional)
+        colorBorderSecondary: "#333", // Add a border color for secondary borders
+        borderRadius: "4px",          // Optionally add rounded borders
+      },
+    }}
+  >
+    <div
+      style={{
+        position: "absolute",
+        top: "100px",
+        width: "80%",
+        marginLeft: "120px",
+        padding: "40px", // Optional padding for aesthetics
+        borderRadius: "8px", // Optional for rounded corners
+      }}
+    >
         <Table
+          pagination={false} 
           dataSource={declinedStudents}
           rowKey='_id'
+          bordered={false} // Ensure no borders are applied
           style={{
-            position: "absolute",
-            top: "100px",
-            width: "70%",
-            marginLeft: "120px",
+            background: "transparent", // Set transparent background
           }}
+          showHeader={false} // Completely hides the table header
         >
-          <Column
-            title='Name of Students'
+          <Table.Column
             key='name'
             render={(text, student) => (
               <Space size='middle'>
@@ -252,6 +308,7 @@ export default function TabsPricingExample() {
                   src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
                     student.profileImage || "default-avatar.png"
                   }`}
+                  style={{ width: 60, height: 60 }}
                 >
                   {student.name.charAt(0)}
                 </Avatar>
@@ -259,7 +316,8 @@ export default function TabsPricingExample() {
               </Space>
             )}
           />
-          <Column
+  
+          <Table.Column
             title='Action'
             key='action'
             render={(_, student) => (
@@ -272,21 +330,46 @@ export default function TabsPricingExample() {
             )}
           />
         </Table>
+        </div>
+        </ConfigProvider>
       </TabPanel>
 
       {/* Pending Students List */}
       <TabPanel value={2}>
+      <ConfigProvider
+      theme={{
+        token: {
+          colorBgContainer: "#1e1e1e", // Dark background for the table
+          colorText: "#fff",            // Ensure text is visible on the dark background
+          tableBorderColor: "#333",     // Add border color to the table
+          tableHeaderBg: "#1e1e1e",     // Match the header background with the table
+          tableRowHoverBg: "transparent", // Disable row hover effect (optional)
+          colorBorderSecondary: "#333", // Add a border color for secondary borders
+          borderRadius: "4px",          // Optionally add rounded borders
+        },
+      }}
+    >
+    <div
+      style={{
+        position: "absolute",
+        top: "100px",
+        width: "80%",
+        marginLeft: "120px",
+        padding: "40px", // Optional padding for aesthetics
+        borderRadius: "8px", // Optional for rounded corners
+      }}
+    >
         <Table
+          pagination={false} 
           dataSource={pendingStudents}
           rowKey='_id'
+          bordered={false} // Ensure no borders are applied
           style={{
-            position: "absolute",
-            top: "100px",
-            width: "70%",
-            marginLeft: "120px",
+            background: "transparent", // Set transparent background
           }}
+          showHeader={false} // Completely hides the table header
         >
-          <Column
+          <Table.Column
             title='Name of Students'
             key='name'
             render={(text, student) => (
@@ -295,6 +378,7 @@ export default function TabsPricingExample() {
                   src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
                     student.profileImage || "default-avatar.png"
                   }`}
+                  style={{ width: 60, height: 60 }}
                 >
                   {student.name.charAt(0)}
                 </Avatar>
@@ -302,7 +386,7 @@ export default function TabsPricingExample() {
               </Space>
             )}
           />
-          <Column
+          <Table.Column
             title='Action'
             key='action'
             render={(_, student) => (
@@ -311,7 +395,7 @@ export default function TabsPricingExample() {
                   View Proposal
                 </Button>{" "}
                 {/* Pass the student object to showModal */}
-                <a
+                {/* <a
                   onClick={() => handleStudentResponse(student._id, "accepted")}
                 >
                   Accept
@@ -320,26 +404,68 @@ export default function TabsPricingExample() {
                   onClick={() => handleStudentResponse(student._id, "declined")}
                 >
                   Decline
-                </a>
+                </a> */}
+              </Space>
+            )}
+          />
+
+           <Table.Column
+             key='action'
+             render={(_, student) => (
+              <Space size='middle'>
+              
+              <a
+              className="text-green-500 hover:text-green-700 cursor-pointer"
+              onClick={() => handleStudentResponse(student._id, "accepted")}
+            >
+              Accept
+            </a>
+            <a
+              className="text-red-500 hover:text-red-700 cursor-pointer"
+              onClick={() => handleStudentResponse(student._id, "declined")}
+            >
+            
+              Decline
+          
+             
+            </a>
+
               </Space>
             )}
           />
         </Table>
+        </div>
+        </ConfigProvider>
       </TabPanel>
 
       {/* List Panelist */}
       <TabPanel value={3}>
+      <ConfigProvider
+    theme={{
+      token: {
+        colorBgContainer: "#1e1e1e", // Dark background for the table
+        colorText: "#fff",           // Ensure text is visible on the dark background
+        tableBorderColor: "transparent", // Remove all table borders
+        tableHeaderBg: "#1e1e1e",    // Match the header background with the table
+        tableRowHoverBg: "transparent", // Disable row hover effect (optional)
+        colorBorderSecondary: "transparent", // Remove any remaining border lines
+      },
+    }}
+  >
+   
+
         <Table
+          pagination={false} 
           dataSource={panelistStudents}
           rowKey='_id'
           style={{
             position: "absolute",
             top: "100px",
-            width: "70%",
+            width: "87%",
             marginLeft: "120px",
           }}
         >
-          <Column
+          <Table.Column
             title='Name of Students'
             key='name'
             render={(text, student) => (
@@ -348,6 +474,7 @@ export default function TabsPricingExample() {
                   src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
                     student.profileImage || "default-avatar.png"
                   }`}
+                  style={{ width: 60, height: 60 }}
                 >
                   {student.name.charAt(0)}
                 </Avatar>
@@ -355,8 +482,9 @@ export default function TabsPricingExample() {
               </Space>
             )}
           />
-          <Column
-            title='Advisor'
+         
+          <Table.Column
+            title='Adviser'
             key='advisor'
             render={(text, student) => (
               <Space size='middle'>
@@ -376,30 +504,72 @@ export default function TabsPricingExample() {
               </Space>
             )}
           />
+           <Table.Column
+          title="Panel Members"  // Column title
+          key="status"
+          render={(text, student) => (
+            <Space size='middle'>
+              {student.chosenAdvisor ? (
+                <>
+                  <Avatar
+                    src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                      student.chosenAdvisor.profileImage ||
+                      "default-avatar.png"
+                    }`}
+                  />
+                  <span>{student.chosenAdvisor.name}</span>
+                </>
+              ) : (
+                <span>No advisor chosen</span>
+              )}
+            </Space>
+          )}
+        />
         </Table>
+ 
+        </ConfigProvider>
       </TabPanel>
 
       {/* Modal to View Proposal */}
+      
+
       <Modal
-        width={1000}
-        title='View Proposal'
-        open={isModalVisible}
-        onCancel={handleCancel}
-        footer={[
-          <Button key='close' onClick={handleCancel}>
-            Close
-          </Button>,
-        ]}
+        open={isModalVisible}  // Controls visibility of modal
+        onClose={handleCancel}  // Close the modal when triggered
+        sx={{
+          display: 'flex',          // Flexbox for centering the modal content
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '90%',             // Modal width
+          height: 500,             // Modal height
+          backgroundColor: 'transparent', // Set background color to transparent
+          padding: '20px',
+          marginTop: '100px',
+          marginLeft: '130px',
+        }}
       >
-        {selectedProposal && (
-          <div style={{ padding: "20px",}}>
-            <Title level={3}>{selectedProposal.title}</Title>{" "}
-            {/* Display the proposal title */}
-            <Paragraph>{selectedProposal.text}</Paragraph>{" "}
-            {/* Display the proposal text */}
-          </div>
-        )}
+        <div style={{ width: '90%' }}>
+          {selectedProposal && (
+            <div style={{ padding: "0px", width: '100%' }}>
+              <h1 className="text-[#1e1e]">Research Title</h1>
+              <Title
+                level={2}
+                style={{ color: 'white', fontWeight: 800 }}
+              >
+                {selectedProposal.title}
+              </Title>{" "}
+              <h1 className="text-[#1e1e]">Description</h1>
+              {/* Display the proposal title in white */}
+              <Paragraph style={{ color: 'white', fontSize: '20px', fontWeight: 300 }}>
+                {selectedProposal.text}
+              </Paragraph>{" "}
+              {/* Display the proposal text in white */}
+            </div>
+          )}
+        </div>
       </Modal>
+
+
 
       {/*        Pending Students 
       <TabPanel value={2}>
