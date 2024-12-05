@@ -28,6 +28,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import CkEditorDocuments from "./CkEditorDocuments";
+import GradingAdvicer from "./GradingAdvicer";
 
 
 import DocumentIcon from '../../../assets/view-docs.png';
@@ -47,6 +48,9 @@ export default function NewTables() {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [selectedStudentId, setSelectedStudentId] = useState(null);
   const [selectedChannelId, setSelectedChannelId] = useState(null);
+
+  const [gradingModalOpen, setGradingModalOpen] = useState(false);
+  const [gradingStudentId, setGradingStudentId] = useState(null);
 
   const [courses, setCourses] = useState([]); // To store all unique courses
   const [filteredStudents, setFilteredStudents] = useState([]); // For filtering based on the course
@@ -113,6 +117,15 @@ export default function NewTables() {
     setIsEditorOpen(false); // Close modal
     setSelectedStudentId(null);
     setSelectedChannelId(null);
+  };
+
+  const handleViewGrade = (studentId) => {
+    setGradingModalOpen(true);
+    setGradingStudentId(studentId);
+  };
+  const closeGradingModal = () => {
+    setGradingModalOpen(false); // Close modal
+    setGradingStudentId(null);
   };
   // Task for Student
 
@@ -508,7 +521,7 @@ export default function NewTables() {
                     width: "50px",
                     height: "50px",
                     marginLeft: "-350px",
-                    marginTop: "-20px",
+                    marginTop: "20px",
                     position: "absolute",
                   }}
                   format={(percent) => (
@@ -538,7 +551,14 @@ export default function NewTables() {
                   style={{ marginBottom: "20px", width: "100px" }}
                 /> */}
                 <Button
-                  
+                  onClick={() => handleViewGrade(student._id)}
+                  style={{ marginBottom: '10px', width: "105px" }}
+                    > 
+                      <img className="mr-[-4px]" src={gradeIcon} />
+                    View Grade 
+                </Button>
+
+                <Button
                   onClick={() => openTaskModal(student)}
                   style={{  marginBottom: '10px', width: "105px" }}
                   >
@@ -594,6 +614,37 @@ export default function NewTables() {
           onClose={() => setIsEditorOpen(false)}
         />
       )} */}
+
+      <Dialog
+        open={gradingModalOpen}
+        onClose={closeGradingModal}
+        fullWidth
+        maxWidth='xl'
+        // PaperProps={{
+        //   style: {
+        //     backgroundColor: 'transparent',
+        //     boxShadow: 'none', // Removes any shadow if present
+        //   },
+        // }}
+      >
+        
+        <DialogContent sx={{  background: '#1E1E1E', height: "auto", marginTop:'-400px', marginLeft: '-350px'}}>
+          
+          {gradingStudentId && (
+            
+            <GradingAdvicer
+              panelistId={user._id}
+              studentId={gradingStudentId}
+            />
+            
+          )}
+        </DialogContent>
+        {/* <DialogActions>
+          <Button onClick={closeGradingModal} color='primary'>
+            Close
+          </Button>
+        </DialogActions> */}
+      </Dialog>
 
       {/* Material UI Modal for CKEditor */}
       <Dialog

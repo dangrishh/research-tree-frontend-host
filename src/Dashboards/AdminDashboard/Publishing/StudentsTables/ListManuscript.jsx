@@ -484,23 +484,33 @@ const fetchTaskProgress = async (studentId) => {
                   )}
                 />
 
-                <Button
-                  onClick={() =>
-                    handleViewManuscript(student._id, student.channelId)
-                  }
-                  style={{  marginBottom: '0px', width: "105px" }}>
-                     <img className="mr-[-4px]" src={DocumentIcon} />
-                  Document
-                  </Button>
-
-                <Button
-                  onClick={() => openTaskModal(student)}
-                  style={{  marginBottom: '10px', width: "105px" }}
+                {/* Buttons based on advisor existence */}
+                {student.chosenAdvisor ? (
+                  <>
+                    <Button
+                      onClick={() => handleViewManuscript(student._id, student.channelId)}
+                      style={{ marginBottom: '0px', width: "105px" }}
+                    >
+                      <img className="mr-[-4px]" src={DocumentIcon} />
+                      Document
+                    </Button>
+                    <Button
+                      onClick={() => openTaskModal(student)}
+                      style={{ marginBottom: '10px', width: "105px" }}
+                    >
+                      <img className="mr-[-4px]" src={AddtaskIcon} />
+                      Add Task
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    onClick={() => openTaskModal(student)}
+                    style={{ marginBottom: '10px', width: "105px" }}
                   >
                     <img className="mr-[-4px]" src={AddtaskIcon} />
                     Add Task
-                </Button>
-
+                  </Button>
+                )}
               </div>
             </div>
           </List.Item>

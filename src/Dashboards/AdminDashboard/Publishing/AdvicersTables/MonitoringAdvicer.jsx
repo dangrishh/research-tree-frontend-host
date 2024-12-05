@@ -424,7 +424,7 @@ export default function ListManuscript({ adviserName, adviserImage, students }) 
                      style={{ marginBottom: "10px", width: "105px" }}
                     >
                       <img className="mr-[-4px]" src={AddtaskIcon} />
-                      Add Task
+                      View Task
                     </Button>
 
                     <Button

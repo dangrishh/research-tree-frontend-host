@@ -567,7 +567,6 @@ export default function NewTables() {
                 <GradingButton/> */}
 
                 <Button
-              
                   onClick={() => handleViewGrade(student._id)}
                   style={{ width: "105px" }}
                     > 

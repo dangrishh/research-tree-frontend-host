@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Dropdown, Badge, List, Button } from "antd";
+import { Dropdown, Badge, List, Button, Popconfirm } from "antd";
 import { BellOutlined } from "@ant-design/icons";
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 
@@ -47,6 +47,32 @@ const NotificationDropdown = () => {
     }
   };
 
+  // Delete a single notification
+  const deleteNotification = async (notificationId) => {
+    try {
+      await axios.delete(
+        `https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/notification/${notificationId}`
+      );
+      setNotifications((prev) =>
+        prev.filter((notif) => notif._id !== notificationId)
+      );
+    } catch (error) {
+      console.error("Error deleting notification:", error);
+    }
+  };
+
+  // Delete all notifications
+  const deleteAllNotifications = async () => {
+    try {
+      await axios.delete(
+        `https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/admin/${admin.id}/notifications`
+      );
+      setNotifications([]);
+    } catch (error) {
+      console.error("Error deleting all notifications:", error);
+    }
+  };
+
   // Separate notifications into two categories
   const unreadNotifications = notifications.filter((notif) => !notif.read);
   const readNotifications = notifications.filter((notif) => notif.read);
@@ -60,6 +86,20 @@ const NotificationDropdown = () => {
       padding: 20,
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)", // Added boxShadow
     }}>
+
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
+        <span style={{ fontWeight: "bold", color: "white" }}>Notifications</span>
+        
+        <Button
+          size="small"
+          danger
+          onClick={deleteAllNotifications}
+          style={{ backgroundColor: "#ff4d4f", color: "white" }}
+        >
+          Delete All
+        </Button>
+      </div>
+
       {/* Unread Notifications Header */}
       {unreadNotifications.length > 0 && (
         <>
@@ -92,6 +132,16 @@ const NotificationDropdown = () => {
                   >
                     Mark as Read
                   </Button>
+                    <Popconfirm
+                        title="Are you sure to delete this notification?"
+                        onConfirm={() => deleteNotification(item._id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                      <Button size="small" type="link" danger>
+                        Delete
+                      </Button>
+                    </Popconfirm>
                 </div>
               </List.Item>
             )}
@@ -124,6 +174,16 @@ const NotificationDropdown = () => {
                   <small style={{ color: "#888" }}>
                     {new Date(item.timestamp).toLocaleString()}
                   </small>
+                  <Popconfirm
+                    title="Are you sure to delete this notification?"
+                    onConfirm={() => deleteNotification(item._id)}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button size="small" type="link" danger>
+                      Delete
+                    </Button>
+                  </Popconfirm>
                 </div>
               </List.Item>
             )}

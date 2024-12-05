@@ -175,7 +175,7 @@ const Sidebar = ({ onSelect }) => {
         </Link>
 
           {/* Student Manuscript*/}
-                <Link
+        <Link
           to='/AdminDashboard/StudentManuscript'
           className={`myManuscript mx-10  px-2 ${
             activeLink === "/AdminDashboard/StudentManuscript"

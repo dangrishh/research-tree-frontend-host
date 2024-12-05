@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import sendIcon from '../../../assets/send-icon.png'
+
 export default function GradingTable({ studentId, panelistId }) {
   const [rubrics, setRubrics] = useState([]);
   const [selectedRubricId, setSelectedRubricId] = useState(null);
@@ -147,7 +149,7 @@ export default function GradingTable({ studentId, panelistId }) {
           className=" text-white py-2 px-4 rounded disabled:bg-gray-500 "
         >
          {isSubmitting ? 'Submitting...' : 'Submit Grades'}
-         <img className="inline-block mb-1 ml-2" src="/src/assets/send-icon.png" />  
+         <img className="inline-block mb-1 ml-2" src={sendIcon} />  
         </button>
       </div>
 
