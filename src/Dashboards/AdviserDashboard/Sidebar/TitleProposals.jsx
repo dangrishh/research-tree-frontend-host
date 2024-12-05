@@ -376,6 +376,30 @@ export default function TabsPricingExample() {
               </Space>
             )}
           />
+          <Column
+            title="Panelists"
+            key="panelists"
+            render={(text, student) => (
+              <Space size="middle">
+                {student.panelists && student.panelists.length > 0 ? (
+                  <>
+                    {student.panelists.map((panelist, index) => (
+                      <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+                        <Avatar
+                          src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${
+                            panelist.profileImage || 'default-avatar.png'
+                          }`}
+                          style={{ marginRight: '8px' }}
+                        />
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <span>No panelists</span>
+                )}
+              </Space>
+            )}
+          />
         </Table>
       </TabPanel>
 
