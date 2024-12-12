@@ -4,19 +4,25 @@ import Modal from "@mui/joy/Modal";
 import TabList from "@mui/joy/TabList";
 import Tab, { tabClasses } from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
+
+import { ModalDialog } from "@mui/joy";
+
 /* import Typography from '@mui/joy/Typography'; */
 import {
   Space,
   Table,
   Tag,
+  message,
   Avatar,
   Button,
   Divider,
   Typography,
  
 } from "antd";
+
+import { Input } from "antd";
 import { ConfigProvider } from "antd";
-import { bgcolor, height, maxWidth, width } from "@mui/system";
+import { bgcolor, height, maxWidth, width } from "@mui/system"; 
 import { color } from "highcharts";
 import CloseIcon from '@mui/icons-material/Close'; // Importing the close icon
 
@@ -32,6 +38,11 @@ export default function TabsPricingExample() {
   const [selectedProposal, setSelectedProposal] = useState(null);
 
   const [panelistStudents, setPanelistStudents] = useState([]);
+  const [declineNote, setDeclineNote] = useState(null);
+
+  const [isModalDeclined, setIsModalDeclined] = useState(false);
+  const [declineReason, setDeclineReason] = useState("");
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -64,7 +75,7 @@ export default function TabsPricingExample() {
     fetchPanelistStudents();
   }, [user._id]);
 
-  const handleStudentResponse = async (studentId, status) => {
+  const handleStudentResponse = async (studentId, status, note = null) => {
     try {
       const response = await fetch(
         "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/advicer/respondTostudent",
@@ -74,27 +85,18 @@ export default function TabsPricingExample() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify({ studentId, advisorId: user._id, status }),
+          body: JSON.stringify({ studentId, advisorId: user._id, status, note }),
         }
       );
 
       if (response.ok) {
         const responseData = await response.json();
-
-        if (status === "accepted") {
-          alert(responseData.message);
-          // Refresh the tab to update the UI
-          window.location.reload();
-        } else {
-          // Optionally clear the panelist students list if necessary
-          window.location.reload();
-        }
+        message.success("Action performed successfully.");
+        window.location.reload();
       } else {
         const errorData = await response.json();
-        console.error("Error responding to student:", errorData.message);
-        alert(
-          errorData.message || "An error occurred. Please try again later."
-        );
+        alert(errorData.message || "An error occurred. Please try again.");
+        message.error(errorData.message || "An error occurred. Please try again.");
       }
     } catch (error) {
       console.error("Error responding to student:", error.message);
@@ -135,6 +137,28 @@ export default function TabsPricingExample() {
   const handleCancel = () => {
     setIsModalVisible(false);
     setSelectedProposal(null); // Clear the selected proposal on cancel
+  };
+
+  const handleDeclineClick = (studentId) => {
+    setSelectedStudent(studentId); // Store student ID
+    setIsModalDeclined(true); // Open the modal
+  };
+
+  const handleDeclineSubmit = async () => {
+    if (!declineReason.trim()) {
+      message.info(
+        'Please provide a reason for declining this student.'
+      );
+      return;
+    }
+
+    // Call handleStudentResponse for Decline with reason
+    await handleStudentResponse(selectedStudent, "declined", declineReason);
+
+    // Close modal and reset state
+    setIsModalDeclined(false);
+    setDeclineReason("");
+    setSelectedStudent(null);
   };
 
   return (
@@ -409,27 +433,23 @@ export default function TabsPricingExample() {
             )}
           />
 
-           <Table.Column
-             key='action'
-             render={(_, student) => (
+          <Table.Column
+            key='action'
+            render={(_, student) => (
               <Space size='middle'>
-              
               <a
-              className="text-green-500 hover:text-green-700 cursor-pointer"
-              onClick={() => handleStudentResponse(student._id, "accepted")}
-            >
-              Accept
-            </a>
-            <a
-              className="text-red-500 hover:text-red-700 cursor-pointer"
-              onClick={() => handleStudentResponse(student._id, "declined")}
-            >
-            
-              Decline
-          
-             
-            </a>
+                className="text-green-500 hover:text-green-700 cursor-pointer"
+                onClick={() => handleStudentResponse(student._id, "accepted")}
+              >
+                Accept
+              </a>
 
+              <a
+                className="text-red-500 hover:text-red-700 cursor-pointer"
+                onClick={() => handleDeclineClick(student._id)}
+              >      
+                Decline
+              </a>
               </Space>
             )}
           />
@@ -520,7 +540,7 @@ export default function TabsPricingExample() {
                           style={{ marginRight: '8px' }}
                         />
                       </div>
-                    ))}
+                    ))} 
                   </>
                 ) : (
                   <span>No panelists</span>
@@ -535,6 +555,35 @@ export default function TabsPricingExample() {
 
       {/* Modal to View Proposal */}
       
+
+       {/* Decline Modal using MUI Joy */}
+       <Modal
+        open={isModalDeclined}
+        onClose={() => setIsModalDeclined(false)}
+        aria-labelledby="decline-modal-title"
+      >
+        <ModalDialog>
+          <Typography id="decline-modal-title" level="h5">
+            Decline Student
+          </Typography>
+          <Typography level="body2" sx={{ mb: 2 }}>
+            Please provide a reason for declining this student:
+          </Typography>
+          <Input.TextArea
+            value={declineReason}
+            onChange={(e) => setDeclineReason(e.target.value)}
+            rows={4}
+            placeholder="Enter your reason here..."
+            required
+          />
+          <Space style={{ marginTop: "1rem" }}>
+            <Button onClick={handleDeclineSubmit} color="danger">
+              Submit
+            </Button>
+            <Button onClick={() => setIsModalDeclined(false)}>Cancel</Button>
+          </Space>
+        </ModalDialog>
+      </Modal>
 
       <Modal
         open={isModalVisible}  // Controls visibility of modal

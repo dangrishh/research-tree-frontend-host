@@ -12,7 +12,7 @@ import {
   CloseCircleOutlined,
   SyncOutlined,
 } from "@ant-design/icons";
-import { Tag, Flex, message } from "antd";
+import { Tag, Flex, message, Button, List, Avatar } from "antd";
 
 import Textarea from "@mui/joy/Textarea";
 import { borderRadius } from "@mui/system";
@@ -49,6 +49,11 @@ export default function BasicModal() {
   const [getPanelists, setGetPanelists] = useState([]);
 
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [isNoteModalVisible, setIsNoteModalVisible] = useState(false);
+  const [notes, setNotes] = useState([]);
+  const [loadingNotes, setLoadingNotes] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -81,6 +86,7 @@ export default function BasicModal() {
   };
 
   const submitProposal = async () => {
+    setIsSubmitting(true);
     try {
       const response = await fetch(
         "https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/student/submit-proposal",
@@ -102,8 +108,8 @@ export default function BasicModal() {
         setTopAdvisors(data.topAdvisors); //results */
         
         setTopAdvisors(data.results); // Setting top advisors from backend response=
-        setTitle('');  // Clear title field if needed
-        setProposal('');  // Clear proposal field if needed
+        // setTitle('');  // Clear title field if needed
+        // setProposal('');  // Clear proposal field if needed
         
         const newChannelId = data.channelId;
         localStorage.setItem("channelId", newChannelId);
@@ -183,6 +189,38 @@ const chooseAdvisor = async (advisorId) => {
   }
 };
 
+const showDeclineNotes = async () => {
+  setIsNoteModalVisible(true);
+  setLoadingNotes(true);
+
+  try {
+    const response = await fetch(
+      `https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/api/student/declineNotes/${user._id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      const notesData = await response.json();
+      setNotes(notesData);
+    } else {
+      console.error("Failed to fetch decline notes.");
+    }
+  } catch (error) {
+    console.error("Error fetching decline notes:", error);
+  } finally {
+    setLoadingNotes(false);
+  }
+};
+
+  const handleCloseDeclined = () => {
+    setIsNoteModalVisible(false);
+    setNotes([]);
+  };
 
   return (
     <div>
@@ -194,6 +232,7 @@ const chooseAdvisor = async (advisorId) => {
           src="https://imgur.com/422ougl.jpg"
         ></img>{" "}
       </button>
+
       <Modal
         sx={{ border: "none"}}
         open={open}
@@ -202,10 +241,17 @@ const chooseAdvisor = async (advisorId) => {
         aria-describedby='modal-modal-description'
   
       >
-        <Box sx={style}>
+  <Box
+    sx={{
+      ...style,
+      maxHeight: "90vh", // Limit modal height
+      overflowY: "auto", // Enable scrolling for the modal content
+    }}
+  >
           <img
             className='mt-2 ml-[270px]'
             src="https://imgur.com/MzO2b68.png"
+
         
           />
 
@@ -242,6 +288,21 @@ const chooseAdvisor = async (advisorId) => {
                 Submit your Proposals
               </Tag>
 
+              <Tag
+                style={{
+                  position: "absolute",
+                  marginLeft: "522px",
+                  marginTop: "-100px",
+                }}
+                icon={<CloseCircleOutlined />}
+                color='blue'
+                onClick={() => showDeclineNotes(user._id)}
+
+              >
+                View Decline Note
+              </Tag>
+
+
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -266,50 +327,56 @@ const chooseAdvisor = async (advisorId) => {
                   minRows={2}
                   placeholder='Write your research title...'
                   size='sm'
+                  required
                   variant='outlined'
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-
-                <Textarea
-                  sx={{
-                    color: "white",
-                    position: "absolute",
-                    top: "310px",
-                    left: "117px",
-                    borderRadius: "10px",
-                    backgroundColor: "#1E1E1E",
-                    borderColor: "#585050",
-                    width: "495px",
-                    height: "152px",
-                    paddingLeft: "20px",
-                    paddingTop: "10px",
-                    marginTop: '-45px',
-                  }}
-                  color='success'
-                  minRows={2}
-                  placeholder='Write your research proposal...'
-                  size='sm'
-                  variant='outlined'
-                  value={proposal}
-                  onChange={(e) => setProposal(e.target.value)}
-                />
-  
+                    <Textarea
+                      sx={{
+                        color: "white",
+                        position: "absolute",
+                        top: "310px",
+                        left: "117px",
+                        borderRadius: "10px",
+                        backgroundColor: "#1E1E1E",
+                        borderColor: "#585050",
+                        width: "495px",
+                        height: "152px",
+                        paddingLeft: "20px",
+                        paddingTop: "10px",
+                        overflowY: "scroll",
+                        resize: "vertical",
+                        wordBreak: "break-word",
+                      }}
+                      color="success"
+                      placeholder="Write your research proposal..."
+                      size="sm"
+                      required
+                      variant="outlined"
+                      value={proposal}
+                      onChange={(e) => setProposal(e.target.value)}
+                    />
                 {/* Add a submit button or trigger elsewhere */}
                 
-                <button type='submit' 
-                style={{ 
-                  position: 'absolute', 
-                  display: "block", 
-                  background: 'blue', 
-                  width: '104px', 
-                  height: '30px', 
-                  borderRadius: '16px', 
-                  marginTop: '245px', 
-                  marginLeft: '465px'}}>
-
+                <button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  style={{
+                    position: "absolute",
+                    display: "block",
+                    background: isSubmitting ? "gray" : "blue",
+                    cursor: isSubmitting ? "not-allowed" : "pointer",
+                    width: "104px",
+                    height: "30px",
+                    borderRadius: "16px",
+                    marginTop: "245px",
+                    marginLeft: "465px",
+                  }}
+                >
                   Submit <SendOutlined />
                 </button>
+
               </form>
             </div>
           )}
@@ -444,38 +511,38 @@ const chooseAdvisor = async (advisorId) => {
               </ul> */}
 
               
-<ul className="flex justify-center items-center mt-[50px] ">
-  {topAdvisors.map((result) => {
-    const { advisor, matchPercentage } = result;
+              <ul className="flex justify-center items-center mt-[50px] ">
+                {topAdvisors.map((result) => {
+                  const { advisor, matchPercentage } = result;
 
-    // Conditional color based on the match percentage
-    const matchColor =
-      matchPercentage < 30
-        ? 'text-white' // Below 30% (Red)
-        : matchPercentage >= 80
-        ? 'text-[#33FF00]' // 80% and above (Green)
-        : matchPercentage >= 50
-        ? 'text-[#A0FF88]' // 50% to 79% (Yellow)
-        : 'text-[#FF8000]'; // 30% to 49% (Orange)
+                  // Conditional color based on the match percentage
+                  const matchColor =
+                    matchPercentage < 30
+                      ? 'text-white' // Below 30% (Red)
+                      : matchPercentage >= 80
+                      ? 'text-[#33FF00]' // 80% and above (Green)
+                      : matchPercentage >= 50
+                      ? 'text-[#A0FF88]' // 50% to 79% (Yellow)
+                      : 'text-[#FF8000]'; // 30% to 49% (Orange)
 
-    return (
-      <li key={advisor._id} className="text-center ml-[20px]">
-        <img
-          src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${advisor.profileImage}`}
-          alt={advisor.name}
-          className="w-[80px] h-[80px] rounded-full mb-2 mx-auto"
-          onClick={() => chooseAdvisor(advisor._id)}
-        />
-        
-        <p className={`text-sm mt-2 ${matchColor}`}>
-        <span className="whitespace-nowrap text-white font-bold">{advisor.name}</span> 
-        <span className="inline-block ml-1 whitespace-nowrap">Match: {matchPercentage}%</span>
-        </p>
-       
-      </li>
-    );
-  })}
-</ul>
+                  return (
+                    <li key={advisor._id} className="text-center ml-[20px]">
+                      <img
+                        src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${advisor.profileImage}`}
+                        alt={advisor.name}
+                        className="w-[80px] h-[80px] rounded-full mb-2 mx-auto"
+                        onClick={() => chooseAdvisor(advisor._id)}
+                      />
+                      
+                      <p className={`text-sm mt-2 ${matchColor}`}>
+                      <span className="whitespace-nowrap text-white font-bold">{advisor.name}</span> 
+                      <span className="inline-block ml-1 whitespace-nowrap">Match: {matchPercentage}%</span>
+                      </p>
+                    
+                    </li>
+                  );
+                })}
+              </ul>
 
 
 
@@ -497,6 +564,53 @@ const chooseAdvisor = async (advisorId) => {
               )} */}
               
             </section>
+          )}
+        </Box>
+      </Modal>
+
+
+      {/* Decline Notes Modal */}
+      <Modal
+        open={isNoteModalVisible}
+        onClose={handleCloseDeclined}
+        aria-labelledby="decline-notes-modal"
+        aria-describedby="decline-notes-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 2,
+          }}
+        >
+          <Typography id="decline-notes-modal" variant="h6" component="h2" gutterBottom>
+            Decline Notes
+          </Typography>
+          {loadingNotes ? (
+            <Typography variant="body2">Loading notes...</Typography>
+          ) : notes.length > 0 ? (
+            <List>
+              {notes.map((note) => (
+                <Box key={note._id} display="flex" alignItems="center" marginBottom={2}>
+                  <Avatar src={`https://researchtree-backend-heroku-1f677bc802ae.herokuapp.com/public/uploads/${note.advisorId.profileImage}`} alt={note.advisorId.name} sx={{ marginRight: 2 }} />
+                  <Box>
+                    <Typography variant="subtitle1">{note.advisorId.name}</Typography>
+                    <Typography variant="body2">{note.note}</Typography>
+                    <small style={{ color: "#888" }}>
+                      {new Date(note.createdAt).toLocaleString()}
+                    </small>
+                  </Box>
+                </Box>
+              ))}
+            </List>
+          ) : (
+            <Typography variant="body2">No decline notes found for this student.</Typography>
           )}
         </Box>
       </Modal>

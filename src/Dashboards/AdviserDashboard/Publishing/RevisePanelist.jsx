@@ -463,9 +463,11 @@ export default function NewTables() {
                     .join(", ")}
                 </Text>
                 <br />
-                <Text style={{ color: "gray" }}>
-                  <span className='font-bold'>Panelists: </span>
-                  {student.panelists.join(", ")}
+                <Text style={{ color: 'gray' }}>
+                  <span className="font-bold">Panelists: </span>
+                  {student.panelists && student.panelists.length > 0
+                    ? student.panelists.map(panelist => panelist.name).join(', ')
+                    : 'No panelists'}
                 </Text>
 
                 <br />
